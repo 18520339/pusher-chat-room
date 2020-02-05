@@ -10,7 +10,7 @@ export default function App() {
 	const [currentScreen, setCurrentScreen] = useState('LoginScreen');
 
 	const onSubmit = userName => {
-		fetch(window.location.href + ':3001/user', {
+		fetch('http://' + window.location.hostname + ':3001/user', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ userName })
@@ -19,7 +19,7 @@ export default function App() {
 				setUserName(userName);
 				setCurrentScreen('ChatScreen');
 			})
-			.catch(err => alert('Error: ' + err.error));
+			.catch(err => alert(err));
 	};
 
 	if (currentScreen === 'LoginScreen')
