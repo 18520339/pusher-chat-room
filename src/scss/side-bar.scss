@@ -1,0 +1,77 @@
+@mixin side-bar-list {
+    box-sizing: border-box;
+    height    : 100%;
+    padding   : 10px;
+    background: $main-color;
+    overflow  : auto;
+
+    ul {
+        padding : 0;
+        overflow: scroll;
+    }
+
+    h3 {
+        margin: 5px 0;
+        color : $secondary-color;
+    }
+
+    .list-item {
+        margin: 10px 0;
+
+        a {
+            font-weight    : 600;
+            text-decoration: none;
+            color          : $secondary-text-color;
+        }
+
+        &.active a,
+        &:hover a {
+            color: $secondary-color;
+        }
+    }
+}
+
+.rooms-list {
+    @include side-bar-list;
+    grid-area: r;
+}
+
+.online-list {
+    @include side-bar-list;
+    grid-area: o;
+}
+
+.new-room-form {
+    grid-area : n;
+    padding   : 0 5px;
+    background: $secondary-color;
+    color     : $main-text-color;
+
+    form {
+        display        : flex;
+        justify-content: space-between;
+        align-items    : center;
+        height         : 100%;
+    }
+
+    input {
+        width     : 135px;
+        background: $secondary-color;
+        border    : 0;
+
+        &::placeholder {
+            font-weight: 200;
+            color      : $main-text-color;
+        }
+
+        &:focus {
+            outline-width: 0;
+        }
+    }
+
+    button {
+        background: $secondary-color;
+        color     : $main-text-color;
+        border    : 0;
+    }
+}
