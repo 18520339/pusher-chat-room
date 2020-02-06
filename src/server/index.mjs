@@ -7,6 +7,7 @@ import express from 'express';
 
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import path from 'path';
 
 const app = express();
 const chatkit = new Chatkit.default({ instanceLocator, key: secretKey });
@@ -34,7 +35,14 @@ app.post('/authenticate', (req, res) => {
 	res.status(authData.status).send(authData.body);
 });
 
-const PORT = 8000;
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+	app.get('*', (req, res) => {
+		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+	});
+}
+
+const PORT = 3001;
 app.listen(PORT, err => {
 	if (err) console.error(err);
 	else console.log(`Running on port ${PORT}`);
