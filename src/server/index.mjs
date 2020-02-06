@@ -40,9 +40,10 @@ app.post('/auth', (req, res) => {
 });
 
 // const PORT = process.env.PORT || 3001;
-// app.listen(PORT, err => {
-// 	if (err) console.error(err);
-// 	else console.log(`Running on port ${PORT}`);
-// });
+const PORT = 3001;
+app.listen(PORT, err => {
+	if (err) console.error(err);
+	else console.log(`Running on port ${PORT}`);
+});
 
 /* eslint-enable */
