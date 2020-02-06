@@ -10,7 +10,7 @@ export default function App() {
 	const [currentScreen, setCurrentScreen] = useState('LoginScreen');
 
 	const onSubmit = userName => {
-		fetch('http://127.0.0.1:3001/user', {
+		fetch('http://127.0.0.1:8000/user', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ userName })
