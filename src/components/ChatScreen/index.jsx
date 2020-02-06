@@ -37,7 +37,15 @@ export default function ChatScreen(props) {
 				onGetRooms(currentUser);
 				setIsLoading(false);
 			})
-			.catch(err => alert('Connecting error: ' + err));
+			.catch(err => {
+				try {
+					var error = err.info.error_description;
+				} catch {
+					error = err.error;
+				}
+				console.log(err);
+				alert('Error on connection: ' + error);
+			});
 	}, []);
 
 	const onGetRooms = currentUser => {
@@ -49,7 +57,7 @@ export default function ChatScreen(props) {
 			.catch(err => {
 				try {
 					var error = err.info.error_description;
-				} catch (error) {
+				} catch {
 					error = err.error;
 				}
 				console.log(err);
@@ -95,7 +103,7 @@ export default function ChatScreen(props) {
 			.catch(err => {
 				try {
 					var error = err.info.error_description;
-				} catch (error) {
+				} catch {
 					error = err.error;
 				}
 				console.log(err);
@@ -111,16 +119,16 @@ export default function ChatScreen(props) {
 	};
 
 	const onTyping = () => {
-		const roomId = { roomActive };
+		const roomId = roomActive.id;
 		currentUser.isTypingIn({ roomId });
 	};
 
 	const onSendMessage = text => {
-		const roomId = { roomActive };
+		const roomId = roomActive.id;
 		currentUser.sendSimpleMessage({ roomId, text }).catch(err => {
 			try {
 				var error = err.info.error_description;
-			} catch (error) {
+			} catch {
 				error = err.error;
 			}
 			console.log(err);
