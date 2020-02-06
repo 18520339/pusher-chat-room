@@ -5,7 +5,7 @@
 var tokenUrl = '';
 
 try {
-    const PORT = process.env.PORT || 3001;
+    const PORT = process.env.PORT || 8080;
     tokenUrl = `http://${window.location.hostname}:${PORT}/authenticate`;
 } catch (error) { }
 

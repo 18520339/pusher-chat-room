@@ -10,7 +10,7 @@ export default function App() {
 	const [currentScreen, setCurrentScreen] = useState('LoginScreen');
 
 	const onSubmit = userName => {
-		const PORT = process.env.PORT || 3001;
+		const PORT = process.env.PORT || 8080;
 		const fetchUrl = `http://${window.location.hostname}:${PORT}/user`;
 
 		fetch(fetchUrl, {
