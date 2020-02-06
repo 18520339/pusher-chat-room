@@ -10,7 +10,10 @@ export default function App() {
 	const [currentScreen, setCurrentScreen] = useState('LoginScreen');
 
 	const onSubmit = userName => {
-		fetch('http://localhost:3001/user', {
+		const PORT = process.env.PORT || 3001;
+		const fetchUrl = `http://${window.location.hostname}:${PORT}/user`;
+
+		fetch(fetchUrl, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ userName })
