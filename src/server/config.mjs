@@ -5,8 +5,7 @@
 var tokenUrl = '';
 
 try {
-    const PORT = process.env.PORT || 80;
-    tokenUrl = `http://${window.location.hostname}:${PORT}/authenticate`;
+    tokenUrl = `http://${window.location.hostname}/authenticate`;
 } catch (error) { }
 
 const instanceLocator = 'v1:us1:caf4a583-8194-4510-adbe-c9879f060ffc';
