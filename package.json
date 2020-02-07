@@ -23,7 +23,8 @@
 		"react-scripts": "3.3.0"
 	},
 	"scripts": {
-		"start": "concurrently \"node --experimental-modules src/server/local\" \"react-scripts start\"",
+		"_comment": "concurrently \"node --experimental-modules src/server/local\" \"react-scripts start\"",
+		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
