@@ -1,15 +1,15 @@
 /* jshint esversion: 9 */
 /* eslint-disable */
 
-import { instanceLocator, secretKey } from './config';
 import Chatkit from '@pusher/chatkit-server';
-import express from 'express';
+import { instanceLocator, key } from './config';
 
+import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
 const app = express();
-const chatkit = new Chatkit.default({ instanceLocator, key: secretKey });
+const chatkit = new Chatkit.default({ instanceLocator, key });
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -17,7 +17,6 @@ app.use(cors());
 
 app.post('/users', (req, res) => {
 	const { userName } = req.body;
-
 	chatkit
 		.createUser({ id: userName, name: userName })
 		.then(() => {
@@ -39,8 +38,7 @@ app.post('/auth', (req, res) => {
 	res.status(authData.status).send(authData.body);
 });
 
-// const PORT = process.env.PORT || 3001;
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, err => {
 	if (err) console.error(err);
 	else console.log(`Running on port ${PORT}`);

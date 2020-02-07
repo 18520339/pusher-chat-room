@@ -152,10 +152,10 @@ export default function ChatScreen(props) {
 										&ensp; Đang kết nối máy chủ ...
 									</span>
 								) : (
-									<span>
-										&larr; Chọn phòng để bắt đầu chat nào !
+										<span>
+											&larr; Chọn phòng để bắt đầu chat nào !
 									</span>
-								)}
+									)}
 							</li>
 						</ul>
 					</Route>
