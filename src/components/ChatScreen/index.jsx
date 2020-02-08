@@ -43,13 +43,13 @@ export default function ChatScreen() {
 							</li>
 						</ul>
 					</Route>
-					{currentRooms.map((room, index) => {
-						return (
-							<Route key={index} path={'/' + room.id}>
-								<MessageList roomId={room.id} />
-							</Route>
-						);
-					})}
+					{currentRooms.map(room => (
+						<Route
+							key={room.id}
+							path='/:roomId'
+							component={MessageList}
+						/>
+					))}
 				</Switch>
 				<TypingList />
 				<SendMessage />

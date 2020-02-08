@@ -12,19 +12,19 @@ export default function MessageList(props) {
 	const { messages, isLoading } = useSelector(state => state);
 	const dispatch = useDispatch();
 
-	const { roomId } = props;
+	const { roomId } = props.match.params;
 	const messagesNode = useRef();
 
 	useEffect(() => {
 		dispatch(enterRoom(roomId));
-	}, []);
+	}, [roomId]);
 
 	useEffect(() => {
 		if (document.hasFocus() && roomId) {
 			const node = findDOMNode(messagesNode.current);
 			node.scrollTop = node.scrollHeight;
 		}
-	}, [messages, roomId, isLoading]);
+	}, [messages, isLoading]);
 
 	return (
 		<ul className='message-list' ref={messagesNode}>
@@ -40,7 +40,7 @@ export default function MessageList(props) {
 					</span>
 				</li>
 			) : (
-				messages.map((message, index) => {
+				messages.map(message => {
 					return (
 						<Message
 							key={message.id}

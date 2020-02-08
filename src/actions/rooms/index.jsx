@@ -33,7 +33,9 @@ export const getRooms = currentUser => (dispatch, getState) => {
 
 export const enterRoom = roomId => (dispatch, getState) => {
 	dispatch({ type: types.CLEAR_MESSAGE });
-	const { currentUser } = getState();
+	const { currentUser, roomActive } = getState();
+	if (roomActive.id) currentUser.roomSubscriptions[roomActive.id].cancel();
+
 	currentUser
 		.subscribeToRoom({
 			roomId,
@@ -48,9 +50,9 @@ export const enterRoom = roomId => (dispatch, getState) => {
 				onUserStoppedTyping: user => {
 					dispatch({ type: types.USER_STOPED_TYPING, user });
 				},
-				onPresenceChange: () => this.forceUpdate(),
 				onUserJoinedRoom: () => this.forceUpdate(),
-				onUserLeftRoom: () => this.forceUpdate()
+				onUserLeftRoom: () => this.forceUpdate(),
+				onPresenceChange: () => this.forceUpdate()
 			}
 		})
 		.then(room => {

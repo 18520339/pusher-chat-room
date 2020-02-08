@@ -8,7 +8,6 @@ import { typingMessage, sendMessage } from '../../actions';
 export default function SendMessage() {
 	const { roomActive } = useSelector(state => state);
 	const dispatch = useDispatch();
-
 	const [message, setMessage] = useState('');
 
 	const onChange = event => {

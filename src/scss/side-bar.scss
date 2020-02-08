@@ -12,7 +12,7 @@
 
     h3 {
         margin: 5px 0;
-        color : $secondary-color;
+        color : white;
     }
 
     .list-item {
@@ -21,7 +21,7 @@
         a {
             font-weight    : 600;
             text-decoration: none;
-            color          : $secondary-text-color;
+            color          : white;
         }
 
         &.active a,
@@ -44,7 +44,7 @@
 .new-room-form {
     grid-area : n;
     padding   : 0 5px;
-    background: $secondary-color;
+    background: white;
     color     : $main-text-color;
 
     form {
@@ -55,9 +55,8 @@
     }
 
     input {
-        width     : 135px;
-        background: $secondary-color;
-        border    : 0;
+        width : 135px;
+        border: 0;
 
         &::placeholder {
             font-weight: 200;
@@ -70,8 +69,7 @@
     }
 
     button {
-        background: $secondary-color;
-        color     : $main-text-color;
-        border    : 0;
+        color : $main-text-color;
+        border: 0;
     }
 }
