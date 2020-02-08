@@ -1,16 +1,16 @@
-/* jshint esversion: 9 */
+/* jshint esversion: 10 */
 /* eslint-disable */
 
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-export default function TypingList(props) {
-	const countUsersTyping = props.usersTyping ? props.usersTyping.length : 0;
+export default function TypingList() {
+	const { usersTyping } = useSelector(state => state);
+	const countUsersTyping = usersTyping ? usersTyping.length : 0;
 
 	if (countUsersTyping > 0) {
 		return (
-			<b className='typing-users'>
-				{props.usersTyping.join(', ')} đang gõ...
-			</b>
+			<b className='typing-users'>{usersTyping.join(', ')} đang gõ...</b>
 		);
 	}
 	return <div></div>;

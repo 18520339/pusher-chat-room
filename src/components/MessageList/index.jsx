@@ -1,16 +1,22 @@
-/* jshint esversion: 9 */
+/* jshint esversion: 10 */
 /* eslint-disable */
 
 import React, { useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { findDOMNode } from 'react-dom';
+
+import { enterRoom } from '../../actions';
 import Message from '../Message';
 
 export default function MessageList(props) {
-	const { roomId, messages, currentUser, onEnterRoom, isLoading } = props;
+	const { messages, isLoading } = useSelector(state => state);
+	const dispatch = useDispatch();
+
+	const { roomId } = props;
 	const messagesNode = useRef();
 
 	useEffect(() => {
-		onEnterRoom(roomId);
+		dispatch(enterRoom(roomId));
 	}, []);
 
 	useEffect(() => {
@@ -38,7 +44,6 @@ export default function MessageList(props) {
 					return (
 						<Message
 							key={message.id}
-							currentUser={currentUser}
 							sender={message.sender}
 							text={message.text}
 						/>

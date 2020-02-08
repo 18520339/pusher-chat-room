@@ -1,12 +1,14 @@
-/* jshint esversion: 9 */
+/* jshint esversion: 10 */
 /* eslint-disable */
 
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 export default function Message(props) {
-	const { currentUser, sender, text } = props;
-	const isRight = currentUser.id === sender.id ? 'text-right' : 'd-flex';
+	const { currentUser } = useSelector(state => state);
+	const { sender, text } = props;
 
+	const isRight = currentUser.id === sender.id ? 'text-right' : 'd-flex';
 	var avatar = sender.name.replace(' ', '+');
 	avatar = `https://ui-avatars.com/api/?name=${avatar}&rounded=true&size=40&font-size=0.4`;
 

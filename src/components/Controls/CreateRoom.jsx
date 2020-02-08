@@ -1,15 +1,18 @@
-/* jshint esversion: 9 */
+/* jshint esversion: 10 */
 /* eslint-disable */
 
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createRoom } from '../../actions';
 
-export default function NewRoom(props) {
+export default function CreateRoom() {
+	const dispatch = useDispatch();
 	const [roomName, setRoomName] = useState('');
 
 	const onChange = event => setRoomName(event.target.value);
 	const onSubmit = event => {
 		event.preventDefault();
-		props.onCreateRoom(roomName);
+		dispatch(createRoom(roomName));
 		setRoomName('');
 	};
 	return (

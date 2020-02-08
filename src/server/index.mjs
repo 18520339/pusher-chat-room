@@ -1,8 +1,8 @@
-/* jshint esversion: 9 */
+/* jshint esversion: 10 */
 /* eslint-disable */
 
 import Chatkit from '@pusher/chatkit-server';
-import { instanceLocator, key } from './config';
+import { instanceLocator, key } from '../config';
 
 import express from 'express';
 import bodyParser from 'body-parser';

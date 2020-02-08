@@ -1,20 +1,24 @@
-/* jshint esversion: 9 */
+/* jshint esversion: 10 */
 /* eslint-disable */
 
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { typingMessage, sendMessage } from '../../actions';
 
-export default function SendMessage(props) {
-	const { disabled, onTyping, onSendMessage } = props;
+export default function SendMessage() {
+	const { roomActive } = useSelector(state => state);
+	const dispatch = useDispatch();
+
 	const [message, setMessage] = useState('');
 
 	const onChange = event => {
 		setMessage(event.target.value);
-		props.onTyping();
+		dispatch(typingMessage());
 	};
 
 	const onSubmit = event => {
 		event.preventDefault();
-		onSendMessage(message);
+		dispatch(sendMessage(message));
 		setMessage('');
 	};
 
@@ -25,7 +29,7 @@ export default function SendMessage(props) {
 				value={message}
 				placeholder='Nhập tin nhắn...'
 				onChange={onChange}
-				disabled={disabled}
+				disabled={!roomActive.id}
 			/>
 		</form>
 	);
