@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { loginByLocal, loginByAPI } from '../../actions';
+import { loginByLocal, loginByAPI } from '../actions';
 
 export default function LoginForm(props) {
 	const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export default function LoginForm(props) {
 
 	const onSubmit = event => {
 		event.preventDefault();
-		dispatch(loginByAPI(userName));
+		if (userName.trim()) dispatch(loginByAPI(userName));
 	};
 
 	useEffect(() => {
