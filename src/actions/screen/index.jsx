@@ -19,8 +19,13 @@ export const loginByLocal = userName => (dispatch, getState) => {
 /* Run server using API */
 export const loginByAPI = userName => (dispatch, getState) => {
 	const chatkit = new Chatkit({ instanceLocator, key });
+	const avatar = userName.replace(' ', '+');
 	chatkit
-		.createUser({ id: userName, name: userName })
+		.createUser({
+			id: userName,
+			name: userName,
+			avatarURL: `https://ui-avatars.com/api/?name=${avatar}&rounded=true&size=40&font-size=0.4`
+		})
 		.then(() => console.log('User created successfully'))
 		.catch(err => console.log(err));
 	dispatch({ type: SIGN_IN, userName });

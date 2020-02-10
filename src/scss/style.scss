@@ -1,5 +1,5 @@
 $main-color          : #2c303b;
-$secondary-color     : #5ea3d0;
+$secondary-color     : deepskyblue;
 $main-text-color     : #3e5869;
 $secondary-text-color: #b0c7d6;
 $send-message-form   : #F5F5F5;
@@ -29,7 +29,7 @@ ul {
     display              : grid;
     height               : 100%;
     grid-template-columns: repeat(6, 1fr);
-    grid-template-rows   : 1fr 1fr 1fr 1fr 40px 70px;
+    grid-template-rows   : 1fr 1fr 1fr 1fr 30px 70px;
     grid-template-areas  :
         "r m m m m m"
         "r m m m m m"
@@ -40,7 +40,7 @@ ul {
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 9px;
 }
 
 /* Track */
@@ -51,7 +51,7 @@ ul {
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background   : #888;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 /* Handle on hover */

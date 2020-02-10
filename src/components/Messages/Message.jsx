@@ -14,7 +14,7 @@ export default function Message(props) {
 
 	return (
 		<li className={'message ' + isRight}>
-			{isRight == 'd-flex' && (
+			{isRight === 'd-flex' && (
 				<div className='avatar mr-2'>
 					<img src={avatar} />
 				</div>

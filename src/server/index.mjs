@@ -17,8 +17,13 @@ app.use(cors());
 
 app.post('/users', (req, res) => {
 	const { userName } = req.body;
+	const avatar = userName.replace(' ', '+');
 	chatkit
-		.createUser({ id: userName, name: userName })
+		.createUser({
+			id: userName,
+			name: userName,
+			avatarURL: `https://ui-avatars.com/api/?name=${avatar}&rounded=true&size=40&font-size=0.4`
+		})
 		.then(() => {
 			console.log(`User created: ${userName}`);
 			res.sendStatus(201);

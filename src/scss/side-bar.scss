@@ -1,5 +1,4 @@
 @mixin side-bar-list {
-    box-sizing: border-box;
     height    : 100%;
     padding   : 10px;
     background: $main-color;
@@ -39,6 +38,14 @@
 .online-list {
     @include side-bar-list;
     grid-area: o;
+
+    i {
+        font-size: small;
+
+        &.fas {
+            color: turquoise !important;
+        }
+    }
 }
 
 .new-room-form {

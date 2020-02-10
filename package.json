@@ -17,6 +17,7 @@
 		"cors": "^2.8.5",
 		"express": "^4.17.1",
 		"node-sass": "^4.13.1",
+		"nodemon": "^2.0.2",
 		"react": "^16.12.0",
 		"react-dom": "^16.12.0",
 		"react-redux": "^7.1.3",
@@ -26,7 +27,7 @@
 		"redux-thunk": "^2.3.0"
 	},
 	"scripts": {
-		"_comment": "concurrently \"node --experimental-modules src/server\" \"react-scripts start\"",
+		"_comment": "concurrently \"nodemon --experimental-modules src/server\" \"react-scripts start\"",
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",

@@ -15,6 +15,7 @@ export default function CreateRoom() {
 		dispatch(createRoom(roomName));
 		setRoomName('');
 	};
+
 	return (
 		<div className='new-room-form'>
 			<form onSubmit={onSubmit}>

@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { findDOMNode } from 'react-dom';
 
 import { enterRoom } from '../../actions';
-import Message from '../Message';
+import Message from './Message';
 
 export default function MessageList(props) {
 	const { messages, isLoading } = useSelector(state => state);
@@ -20,11 +20,16 @@ export default function MessageList(props) {
 	}, [roomId]);
 
 	useEffect(() => {
+		const node = findDOMNode(messagesNode.current);
+		node.scrollTop = node.scrollHeight;
+	}, [isLoading]);
+
+	useEffect(() => {
 		if (document.hasFocus() && roomId) {
 			const node = findDOMNode(messagesNode.current);
 			node.scrollTop = node.scrollHeight;
 		}
-	}, [messages, isLoading]);
+	}, [messages]);
 
 	return (
 		<ul className='message-list' ref={messagesNode}>
@@ -41,13 +46,8 @@ export default function MessageList(props) {
 				</li>
 			) : (
 				messages.map(message => {
-					return (
-						<Message
-							key={message.id}
-							sender={message.sender}
-							text={message.text}
-						/>
-					);
+					const { id, sender, text } = message;
+					return <Message key={id} sender={sender} text={text} />;
 				})
 			)}
 		</ul>

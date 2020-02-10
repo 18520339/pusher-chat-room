@@ -6,11 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from '../actions';
 
-import RoomList from '../components/RoomList';
-import OnlineList from '../components/OnlineList';
-import TypingList from '../components/TypingList';
-import MessageList from '../components/MessageList';
-import { CreateRoom, SendMessage } from '../components/Form';
+import { RoomList, OnlineList } from '../components/SideBar';
+import { MessageList, TypingList } from '../components/Messages';
+import { CreateRoom, SendMessage } from '../components/FormControls';
 
 export default function ChatScreen() {
 	const { screenInfo, currentRooms, isLoading } = useSelector(state => state);

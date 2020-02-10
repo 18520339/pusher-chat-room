@@ -11,17 +11,17 @@ export default function OnlineList() {
 	return (
 		<ul className='online-list'>
 			<hr />
-			<h3>Đang Online</h3>
+			<h3>Hoạt Động</h3>
 			{roomActive.users &&
 				roomActive.users.map((user, index) => {
 					const { id, name, presence } = user;
-					var { state } = presence;
-					state = state === 'online' ? 'online' : 'offline';
+					const state = presence.state === 'online' ? 'fas' : 'far';
 
 					return (
 						<li key={index} className='list-item'>
 							<Link to={id}>
-								{name} ({state})
+								<i className={`${state} fa-circle`}></i>
+								&ensp; {name}
 							</Link>
 						</li>
 					);
