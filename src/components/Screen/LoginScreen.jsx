@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { loginByLocal, loginByAPI } from '../actions';
+import { loginByLocal, loginByAPI } from '../../actions';
 
 export default function LoginScreen() {
     const dispatch = useDispatch();

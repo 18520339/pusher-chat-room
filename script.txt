@@ -1,0 +1,7 @@
+yarn add react react-dom react-redux redux react-router-dom redux-thunk
+yarn add concurrently cors express nodemon 
+yarn add @pusher/chatkit-server @pusher/chatkit-client
+yarn add node-sass bootstrap jquery font-awesome file-loader
+yarn add babel-core babel-loader@7 babel-preset-env babel-preset-react babel-preset-stage-2 extract-text-webpack-plugin@next --dev
+
+React và Redux Dev Tools -> Quản lý tiện ích -> Cho phép truy cập vào các URL của tệp

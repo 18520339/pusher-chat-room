@@ -3,12 +3,12 @@
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { connect } from '../actions';
+import { HashRouter, Route, Switch } from 'react-router-dom';
+import { connect } from '../../actions';
 
-import { RoomList, OnlineList } from '../components/SideBar';
-import { MessageList, TypingList } from '../components/Messages';
-import { CreateRoom, SendMessage } from '../components/FormControls';
+import { RoomList, OnlineList } from '../SideBar';
+import { MessageList, TypingList } from '../Messages';
+import { CreateRoom, SendMessage } from '../FormControls';
 
 export default function ChatScreen() {
 	const { screenInfo, currentRooms, isLoading } = useSelector(state => state);
@@ -19,7 +19,7 @@ export default function ChatScreen() {
 	}, []);
 
 	return (
-		<BrowserRouter>
+		<HashRouter>
 			<div className='app'>
 				<RoomList />
 				<OnlineList />
@@ -52,7 +52,7 @@ export default function ChatScreen() {
 				<TypingList />
 				<SendMessage />
 			</div>
-		</BrowserRouter>
+		</HashRouter>
 	);
 }
 

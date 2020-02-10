@@ -4,7 +4,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { LoginScreen, ChatScreen } from './routes';
+import { LoginScreen, ChatScreen } from './components/Screen';
 import './scss/style.scss';
 
 export default function App() {
