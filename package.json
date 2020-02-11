@@ -27,8 +27,8 @@
 		"redux-thunk": "^2.3.0"
 	},
 	"scripts": {
-		"_comment": "concurrently \"nodemon --experimental-modules src/server\" \"react-scripts start\"",
-		"start": "react-scripts start",
+		"start-by-local": "concurrently \"nodemon --experimental-modules src/server\" \"react-scripts start\"",
+		"start-by-api": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
