@@ -6,10 +6,10 @@ import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
 import store from './reducers';
-import App from './App';
+import App from './components/App/index.jsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.min.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'jquery';
 
 ReactDOM.render(

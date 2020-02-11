@@ -1,45 +1,88 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-	entry: {
-		bundle: './src/index.jsx'
+	entry: './src/index.jsx',
+	node: {
+		fs: 'empty',
+		net: 'empty',
+		tls: 'empty',
+		dns: 'empty'
+	},
+	resolve: {
+		extensions: ['*', '.js', '.jsx', '.mjs']
 	},
 	output: {
-		path: path.join(__dirname, 'dist'),
+		path: __dirname + '/dist',
 		filename: 'bundle.js'
 	},
 	module: {
 		rules: [
 			{
-				use: 'babel-loader',
-				test: /\.jsx$/,
-				exclude: '/node_modules/'
+				test: /\.(js|jsx)$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['@babel/preset-env', '@babel/preset-react']
+					}
+				}
 			},
 			{
-				use: ExtractTextPlugin.extract({
-					use: 'css-loader',
-					fallback: 'style-loader'
-				}),
-				test: /\.css$/
+				test: /\.css$/,
+				use: [MiniCssExtractPlugin.loader, 'css-loader']
 			},
 			{
-				loader: 'file-loader',
-				test: /\.(png|jpg|gif|svg|woff|woff2|eot|ttf|wav|mp3|ico)$/
+				test: /\.s[ac]ss$/i,
+				use: ['style-loader', 'css-loader', 'sass-loader']
+			},
+			{
+				test: /\.(png|jpe?g|gif|svg|ico)$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							outputPath: 'images'
+						}
+					}
+				]
+			},
+			{
+				test: /\.(woff|woff2|ttf|otf|eot)$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							outputPath: 'fonts'
+						}
+					}
+				]
+			},
+			{
+				test: /\.(wav|mp3)$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							outputPath: 'media'
+						}
+					}
+				]
 			}
 		]
 	},
 	plugins: [
-		new ExtractTextPlugin('style.css'),
+		new MiniCssExtractPlugin({
+			filename: 'bundle.css'
+		}),
 		new webpack.ProvidePlugin({
 			$: 'jquery',
 			jQuery: 'jquery',
-			'window.$': 'jquery',
-			'window.jQuery': 'jquery'
+			'window.jQuery': 'jquery',
+			'window.$': 'jquery'
 		})
 	]
 };

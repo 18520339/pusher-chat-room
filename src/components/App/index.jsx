@@ -4,8 +4,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { LoginScreen, ChatScreen } from './components/Screen';
-import './scss/style.scss';
+import { LoginScreen, ChatScreen } from '../Screen';
+import '../../scss/style.scss';
 
 export default function App() {
 	const { screenInfo } = useSelector(state => state);
