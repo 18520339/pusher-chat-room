@@ -1,8 +1,6 @@
-yarn add @babel/runtime
 yarn add @babel/core @babel/preset-env @babel/preset-react babel-loader --dev
-yarn add @babel/plugin-proposal-class-properties @babel/plugin-transform-runtime --dev
 
-yarn add bootstrap jquery @fortawesome/fontawesome-free
+yarn add bootstrap jquery
 yarn add style-loader css-loader file-loader --dev
 
 yarn add node-sass sass-loader --dev
