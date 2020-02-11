@@ -1,6 +1,7 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 
@@ -17,7 +18,7 @@ module.exports = {
 	},
 	output: {
 		path: __dirname + '/dist',
-		filename: 'bundle.js'
+		filename: '[name].[chunkhash].js'
 	},
 	module: {
 		rules: [
@@ -74,9 +75,23 @@ module.exports = {
 			}
 		]
 	},
+	optimization: {
+		splitChunks: {
+			cacheGroups: {
+				vendor: {
+					test: /node_modules/,
+					name: 'vendor',
+					chunks: 'all'
+				}
+			}
+		}
+	},
 	plugins: [
+		new HtmlWebpackPlugin({
+			template: 'public/index.html'
+		}),
 		new MiniCssExtractPlugin({
-			filename: 'bundle.css'
+			filename: '[name].css'
 		}),
 		new webpack.ProvidePlugin({
 			$: 'jquery',
@@ -84,7 +99,18 @@ module.exports = {
 			'window.jQuery': 'jquery',
 			'window.$': 'jquery'
 		})
-	]
+	],
+	devServer: {
+		port: 6969,
+		open: true,
+		disableHostCheck: true,
+		historyApiFallback: true,
+		overlay: true,
+		stats: 'minimal',
+		inline: true,
+		compress: true,
+		contentBase: './public'
+	}
 };
 
 /* eslint-enable */
