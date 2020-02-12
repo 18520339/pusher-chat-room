@@ -3,45 +3,39 @@
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from '../../actions';
 
-import { RoomList, OnlineList } from '../SideBar';
-import { MessageList, TypingList } from '../Messages';
+import RoomList from '../RoomList';
+import { MessageList, LoadingTitle } from '../MessageList';
+import { UserList, TypingList } from '../Users';
 import { CreateRoom, SendMessage } from '../FormControls';
 
 export default function ChatScreen() {
-	const { screenInfo, currentRooms, isLoading } = useSelector(state => state);
+	const { screen, rooms, isLoading } = useSelector(state => state);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(connect(screenInfo.userName));
+		dispatch(connect(screen.userName));
 	}, []);
 
 	return (
-		<HashRouter>
+		<BrowserRouter>
 			<div className='app'>
 				<RoomList />
-				<OnlineList />
+				<UserList />
 				<CreateRoom />
 				<Switch>
 					<Route exact path='/'>
 						<ul className='message-list'>
-							<li className='join-room'>
-								{isLoading ? (
-									<span>
-										<i className='fas fa-spinner fa-pulse'></i>
-										&ensp; Đang kết nối máy chủ ...
-									</span>
-								) : (
-									<span>
-										&larr; Chọn phòng để bắt đầu chat nào !
-									</span>
-								)}
-							</li>
+							{isLoading ? (
+								<LoadingTitle value='&ensp; Đang kết nối máy chủ ...' />
+							) : (
+								<LoadingTitle value='&larr; Chọn phòng để bắt đầu chat nào !' />
+							)}
 						</ul>
 					</Route>
-					{currentRooms.map(room => (
+					{rooms.map(room => (
 						<Route
 							key={room.id}
 							path='/:roomId'
@@ -52,7 +46,7 @@ export default function ChatScreen() {
 				<TypingList />
 				<SendMessage />
 			</div>
-		</HashRouter>
+		</BrowserRouter>
 	);
 }
 

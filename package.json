@@ -7,8 +7,8 @@
 	"author": "Quan Dang",
 	"license": "MIT",
 	"scripts": {
-		"start-by-local": "concurrently \"nodemon --experimental-modules src/server\" \"webpack-dev-server --mode development\"",
-		"start-by-api": "webpack-dev-server --mode development",
+		"start-local": "concurrently \"nodemon --experimental-modules src/server\" \"webpack-dev-server --mode development\"",
+		"start": "webpack-dev-server --mode development",
 		"build": "yarn clean && webpack --mode production",
 		"clean": "rimraf dist"
 	},

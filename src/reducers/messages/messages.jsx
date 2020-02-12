@@ -4,15 +4,17 @@
 import * as types from '../../constants';
 
 const initialState = [];
-const currentRooms = (state = initialState, action) => {
+const messages = (state = initialState, action) => {
 	switch (action.type) {
-		case types.GET_ROOMS:
-			return action.currentRooms;
+		case types.ON_MESSAGE:
+			return [...state, action.message];
+		case types.CLEAR_MESSAGE:
+			return [];
 		default:
 			return state;
 	}
 };
 
-export default currentRooms;
+export default messages;
 
 /* eslint-enable */

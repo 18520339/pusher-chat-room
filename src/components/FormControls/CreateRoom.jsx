@@ -12,8 +12,10 @@ export default function CreateRoom() {
 	const onChange = event => setRoomName(event.target.value);
 	const onSubmit = event => {
 		event.preventDefault();
-		dispatch(createRoom(roomName));
-		setRoomName('');
+		if (roomName.trim() !== '') {
+			dispatch(createRoom(roomName));
+			setRoomName('');
+		}
 	};
 
 	return (

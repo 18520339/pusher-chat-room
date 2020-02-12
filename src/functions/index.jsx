@@ -8,7 +8,7 @@ export const alertError = (title, err) => {
 		error = err.error;
 	}
 	console.log(err);
-	alert(title + error);
+	alert(title + ': ' + error);
 };
 
 /* eslint-enable */

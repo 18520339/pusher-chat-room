@@ -110,7 +110,8 @@ module.exports = {
 		inline: true,
 		compress: true,
 		contentBase: './public'
-	}
+	},
+	devtool: 'eval-source-map'
 };
 
 /* eslint-enable */

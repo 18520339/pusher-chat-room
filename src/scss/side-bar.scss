@@ -1,6 +1,5 @@
 @mixin side-bar-list {
     height    : 100%;
-    padding   : 10px;
     background: $main-color;
     overflow  : auto;
 
@@ -26,6 +25,18 @@
         &.active a,
         &:hover a {
             color: $secondary-color;
+        }
+
+        .unread {
+            display         : inline-block;
+            width           : 17px;
+            line-height     : 17px;
+            font-size       : small;
+            text-align      : center;
+            background-color: lightcoral;
+            color           : white;
+            border-radius   : 50%;
+
         }
     }
 }

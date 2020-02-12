@@ -2,8 +2,8 @@
 /* eslint-disable */
 
 import Chatkit from '@pusher/chatkit-server';
-import { instanceLocator, key } from '../../config';
-import { SIGN_IN } from '../../constants';
+import { instanceLocator, key } from '../config';
+import { SIGN_IN } from '../constants';
 
 /* Run server on localhost */
 export const loginByLocal = userName => (dispatch, getState) => {

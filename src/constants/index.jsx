@@ -2,8 +2,10 @@
 /* eslint-disable */
 
 export const SIGN_IN = 'SIGN_IN';
+export const NOT_FOUND = 'NOT_FOUND';
 
 export const CONNECT = 'CONNECT';
+export const UPDATE_ROOMS = 'GET_ROOMS';
 export const GET_ROOMS = 'GET_ROOMS';
 export const ENTER_ROOM = 'ENTER_ROOM';
 

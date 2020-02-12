@@ -3,18 +3,18 @@
 
 import * as types from '../../constants';
 
-const initialState = true;
-const isLoading = (state = initialState, action) => {
+const initialState = [];
+const rooms = (state = initialState, action) => {
 	switch (action.type) {
 		case types.GET_ROOMS:
-			return false;
-		case types.CLEAR_MESSAGE:
-			return true;
+			return action.rooms;
+		case types.UPDATE_ROOMS:
+			return action.rooms;
 		default:
 			return state;
 	}
 };
 
-export default isLoading;
+export default rooms;
 
 /* eslint-enable */

@@ -3,9 +3,8 @@
 
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
-export default function OnlineList() {
+export default function UserList() {
 	const { roomActive } = useSelector(state => state);
 
 	return (
@@ -19,10 +18,10 @@ export default function OnlineList() {
 
 					return (
 						<li key={index} className='list-item'>
-							<Link to={id}>
+							<a href='#'>
 								<i className={`${state} fa-circle`}></i>
 								&ensp; {name}
-							</Link>
+							</a>
 						</li>
 					);
 				})}

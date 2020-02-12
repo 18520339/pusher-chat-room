@@ -4,19 +4,19 @@
 import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import { screenInfo, isLoading } from './screen';
+import screen from './screen';
 import { currentUser, usersTyping } from './users';
-import { roomActive, currentRooms } from './rooms';
-import messages from './messages';
+import { rooms, roomActive } from './rooms';
+import { messages, isLoading } from './messages';
 
 const rootReducer = combineReducers({
-	screenInfo,
+	screen,
+	rooms,
+	roomActive,
+	messages,
 	isLoading,
 	currentUser,
-	usersTyping,
-	roomActive,
-	currentRooms,
-	messages
+	usersTyping
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
