@@ -4,7 +4,7 @@
 import * as types from '../../constants';
 
 const initialState = [];
-const usersTyping = (state = initialState, action) => {
+const typingUsers = (state = initialState, action) => {
 	switch (action.type) {
 		case types.USER_STARTED_TYPING:
 			return [...state, action.user.name];
@@ -15,6 +15,6 @@ const usersTyping = (state = initialState, action) => {
 	}
 };
 
-export default usersTyping;
+export default typingUsers;
 
 /* eslint-enable */

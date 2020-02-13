@@ -3,17 +3,17 @@
 
 import React, { createRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { enterRoom } from '../../actions';
 
+import { enterRoom, addEmoji } from '../../actions';
 import LoadingTitle from './LoadingTitle';
 import Message from './Message';
 
 export default function MessageList(props) {
-	const { messages, isLoading, roomActive } = useSelector(state => state);
+	const { roomUsers, messages, isLoading } = useSelector(state => state);
 	const dispatch = useDispatch();
 
 	const { roomId } = props.match.params;
-	const roomNotFound = !Object.keys(roomActive).length;
+	const roomNotFound = !roomUsers.length;
 	const messagesNode = createRef();
 
 	useEffect(() => {

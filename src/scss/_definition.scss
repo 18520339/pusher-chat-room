@@ -1,0 +1,55 @@
+@mixin display($display, $padding, $background, $color, $border-radius: null) {
+    display      : $display;
+    padding      : $padding;
+    background   : $background;
+    color        : $color;
+    border-radius: $border-radius;
+}
+
+@mixin d-flex($justify-content, $align-items, $height: 100%) {
+    display        : flex;
+    justify-content: $justify-content;
+    align-items    : $align-items;
+    height         : $height;
+}
+
+@mixin pos-absolute($bottom, $left) {
+    position: absolute;
+    top     : unset !important;
+    bottom  : $bottom;
+    left    : $left
+}
+
+@mixin side-bar-list {
+    height    : 100%;
+    background: $main-color;
+    overflow  : auto;
+
+    h3 {
+        margin: 5px 0;
+        color : white;
+    }
+
+    .list-item {
+        margin: 10px 0;
+
+        a {
+            font-weight    : 600;
+            text-decoration: none;
+            color          : white;
+        }
+
+        &.active a,
+        &:hover a {
+            color: $secondary-color;
+        }
+
+        .unread {
+            @include display(inline-block, null, lightcoral, white, 50%);
+            width      : 17px;
+            line-height: 17px;
+            font-size  : x-small;
+            text-align : center;
+        }
+    }
+}

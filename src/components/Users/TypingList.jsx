@@ -5,12 +5,14 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function TypingList() {
-	const { usersTyping } = useSelector(state => state);
+	const { typingUsers } = useSelector(state => state);
 
 	return (
 		<b className='typing-users'>
-			{usersTyping.length > 0 && (
-				<span>{usersTyping.join(', ')} đang gõ...</span>
+			{typingUsers.length > 0 && (
+				<span className='alert alert-info'>
+					{typingUsers.join(', ')} đang gõ...
+				</span>
 			)}
 		</b>
 	);

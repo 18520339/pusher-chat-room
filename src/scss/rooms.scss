@@ -1,0 +1,36 @@
+@import './definition';
+
+.rooms-list {
+    @include side-bar-list;
+    grid-area: r;
+}
+
+.new-room-form {
+    grid-area : n;
+    padding   : 0 5px;
+    background: white;
+    color     : $main-text-color;
+
+    form {
+        @include d-flex(space-between, center)
+    }
+
+    input {
+        width : 135px;
+        border: 0;
+
+        &::placeholder {
+            font-weight: 200;
+            color      : $main-text-color;
+        }
+
+        &:focus {
+            outline-width: 0;
+        }
+    }
+
+    button {
+        color : $main-text-color;
+        border: 0;
+    }
+}

@@ -5,9 +5,9 @@ import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 import screen from './screen';
-import { currentUser, usersTyping } from './users';
+import { currentUser, roomUsers, typingUsers } from './users';
 import { rooms, roomActive } from './rooms';
-import { messages, isLoading } from './messages';
+import { messages, isLoading, showPicker } from './messages';
 
 const rootReducer = combineReducers({
 	screen,
@@ -15,8 +15,10 @@ const rootReducer = combineReducers({
 	roomActive,
 	messages,
 	isLoading,
+	showPicker,
 	currentUser,
-	usersTyping
+	roomUsers,
+	typingUsers
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

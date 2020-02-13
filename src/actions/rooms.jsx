@@ -61,11 +61,16 @@ export const enterRoom = roomId => (dispatch, getState) => {
 				},
 				onUserStoppedTyping: user => {
 					dispatch({ type: types.USER_STOPED_TYPING, user });
+				},
+				onPresenceChanged: () => {
+					const { roomActive } = getState();
+					if (roomActive.id)
+						dispatch({ type: types.PRESENCE_CHANGED, roomActive });
 				}
 			}
 		})
-		.then(room => {
-			dispatch({ type: types.ENTER_ROOM, room });
+		.then(roomActive => {
+			dispatch({ type: types.ENTER_ROOM, roomActive });
 			dispatch(getRooms(currentUser));
 		})
 		.catch(err => {

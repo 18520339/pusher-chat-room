@@ -7,7 +7,7 @@ const initialState = {};
 const roomActive = (state = initialState, action) => {
 	switch (action.type) {
 		case types.ENTER_ROOM:
-			return action.room;
+			return action.roomActive;
 		default:
 			return state;
 	}
