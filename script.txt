@@ -2,7 +2,7 @@ yarn add react react-dom react-router-dom
 yarn add redux react-redux redux-thunk
 
 yarn add @pusher/chatkit-server @pusher/chatkit-client 
-yarn add @webscopeio/react-textarea-autocomplete
+yarn add @webscopeio/react-textarea-autocomplete emoji-mart react-feather
 yarn add concurrently cors express nodemon 
 
 yarn add @babel/core @babel/preset-env @babel/preset-react babel-loader @babel/runtime --dev
