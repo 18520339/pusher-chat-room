@@ -1,0 +1,44 @@
+.navigation {
+    background: $white;
+
+    .inside .menu {
+        .btn {
+            padding: 0;
+            color  : inherit;
+
+            &:last-child {
+                margin-bottom: 30px;
+            }
+        }
+
+        .material-icons {
+            display      : block;
+            font-size    : 45px;
+            margin-bottom: 40px;
+
+            &.active {
+                color: $color_dodger_blue;
+            }
+        }
+
+        .power {
+            &:hover {
+                color: $color_amaranth;
+            }
+
+            .material-icons {
+                @include font-style(600, 45px, null);
+                display      : block;
+                margin-bottom: 0;
+            }
+        }
+
+        .avatar-xl:hover {
+            border: 3px solid $color_dodger_blue;
+        }
+
+        .mode:hover {
+            color: $color_dodger_blue;
+        }
+    }
+}

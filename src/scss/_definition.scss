@@ -1,55 +1,235 @@
-@mixin display($display, $padding, $background, $color, $border-radius: null) {
-    display      : $display;
-    padding      : $padding;
-    background   : $background;
-    color        : $color;
-    border-radius: $border-radius;
-}
+$black_10             : rgba(0, 0, 0, 0.1);
+$color_alabaster      : #fbfbfb;
+$color_wild_sand      : #f5f5f5;
+$black_4              : rgba(0, 0, 0, 0.04);
+$color_white          : #fdfdfd;
+$color_chatelle       : #bdbac2;
+$color_dodger_blue    : #2196f3;
+$color_mercury        : #e8e8e8;
+$white                : #fff;
+$color_electric_violet: #6610f2;
+$color_studio         : #6f42c1;
+$color_amaranth       : #dc3545;
+$color_cerise         : #e83e8c;
+$color_ecstasy        : #fd7e14;
+$color_sea_green      : #28a745;
+$color_shamrock       : #20c997;
+$color_amber          : #ffc107;
+$color_silver         : #ccc;
+$color_shark          : #212529;
+$color_ronchi         : #f0d24b;
+$color_azure_radiance : #007bff;
+$color_portage        : rgba(140, 167, 255, 1);
+$color_medium_purple  : rgba(139, 84, 249, 1);
+$color_mandy          : #e05b5d;
+$black_5              : rgba(0, 0, 0, 0.05);
 
-@mixin d-flex($justify-content, $align-items, $height: 100%) {
+@import url('https://fonts.googleapis.com/css?family=Maven+Pro:500&display=swap&subset=vietnamese');
+
+@mixin d-flex($justify, $align, $direction: null, $padding: null, $margin: null) {
+    display        : -ms-flexbox;
     display        : flex;
-    justify-content: $justify-content;
-    align-items    : $align-items;
-    height         : $height;
-}
+    justify-content: $justify;
+    -ms-flex-align : $align;
+    align-items    : $align;
+    flex-direction : $direction;
+    padding        : $padding;
 
-@mixin pos-absolute($bottom, $left) {
-    position: absolute;
-    top     : unset !important;
-    bottom  : $bottom;
-    left    : $left
-}
-
-@mixin side-bar-list {
-    height    : 100%;
-    background: $main-color;
-    overflow  : auto;
-
-    h3 {
-        margin: 5px 0;
-        color : white;
+    @if $align==start {
+        -ms-flex-align: start;
+        align-items   : flex-start;
     }
 
-    .list-item {
-        margin: 10px 0;
+    @if $margin !=null {
+        margin-#{nth($margin, 1)}: #{nth($margin, 2)};
+    }
+}
 
-        a {
-            font-weight    : 600;
-            text-decoration: none;
-            color          : white;
+@mixin pos-absolute($top, $left, $right, $bottom) {
+    position: absolute;
+    top     : $top;
+    left    : $left;
+    right   : $right;
+    bottom  : $bottom;
+}
+
+@mixin pos-sticky($x, $y) {
+    position  : sticky;
+    top       : 0;
+    z-index   : 1020;
+    overflow-x: $x;
+    overflow-y: $y;
+}
+
+@mixin pos-fixed($top, $left, $right, $bottom) {
+    position: fixed;
+    top     : $top;
+    left    : $left;
+    right   : $right;
+    bottom  : $bottom;
+    z-index : 1030;
+}
+
+@mixin box-size($width, $height, $by: null) {
+    width : $width;
+    height: $height;
+
+    @if $by !=null {
+        #{nth($by, 1)}    : 100%;
+        min-#{nth($by, 1)}: #{nth($by, 2)};
+        max-#{nth($by, 1)}: #{nth($by, 2)};
+    }
+}
+
+@mixin control($width, $padding, $background) {
+    width           : $width;
+    padding         : $padding;
+    background-color: $background;
+}
+
+@mixin font-style($weight, $size, $color, $line-height: null, $margin: null) {
+    font-weight: $weight;
+    font-size  : $size;
+    color      : $color;
+    line-height: $line-height;
+
+    @if $margin !=null {
+        margin-#{nth($margin, 1)}: #{nth($margin, 2)};
+    }
+}
+
+@mixin text-center($max-width, $margin) {
+    width     : 100%;
+    max-width : $max-width;
+    margin    : $margin;
+    text-align: center;
+}
+
+@mixin box-color($background, $color) {
+    background-color: $background;
+    color           : $color;
+}
+
+@mixin border($border, $radius, $box-shadow: null) {
+    border       : $border;
+    border-radius: $radius;
+    box-shadow   : $box-shadow;
+}
+
+@mixin border-bottom($padding, $border-bottom) {
+    padding      : $padding;
+    border-bottom: $border-bottom;
+}
+
+@mixin overflow($padding, $x, $y) {
+    padding   : $padding;
+    overflow-x: $x;
+    overflow-y: $y;
+}
+
+@mixin transition($transition) {
+    -webkit-transition: $transition;
+    -moz-transition   : $transition;
+    transition        : $transition;
+}
+
+@mixin transform($transform) {
+    -webkit-transform: $transform;
+    -ms-transform    : $transform;
+    transform        : $transform;
+}
+
+@mixin combine($pos, $size, $border, $box-shadow, $margin-top, $background: null) {
+    @include pos-absolute(#{nth($pos, 1)}, #{nth($pos, 2)}, #{nth($pos, 3)}, #{nth($pos, 4)});
+    @include box-size($size, $size);
+    @include border($border, 100%, $box-shadow);
+    margin-top: $margin-top;
+    background: $background;
+}
+
+@mixin main-decoration($padding, $background, $radius, $animation: null) {
+    padding      : $padding;
+    background   : $background;
+    border-radius: $radius;
+    animation    : $animation;
+}
+
+%h1 {
+    h1 {
+        @include font-style(800, 24px, $color_shark, null, (bottom, 0));
+        padding-bottom: 18px;
+        border-bottom : 2px solid $color_alabaster;
+    }
+}
+
+%data {
+    h5 {
+        @include font-style(700, 16px, $color_shark, null, (bottom, 5px));
+        display: inline-flex;
+    }
+
+    p {
+        @include font-style(400, 16px, null, 1.4);
+    }
+}
+
+%details {
+    @include d-flex(null, flex-start, null, 20px 0);
+    border-bottom: 2px solid $color_alabaster;
+
+    .data {
+        @extend %data;
+        width: 100%;
+    }
+
+    &:last-of-type {
+        border-bottom: 2px solid transparent !important;
+    }
+}
+
+%label {
+    @include font-style(700, 14px, $color_shark, null, (bottom, 10px));
+    text-transform: uppercase;
+}
+
+@mixin sidebar-info($name, $icon-color) {
+    @extend %h1;
+
+    .#{$name} {
+        @extend %details;
+
+        .avatar-md {
+            margin-right: 15px;
         }
 
-        &.active a,
-        &:hover a {
-            color: $secondary-color;
+        &.active .material-icons {
+            color: $icon-color;
         }
 
-        .unread {
-            @include display(inline-block, null, lightcoral, white, 50%);
-            width      : 17px;
-            line-height: 17px;
-            font-size  : x-small;
-            text-align : center;
+        .status {
+            @include combine((null, 4px, 0, null), 20px, 5px solid $white, null, 12px);
+
+            .online {
+                color: $color_dodger_blue;
+            }
+
+            .offline {
+                color: $color_silver;
+            }
+
+            .material-icons {
+                @include pos-absolute(null, -3px, null, -3px);
+                font-size: 16px;
+            }
         }
+
+        &.active,
+        &:hover {
+            border-bottom: 2px solid $color_dodger_blue;
+        }
+    }
+
+    a:hover {
+        color: inherit;
     }
 }

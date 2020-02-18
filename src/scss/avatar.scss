@@ -1,0 +1,26 @@
+@each $screen in (xl 60px, lg 50px, md 45px, sm 30px) {
+    .avatar-#{nth($screen, 1)} {
+        @include box-size(null, #{nth($screen, 2)}, (width, #{nth($screen, 2)}));
+        @include border(2px solid $white, 100%, 0 5px 10px 4px $black_4);
+    }
+}
+
+.avatar-xxl {
+    @include box-size(200px, 200px);
+    border-radius: 100%;
+}
+
+
+.tooltip {
+    @include font-style(600, 15px, null);
+
+    &.show {
+        opacity: 1;
+    }
+
+    &-inner {
+        @include box-color($color_shark, $white);
+        padding      : 5px 12px;
+        border-radius: 6px;
+    }
+}

@@ -3,7 +3,7 @@
 
 export const alertError = (title, err) => {
 	try {
-		var error = err.info.error_description;
+		var error = err.error_description;
 	} catch {
 		error = err.error;
 	}

@@ -1,0 +1,538 @@
+.main {
+    width     : 100%;
+    background: $color_white;
+
+    .chat {
+        height: 100%;
+
+        .content {
+            @include overflow(20px 0 0, hidden, scroll);
+            display: flex;
+            height : calc(100vh - 218px);
+
+            .message {
+                @include d-flex(null, flex-end, null, null, (bottom, 20px));
+
+                .text {
+                    @include main-decoration(15px, $color_wild_sand, 6px);
+                    display  : inline-block;
+                    max-width: 450px;
+
+                    .attachment {
+                        @include d-flex(null, center);
+
+                        .file {
+                            h5 {
+                                @include font-style(400, 16px, $color_dodger_blue, 1.4, (bottom, 5px));
+                            }
+
+                            a:hover {
+                                text-decoration: underline;
+                            }
+                        }
+
+                        .attach {
+                            @include box-size(42px, 42px);
+                            padding     : 12px;
+                            margin-right: 15px;
+                        }
+                    }
+
+                    &.typing {
+                        padding: 8px 12px;
+
+                        .wave .dot {
+                            @include box-size(6px, 6px);
+                            @include main-decoration(null, $color_chatelle, 100%, wave 1.3s linear infinite);
+                            display     : inline-block;
+                            margin-right: 1px;
+
+                            &:last-of-type {
+                                margin-right: 0;
+                            }
+
+                            &:nth-child(2) {
+                                animation-delay: -1.1s;
+                            }
+
+                            &:nth-child(3) {
+                                animation-delay: -0.9s;
+                            }
+                        }
+                    }
+
+                    &.me {
+                        @include transition(all 0.3s);
+                        background: $color_dodger_blue;
+
+                        .attachment {
+                            .attach {
+                                @include box-color($white, $color_dodger_blue)
+                            }
+
+                            .file {
+
+                                h5,
+                                a:hover {
+                                    color: $white;
+                                }
+
+                                span {
+                                    color     : $white;
+                                    text-align: left;
+                                }
+                            }
+                        }
+
+                        p {
+                            color: $white;
+                        }
+                    }
+
+                    p {
+                        @include font-style(400, 16px, null, 1.4);
+                    }
+                }
+
+                &:last-child {
+                    margin-bottom: 50px;
+                }
+
+                &.me {
+                    justify-content: flex-end;
+
+                    &:last-child {
+                        margin-bottom: 43px;
+                    }
+
+                    span {
+                        text-align: right;
+                    }
+                }
+
+                .avatar-md {
+                    margin-right: 15px;
+                }
+
+                .text-group {
+                    width        : 100%;
+                    margin-bottom: 10px;
+
+                    &.me {
+                        @include d-flex(flex-end, null)
+                    }
+                }
+
+                span {
+                    @include font-style(400, 14px, null);
+                    display: block;
+
+                    >.material-icons {
+                        @include font-style(600, 14px, null, null, (right, 5px));
+                        position: relative;
+                        top     : 2px;
+                    }
+                }
+            }
+
+            >div {
+                margin-top: auto;
+            }
+
+            &.empty {
+                @include d-flex(center, center, 0);
+                overflow-y: auto;
+
+                >div {
+                    margin-top   : auto;
+                    margin-bottom: auto;
+                }
+            }
+
+            .date {
+                @include d-flex(null, center, null, 26px 0 46px);
+
+                hr {
+                    width     : 100%;
+                    margin    : 0;
+                    border-top: 2px solid $color_alabaster;
+                }
+
+                span {
+                    display: block;
+                    padding: 0 20px;
+                }
+            }
+
+            .no-messages {
+                @include text-center(400px, 47px auto 45px);
+                display: block;
+
+                .options {
+                    @include d-flex(center, center);
+
+                    .button {
+                        @include box-size(56px, 56px);
+                        @include border(null, 100%, 0 5px 10px 4px $black_4 !important);
+
+                        &:hover {
+                            @include transform(scale(1.05));
+                            @include transition(all 0.3s linear);
+                        }
+
+                        .material-icons {
+                            margin-bottom: 0;
+                        }
+
+                        &:nth-child(2) {
+                            background: $color_amaranth;
+                        }
+
+                        +.button {
+                            margin-left: 20px;
+                        }
+                    }
+                }
+
+                &.request {
+                    max-width: 420px;
+                    margin   : 50px auto;
+                }
+
+                .material-icons {
+                    margin-bottom: 20px;
+                    font-weight  : 600;
+                }
+
+                .avatar-xl {
+                    margin-bottom: 32px;
+                }
+
+                h5 {
+                    @include font-style(400, 18px, null, 1.7, (bottom, 5px));
+                    display: block;
+
+                    >span {
+                        @include font-style(null, 18px, null, 1.7);
+                    }
+                }
+
+                p {
+                    @include font-style(400, 18px, null);
+                }
+            }
+        }
+
+        .btn {
+            padding    : 0;
+            line-height: 0;
+
+            &.disabled {
+                opacity: 1;
+
+                &:hover {
+                    color  : inherit !important;
+                    opacity: 1;
+                }
+            }
+        }
+
+        .attach {
+            @include box-color($color_dodger_blue, $white);
+            border-radius: 100%;
+
+            &:hover {
+                color  : $white;
+                opacity: 0.8;
+            }
+        }
+
+        .top {
+            @include border-bottom(26.5px 0, 2px solid $color_alabaster);
+            background: $white;
+
+            .inside {
+                @include d-flex(null, center);
+
+                .avatar-md {
+                    margin-right: 15px;
+                }
+
+                .status {
+                    @include pos-absolute(null, 4px, 0, null);
+                    @include box-size(20px, 20px);
+                    @include border(5px solid $white, 100%);
+                    margin-top  : 0;
+                    margin-right: 10px;
+
+                    .online {
+                        color: $color_dodger_blue;
+                    }
+
+                    .offline {
+                        color: $color_silver;
+                    }
+
+                    .material-icons {
+                        @include pos-absolute(null, -3px, null, -3px);
+                        font-size: 16px;
+                    }
+                }
+
+                .data {
+                    margin-right: auto;
+
+                    h5 {
+                        @include font-style(700, 16px, $color_shark, null, (bottom, 2px));
+                    }
+
+                    span {
+                        @include font-style(400, 15px, null, 1.4);
+                        display: block;
+                    }
+                }
+
+                .btn {
+                    @include font-style(null, null, inherit, 0, (right, 30px));
+                    padding: 0;
+
+                    &:hover {
+                        color: $color_dodger_blue;
+                    }
+                }
+
+                .dropdown-menu-right {
+                    right : 0 !important;
+                    bottom: inherit !important;
+                }
+
+                .dropdown .btn {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        .content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .bottom {
+            @include d-flex(null, center, null, 30px 0);
+            border-top: 2px solid $color_alabaster;
+
+            label {
+                margin-bottom: 0;
+            }
+
+            input {
+                display: none;
+            }
+
+            .form-control {
+                padding    : 16px 58px;
+                height     : 56px;
+                resize     : none;
+                font-weight: 400;
+
+                &:disabled {
+                    background-color: $color_wild_sand;
+                }
+            }
+
+            .form-control::placeholder {
+                font-weight: 400;
+            }
+
+            .btn {
+                @include font-style(null, null, $color_chatelle, 0);
+                padding: 0;
+
+                &:hover {
+                    color: $color_dodger_blue;
+                }
+
+                &.emoticons {
+                    @include pos-absolute(0, 0, null, 0);
+                    padding: 0 15px 0 20px;
+                }
+
+                &.send {
+                    @include pos-absolute(0, null, 0, 0);
+                    padding: 0 20px 0 15px;
+                }
+
+                &.attach {
+                    @include box-size(56px, 56px);
+                    padding    : 16px;
+                    margin-left: 20px;
+                    color      : $white;
+                    box-shadow : 0 5px 10px 4px $black_4;
+
+                    &:hover {
+                        color: $white;
+                    }
+
+                    &.btn.disabled:hover {
+                        color: $white !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .start {
+        @include d-flex(center, center);
+        width: 100%;
+
+        .content {
+            width     : 100%;
+            text-align: center;
+
+            h1 {
+                @include font-style(800, 46px, $color_shark, null, (bottom, 40px));
+            }
+
+            p {
+                @include font-style(400, 16px, null, null, (bottom, 20px));
+            }
+
+            .third-party {
+                @include d-flex(center, center, null, null, (bottom, 38px));
+
+                .item {
+                    @include d-flex(center, center, null, 15px, (right, 20px));
+                    @include box-size(60px, 60px);
+                    @include border(null, 100%, 0 0 20px $black_4);
+                    @include transition(all 0.3s);
+
+                    &:hover {
+                        @include transform(translateY(-5px) translateZ(0));
+                        opacity: 0.9;
+                    }
+
+                    &:last-of-type {
+                        margin-right: 0;
+                    }
+
+                    .material-icons {
+                        @include font-style(null, 30px, $white);
+                    }
+
+                    img {
+                        @include box-size(25px, 25px);
+                    }
+                }
+            }
+
+            form {
+                width    : 100%;
+                max-width: 366px;
+                margin   : 0 auto;
+            }
+
+            .form-group {
+                position     : relative;
+                margin-bottom: 15px;
+
+                .form-control {
+                    height     : 56px;
+                    padding    : 0 20px 0 58px;
+                    font-weight: 400;
+                    border     : 2px solid transparent;
+
+                    &:focus {
+                        border: 2px solid $color_dodger_blue !important;
+                    }
+                }
+
+                .form-control::placeholder {
+                    font-weight: 400;
+                }
+
+                .btn.icon {
+                    @include pos-absolute(0, 0, null, 0);
+                    @include font-style(null, null, $color_chatelle, 0);
+                    padding: 0 10px 0 20px;
+                }
+            }
+
+            .callout span {
+                font-size: 16px;
+
+                >a {
+                    color: $color_dodger_blue;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
+    .call {
+        @include pos-sticky(hidden, auto);
+        display   : none;
+        background: linear-gradient(145deg, $color_portage 0, $color_medium_purple 50%, $color_electric_violet 100%);
+
+        .content {
+            @include d-flex(center, center);
+            height    : 100vh;
+            text-align: center;
+
+            .options {
+                @include d-flex(center, center, null, null, (bottom, 60px));
+
+                .option {
+                    @include font-style(null, null, $white, 0);
+                    padding: 0 20px;
+
+                    &.call-end {
+                        @include main-decoration(15px, $color_mandy, 100%, call-end 2s infinite);
+                        @include font-style(null, null, $white, 0);
+                        margin: 0 20px;
+
+                        &:hover {
+                            @include transform(scale(1.05));
+                            @include transition(all 0.3s linear);
+                        }
+                    }
+
+                    &:hover {
+                        opacity: 0.9;
+                    }
+                }
+            }
+
+            .avatar-xxl {
+                margin-bottom: 56px;
+                animation    : pulse 2s infinite;
+                cursor       : pointer;
+            }
+
+            .participant {
+                margin-bottom: 56px;
+
+                span {
+                    @include font-style(500, null, $white);
+                    display   : block;
+                    text-align: center;
+                }
+            }
+
+            .back {
+                @include main-decoration(18px, $black_5, 100%);
+                @include font-style(null, null, $white, 0);
+                @include transition(all 0.3s linear);
+
+                &:hover {
+                    @include transform(translateY(10px) translateZ(0));
+                }
+            }
+        }
+    }
+
+    .call::-webkit-scrollbar {
+        display: none;
+    }
+}

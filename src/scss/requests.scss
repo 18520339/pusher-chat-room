@@ -1,0 +1,102 @@
+.requests {
+    @include d-flex(null, null, column);
+    @include border(null, 6px, 0 0 20px $black_4);
+    position      : relative;
+    width         : 100%;
+    background    : $white;
+    pointer-events: auto;
+
+    .title {
+        @include d-flex(space-between, center, null, 30px 40px);
+        background: $color_white;
+
+        h1 {
+            @include font-style(800, 22px, $color_shark, null, (bottom, 0));
+        }
+
+        .material-icons {
+            font-weight: 800;
+        }
+
+        .close:hover {
+            color: $color_shark !important;
+        }
+    }
+
+    .content {
+        padding: 35px 40px 40px;
+
+        .form-group {
+            margin-bottom: 30px;
+
+            &:last-of-type {
+                margin-bottom: 33px;
+            }
+
+            label {
+                @extend %label;
+            }
+
+            .form-control {
+                padding    : 0 18px;
+                height     : 56px;
+                font-weight: 400;
+                border     : 2px solid transparent;
+
+                &:focus {
+                    border: 2px solid $color_dodger_blue !important;
+                }
+
+                &::placeholder {
+                    font-weight: 400;
+                }
+            }
+        }
+
+        .text-control {
+            @include box-size(100% !important, null, (height, 150px));
+            @include main-decoration(14px 17px, $color_wild_sand, null);
+            @include font-style(400, 16px, $color_chatelle !important);
+            @include border(2px solid transparent, 6px !important);
+
+            &:focus {
+                @include border(2px solid transparent, 6px);
+                outline: 0;
+            }
+
+            &::placeholder {
+                color: $color_chatelle;
+            }
+        }
+
+        .user {
+            @include d-flex(null, center, null, null, (top, -47px));
+            @include pos-absolute(null, 49px, null, null);
+            @include main-decoration(4px 8px, $color_white, 6px);
+
+            .avatar-sm {
+                margin-right: 10px;
+                box-shadow  : 0 0 10px 1px $black_4;
+            }
+
+            h5 {
+                @include font-style(600, 15px, $color_shark, 1.7, (bottom, 0));
+                margin-right: 6px;
+            }
+
+            .btn .material-icons {
+                @include font-style(600, 16px, null);
+            }
+        }
+
+        .button {
+            padding    : 16px 25px;
+            line-height: 1.5;
+        }
+    }
+
+    .btn {
+        padding    : 0;
+        line-height: 0;
+    }
+}

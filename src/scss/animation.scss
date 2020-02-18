@@ -1,0 +1,32 @@
+@keyframes wave {
+
+    0%,
+    60%,
+    100% {
+        @include transform(initial);
+    }
+
+    30% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 $black_10;
+    }
+
+    100% {
+        box-shadow: 0 0 0 50px transparent;
+    }
+}
+
+@keyframes call-end {
+    0% {
+        box-shadow: 0 0 0 0 $black_10;
+    }
+
+    100% {
+        box-shadow: 0 0 0 20px transparent;
+    }
+}

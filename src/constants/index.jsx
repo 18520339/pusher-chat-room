@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 export const SIGN_IN = 'SIGN_IN';
+export const SIGN_UP = 'SIGN_UP';
 export const NOT_FOUND = 'NOT_FOUND';
 
 export const CONNECT = 'CONNECT';

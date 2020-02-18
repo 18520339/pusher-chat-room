@@ -3,13 +3,14 @@
 
 import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
 import { tokenUrl, instanceLocator } from '../config';
+
 import { alertError } from '../functions';
 import * as types from '../constants';
 
-export const connect = userName => (dispatch, getState) => {
+export const connect = userId => (dispatch, getState) => {
 	const chatManager = new ChatManager({
 		instanceLocator,
-		userId: userName,
+		userId,
 		tokenProvider: new TokenProvider({ url: tokenUrl })
 	});
 	chatManager

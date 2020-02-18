@@ -1,47 +1,88 @@
-$main-color          : #2c303b;
-$secondary-color     : deepskyblue;
-$main-text-color     : #3e5869;
-$secondary-text-color: #b0c7d6;
-$send-message-form   : #F5F5F5;
+@import './definition';
+@import './animation';
+@import './aside';
+@import './avatar';
+@import './controls';
+@import './main';
+@import './navigation';
+@import './requests';
+@import './responsive';
+@import './sidebar';
 
-@import './messages';
-@import './rooms';
-@import './users';
-
-#root {
-    height: 100%;
-}
-
-html,
 body {
-    height     : 100%;
-    font-family: system-ui;
-    font-weight: 200;
-    color      : #3e5869;
+    @include box-color($color_white, $color_chatelle);
+    font-family: 'Maven Pro', sans-serif;
+    font-size  : 15px;
 }
 
-ul {
-    padding        : 20px;
-    list-style-type: none;
-    word-break     : break-all;
-}
-
-.app {
-    display              : grid;
-    height               : 100%;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows   : 1fr 1fr 1fr 1fr 1fr 70px;
-    grid-template-areas  :
-        "r m m m m m"
-        "r m m m m m"
-        "o m m m m m"
-        "o m m m m m"
-        "o m m m m m"
-        "n f f f f f";
+main {
     overflow: hidden;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-    background: white;
+a {
+    @include transition(all 0.3s);
+    text-decoration: none;
+    color          : inherit;
+
+    &:hover {
+        text-decoration: none;
+        color          : $color_dodger_blue;
+    }
+}
+
+img {
+    @include transition(all 0.3s);
+}
+
+p {
+    @include font-style(500, null, null, 1.7, (bottom, 0));
+}
+
+@each $color in (blue $color_dodger_blue,
+    indigo $color_electric_violet,
+    purple $color_studio,
+    red $color_amaranth,
+    pink $color_cerise,
+    orange $color_ecstasy,
+    gray $color_chatelle,
+    green $color_sea_green,
+    teal $color_shamrock,
+    yellow $color_amber) {
+    .#{"bg-" + nth($color, 1)} {
+        background: #{nth($color, 2)} !important;
+    }
+}
+
+.material-icons {
+    $i: 18;
+
+    @while $i <=48 {
+        &.md-#{$i} {
+            font-size: #{$i}px;
+        }
+
+        $i: $i+6;
+    }
+}
+
+.modal {
+    &-dialog {
+        max-width: 450px;
+    }
+
+    &-backdrop {
+        opacity: 0 !important;
+    }
+}
+
+.start {
+    padding-bottom: 0;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $color_mercury;
 }

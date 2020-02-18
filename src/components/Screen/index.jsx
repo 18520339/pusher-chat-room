@@ -1,7 +1,8 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-export { default as LoginScreen } from './LoginScreen';
-export { default as ChatScreen } from './ChatScreen';
+export { default as SignIn } from './SignIn';
+export { default as SignUp } from './SignUp';
+export { default as Chat } from './Chat';
 
 /* eslint-enable */

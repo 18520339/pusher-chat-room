@@ -3,11 +3,11 @@
 
 import * as types from '../../constants';
 
-const initialState = { userName: '', currentScreen: 'LoginScreen' };
+const initialState = { id: '', currentScreen: 'SignIn' };
 const screen = (state = initialState, action) => {
 	switch (action.type) {
 		case types.SIGN_IN:
-			return { userName: action.userName, currentScreen: 'ChatScreen' };
+			return { id: action.id, currentScreen: 'Chat' };
 		default:
 			return state;
 	}

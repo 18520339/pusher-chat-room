@@ -1,0 +1,149 @@
+%border {
+    border    : none;
+    box-shadow: none;
+    outline   : 0;
+}
+
+.btn {
+    @include transition(all 0.3s);
+    @extend %border;
+
+    &:not(:disabled):not(.disabled) {
+
+        &.active,
+        &:active {
+            @extend %border;
+        }
+    }
+
+    &:active,
+    &:focus,
+    &:hover {
+        @extend %border;
+    }
+
+    &:disabled {
+        opacity: 1;
+    }
+}
+
+.button {
+    @include control(100%, 16px 25px, $color_dodger_blue);
+    @include font-style(500, null, $white);
+    @include border(null, 6px, 0 0 30px 5px $black_4 !important);
+
+    &:hover {
+        color  : $white;
+        opacity: 0.9;
+    }
+}
+
+.show>.btn.dropdown-toggle {
+    @include border(none, null, 0 0 30px 5px $black_4 !important);
+}
+
+.create.btn:not(:disabled):not(.disabled):active {
+    box-shadow: 0 0 30px 5px $black_4;
+}
+
+.form-control {
+    @include control(100% !important, 25px 15px, $color_wild_sand);
+    @include font-style(500, 16px, $color_chatelle !important);
+    @include border(none, 6px, none);
+
+    &:focus {
+        @include box-color($color_wild_sand, none !important);
+        box-shadow: none;
+    }
+
+    &::placeholder {
+        @include font-style(500, 16px, $color_chatelle);
+    }
+
+    &[readonly] {
+        background-color: $color_wild_sand;
+    }
+}
+
+.dropdown-menu {
+    @include border(none, 6px, 0 0 20px $black_4);
+    min-width : 14rem;
+    padding   : 10px;
+    margin-top: 10px;
+
+    hr {
+        margin    : 10px;
+        border-top: 2px solid $color_alabaster;
+    }
+
+    .material-icons {
+        margin-right: 10px;
+    }
+}
+
+.dropdown-item {
+    @include d-flex(null, center, null, 10px);
+    @include font-style(null, 15px, $color_chatelle);
+    @include transition(all 0.3s);
+    border-radius: 6px;
+    cursor       : pointer;
+
+    &:focus {
+        @include box-color(0 0, $color_chatelle);
+        @include border(none, 6px, none);
+        outline: 0;
+    }
+
+    &:hover {
+        @include box-color($color_wild_sand, $color_chatelle);
+        border-radius: 6px;
+    }
+
+    &:active,
+    &.active {
+        @include box-color($color_dodger_blue !important, $white !important);
+    }
+}
+
+.switch {
+    @include box-size(null, 18px, (width, 42px));
+    display      : inline-block;
+    position     : relative;
+    margin-bottom: 0;
+
+    input {
+        @include box-size(0, 0);
+        opacity: 0;
+    }
+}
+
+.slider {
+    @include pos-absolute(0, 0, 0, 0);
+    @include transition(0.4s);
+    background-color: $color_silver;
+    cursor          : pointer;
+
+    &:before {
+        @include pos-absolute(null, 3px, null, 3px);
+        @include box-size(12px, 12px);
+        @include transition(0.4s);
+        background-color: $white;
+        content         : '';
+    }
+
+    &.round {
+        border-radius: 34px;
+
+        &:before {
+            border-radius: 50%;
+        }
+    }
+}
+
+input:checked+.slider {
+    background-color: $color_dodger_blue !important;
+
+    &:before {
+        transform: translateX(24px);
+    }
+}

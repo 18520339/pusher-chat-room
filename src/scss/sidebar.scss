@@ -1,0 +1,111 @@
+.sidebar {
+    background: $color_white;
+
+    .create {
+        @include combine((30px, null, 20px, 0), 50px, null, 0 0 30px 5px $black_4, null, $white);
+        @include d-flex(center, center, null, 0);
+        @include transition(all 0.3s);
+        float : right;
+        cursor: pointer;
+
+        &:hover {
+            @include transform(translateY(-5px) translateZ(0));
+        }
+
+        .material-icons {
+            @include font-style(null, 22px, $color_chatelle);
+        }
+
+        &.btn:not(:disabled):not(.disabled).active {
+            box-shadow: 0 0 30px 5px $black_4;
+        }
+    }
+
+    .info {
+        @include d-flex(null, center, column, null, (bottom, 20px));
+
+        .avatar-xl {
+            @include box-size(null, auto, (width, 100px));
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            color: #212529;
+        }
+    }
+
+    .contacts {
+        @include sidebar-info(contact, $color_dodger_blue);
+    }
+
+    .discussions {
+        @include sidebar-info(single, $color_shark);
+
+        .single {
+            .data {
+                span {
+                    @include font-style(400, 14px, null);
+                    float: right;
+                }
+            }
+
+            &.active,
+            &.unread {
+
+                p,
+                span {
+                    @include font-style(500 !important, null, $color_shark)
+                }
+            }
+
+            .new {
+                @include combine((null, 39px, 0, null), 30px, 2px solid $white, 5px 0 10px 0 $black_4, -12px, $color_ronchi);
+                @include d-flex(center, center);
+
+                span {
+                    @include font-style(500, 12px, $white !important);
+                }
+            }
+        }
+    }
+
+    .search {
+        margin-bottom: 30px;
+
+        .form-control {
+            padding: 0 15px 0 54px;
+            height : 56px;
+        }
+
+        .loop {
+            @include pos-absolute(0, 0, null, 0);
+            padding      : 0 15px;
+            margin-bottom: 0 !important;
+            line-height  : 0;
+
+            .material-icons {
+                @include font-style(600, 25px, $color_chatelle);
+
+                &.filter-list {
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+
+    .sort {
+        @include d-flex(center, baseline, row, null, (bottom, 40px));
+        text-align: center;
+
+        .btn {
+            @include font-style(500, 15px, inherit);
+            padding      : 8px 20px;
+            border-radius: 100px;
+
+            &.active {
+                @include main-decoration(8px 20px, $color_wild_sand, 100px);
+                color: $color_dodger_blue;
+            }
+        }
+    }
+}

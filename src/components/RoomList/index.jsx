@@ -8,23 +8,64 @@ import { Link } from 'react-router-dom';
 export default function RoomList() {
 	const { rooms, roomActive } = useSelector(state => state);
 	return (
-		<ul className='rooms-list'>
-			<h3>Phòng chat</h3>
-			{rooms.map(room => {
-				const { id, name, unreadCount } = room;
-				const isActive = roomActive.id === id ? 'active' : '';
-				return (
-					<li key={id} className={'list-item ' + isActive}>
-						<Link to={id}>
-							# {name} &ensp;
-							{unreadCount > 0 ? (
-								<span className='unread'>{unreadCount}</span>
-							) : null}
-						</Link>
-					</li>
-				);
-			})}
-		</ul>
+		<div class='sidebar' id='sidebar'>
+			<div class='container'>
+				<div class='col-md-12'>
+					<div class='tab-content'>
+						<div id='discussions' class='tab-pane fade active show'>
+							<SearchName />
+							<SortGroup />
+							<div class='discussions'>
+								<h1>Các phòng chat</h1>
+								<div id='chats' class='list-group' role='tablist' >
+									{rooms.map(room => {
+										const { id, name, unreadCount } = room;
+										const isActive = roomActive.id === id ? ' active' : '';
+										const avatar = name.replace(' ', '+');
+										avatar = `https://ui-avatars.com/api/?name=${avatar}&size=200`;
+										return (
+											<Link
+												key={id}
+												id='list-chat-list'
+												class={`filterDiscussions all unread single${isActive}`}
+												to='#list-chat'
+												data-toggle='list'
+												role='tab'
+											>
+												<img
+													class='avatar-md'
+													src={avatar}
+													data-toggle='tooltip'
+													data-placement='top'
+													title={name}
+													alt='avatar'
+												/>
+												{unreadCount > 0 && (
+													<div class='new bg-yellow'>
+														<span>
+															{unreadCount}
+														</span>
+													</div>
+												)}
+												<div class='data'>
+													<h5>{name}</h5>
+													<span>Mon</span>
+													<p>
+														A new feature has been
+														updated to your account.
+														Check it out...
+													</p>
+												</div>
+											</Link>
+										);
+									})}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	);
 }
 

@@ -1,0 +1,257 @@
+@media (max-width: 1200px) {
+    .aside {
+        @include box-size(null, null, (width, auto));
+    }
+}
+
+@media(min-width: 992px) {
+    main {
+        @include d-flex(null, flex-start);
+    }
+
+    .navigation {
+        @include pos-sticky(hidden, auto);
+        @include box-size(null, null, (width, 100px));
+        border-right: 5px solid $color_alabaster;
+
+        .inside {
+            @include d-flex(null, center, column, 30px 0 0);
+            height: 100vh;
+
+            .menu {
+                @include d-flex(null, null, column);
+                flex-basis : auto;
+                flex-grow  : 1;
+                flex-shrink: 0;
+                text-align : center;
+
+                .f-grow1 {
+                    flex-grow: 1;
+                }
+
+                .avatar-xl {
+                    margin-bottom: 50px;
+                }
+            }
+        }
+    }
+
+    .sidebar {
+        @include pos-sticky(hidden, scroll);
+        @include box-size(null, 100vh, (width, 372px));
+        padding: 30px 0 0;
+    }
+
+    .main {
+        height      : 100vh;
+        border-right: 5px solid $color_alabaster;
+
+        .start {
+            height: 100vh;
+
+            .content {
+                .callout {
+                    display: none;
+                }
+
+                .form-parent {
+                    display: flex;
+
+                    .form-group {
+                        margin-right: 15px;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+
+                form.signup {
+                    max-width: 466px;
+                }
+            }
+        }
+
+        .chat {
+            border-left: 2px solid $color_alabaster;
+        }
+
+        .call .content .inside {
+            max-height: calc(100vh - 0);
+
+            .panel {
+                padding: 30px 0;
+            }
+        }
+    }
+
+    .navigation::-webkit-scrollbar {
+        display: none;
+    }
+
+    .sidebar::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+        background: $color_wild_sand;
+    }
+}
+
+@media(max-width: 991px) {
+    body {
+        padding-bottom: 54px;
+    }
+
+    .aside {
+        display: none;
+    }
+
+    .navigation {
+        @include pos-fixed(null, 0, 0, 0);
+        box-shadow: 0 0 20px 0 $black_4;
+
+        .inside {
+            @include d-flex(center, flex-end, null, 12px 15px);
+            flex-wrap: wrap;
+
+            .menu {
+                flex-wrap  : unset !important;
+                align-items: flex-end;
+                width      : 100%;
+
+                .avatar-xl {
+                    display: none;
+                }
+
+                .mode {
+                    margin: auto;
+                }
+
+                .power {
+                    margin-bottom: 0 !important;
+
+                    .material-icons {
+                        font-size: 35px;
+                    }
+                }
+
+                a {
+                    margin-left : auto;
+                    margin-right: auto;
+
+                    &:first-of-type {
+                        margin-left: 0;
+                    }
+
+                    &:last-of-type {
+                        margin-right: 0;
+                    }
+                }
+
+                .material-icons {
+                    @include font-style(null, 30px, null, null, (bottom, 0));
+                }
+            }
+        }
+    }
+
+    .sidebar {
+        @include box-size(null, null, (height, 600px));
+        @include overflow(30px 0 0, hidden, auto);
+    }
+
+    .sidebar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .main {
+        .start {
+            padding: 73px 0 77px;
+
+            .content {
+                .button {
+                    margin-bottom: 20px;
+                }
+
+                .callout {
+                    display: block;
+                }
+            }
+        }
+
+        .chat .content {
+            height: 600px;
+        }
+
+        .call .content {
+            padding: 60px 0;
+            height : 100%;
+        }
+    }
+}
+
+@media(min-width: 768px) {
+    .container {
+        max-width: 100%;
+    }
+}
+
+@media(max-width: 768px) {
+    .main .chat {
+        .top {
+            padding: 20px 0;
+        }
+
+        .content {
+            height: 310px;
+        }
+    }
+}
+
+@media(min-width: 576px) {
+    .container {
+        max-width: 100%;
+    }
+}
+
+@media(max-width: 468px) {
+    .container {
+        padding-left : 5px;
+        padding-right: 5px;
+    }
+
+    .requests {
+        .title {
+            padding: 30px 20px;
+        }
+
+        .content {
+            padding: 34px 20px 40px;
+
+            .user {
+                left: 29px;
+            }
+        }
+    }
+
+    .main {
+        .start .content h1 {
+            font-size: 36px;
+        }
+
+        .call .content .options .option {
+            padding: 0 15px;
+        }
+    }
+}
+
+@media(max-width: 350px) {
+    .main .call .content .options .option {
+        padding: 0 12px;
+
+        &.call-end {
+            margin: 0 15px;
+        }
+    }
+}
