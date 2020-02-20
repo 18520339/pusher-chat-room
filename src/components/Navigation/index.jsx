@@ -1,32 +1,37 @@
+/* jshint esversion: 10 */
+/* eslint-disable */
+
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { signOut } from '../../actions';
 
 export default function Navigation() {
+	const { avatarURL } = useSelector(state => state.currentUser);
+	const dispatch = useDispatch();
+	const onPower = () => dispatch(signOut());
+
 	return (
-		<div class='navigation'>
-			<div class='container'>
-				<div class='inside'>
-					<div class='nav nav-tab menu'>
-						<button class='btn'>
-							<img
-								class='avatar-xl'
-								src='img/avatars/avatar-male-1.jpg'
-								alt='avatar'
-							/>
+		<div className='navigation'>
+			<div className='container'>
+				<div className='inside'>
+					<div className='nav nav-tab menu'>
+						<button className='btn'>
+							<img className='avatar-xl' src={avatarURL} />
 						</button>
 						<a
 							href='#discussions'
+							className='active f-grow1'
 							data-toggle='tab'
-							class='active f-grow1'
 						>
-							<i class='material-icons active'>
+							<i className='material-icons active'>
 								chat_bubble_outline
 							</i>
 						</a>
-						<button class='btn mode'>
-							<i class='material-icons'>brightness_2</i>
+						<button className='btn mode'>
+							<i className='material-icons'>brightness_2</i>
 						</button>
-						<button class='btn power' onclick='visitPage();'>
-							<i class='material-icons'>power_settings_new</i>
+						<button className='btn power' onClick={onPower}>
+							<i className='material-icons'>power_settings_new</i>
 						</button>
 					</div>
 				</div>
@@ -34,3 +39,5 @@ export default function Navigation() {
 		</div>
 	);
 }
+
+/* eslint-enable */

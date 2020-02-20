@@ -1,7 +1,7 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-export { default as LoadingTitle } from './LoadingTitle';
+export { default as NoMessages } from './NoMessages';
 export { default as MessageList } from './MessageList';
 export { default as Message } from './Message';
 

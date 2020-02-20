@@ -1,27 +1,24 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import { SignIn, SignUp, Chat } from '../Screen';
 import '../../scss/style.scss';
 
 export default function App() {
-	const { screen } = useSelector(state => state);
-
+	const screen = useSelector(state => state.screen);
+	const currentScreen = screen.currentScreen === 'SignIn' ? SignIn : Chat;
 	return (
 		<BrowserRouter>
 			<Switch>
-				<Route exact path='/'>
-					{screen.currentScreen === 'SignIn' ? <SignIn /> : <Chat />}
-				</Route>
-				<Route path='/sign-up'>
-					<SignUp />
-				</Route>
-				<Route path='/'>
-					<h1>404 NOT FOUND</h1>
+				<Redirect exact from='/' to='/room' />
+				<Route path='/room' component={currentScreen} />
+				<Route path='/sign-up' component={SignUp} />
+				<Route>
+					<h1>404 NOT_FOUND</h1>
 				</Route>
 			</Switch>
 		</BrowserRouter>

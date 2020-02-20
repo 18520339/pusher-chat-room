@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 
 export default function UserList() {
 	const { roomUsers } = useSelector(state => state);
-
 	return (
 		<ul className='online-list'>
 			<h3>Hoạt Động</h3>

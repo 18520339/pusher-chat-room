@@ -23,13 +23,12 @@ export default function SignIn() {
 		const { email, password } = userInfo;
 
 		if (email.trim() && password.trim()) {
-			dispatch(signInAPI(email, password));
+			dispatch(signInAPI(email, password, history));
 		}
 	};
 
 	return (
-		<main>
-			{/* Start of Sign In */}
+		<div className='app'>
 			<div className='main order-md-1'>
 				<div className='start'>
 					<div className='container'>
@@ -41,10 +40,14 @@ export default function SignIn() {
 										<i className='material-icons'>pages</i>
 									</button>
 									<button className='btn item bg-teal'>
-										<i className='material-icons'>party_mode</i>
+										<i className='material-icons'>
+											party_mode
+										</i>
 									</button>
 									<button className='btn item bg-purple'>
-										<i className='material-icons'>whatshot</i>
+										<i className='material-icons'>
+											whatshot
+										</i>
 									</button>
 								</div>
 								<p>Sử dụng tài khoản email đã đăng kí:</p>
@@ -65,11 +68,16 @@ export default function SignIn() {
 										icon='lock_outline'
 										onChange={onChange}
 									/>
-									<button type='submit' className='btn button'>Đăng Nhập</button>
+									<button
+										type='submit'
+										className='btn button'
+									>
+										Đăng Nhập
+									</button>
 									<div className='callout'>
 										<span>
 											Chưa có tài khoản? &nbsp;
-											<Link to='sign-up'>Tạo ngay</Link>
+											<Link to='/sign-up'>Tạo ngay</Link>
 										</span>
 									</div>
 								</form>
@@ -78,8 +86,6 @@ export default function SignIn() {
 					</div>
 				</div>
 			</div>
-			{/* End of Sign In */}
-			{/* Start of Sidebar */}
 			<div className='aside order-md-2'>
 				<div className='container'>
 					<div className='col-md-12'>
@@ -89,13 +95,14 @@ export default function SignIn() {
 								Nhập thông tin tài khoản và bắt đầu hành trình
 								với QuanChat ngay nào.
 							</p>
-							<Link to='sign-up' className='btn button'>Đăng kí</Link>
+							<Link to='/sign-up' className='btn button'>
+								Đăng kí
+							</Link>
 						</div>
 					</div>
 				</div>
 			</div>
-			{/* End of Sidebar */}
-		</main>
+		</div>
 	);
 }
 

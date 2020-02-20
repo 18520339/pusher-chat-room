@@ -3,54 +3,54 @@
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { connect } from '../../actions';
 
 import Navigation from '../Navigation';
-import RoomList from '../RoomList';
-import { MessageList, LoadingTitle } from '../MessageList';
+import { RoomList } from '../RoomList';
+import { TopBar } from '../TopBar';
+import { MessageList, NoMessages } from '../MessageList';
 import { UserList, TypingList } from '../Users';
 import { CreateRoom, SendMessage } from '../FormControls';
 
-export default function Chat() {
+export default function Chat({ match }) {
 	const { screen, rooms, isLoading } = useSelector(state => state);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(connect(screen.id));
+		dispatch(connect(screen.userId));
 	}, []);
 
 	return (
-		// <BrowserRouter>
-		// 	<div className='app'>
-		// 		<Navigation />
-		// 		<RoomList />
-		// 		<CreateRoom />
-		// 		<Switch>
-		// 			<Route exact path='/'>
-		// 				<ul className='message-list'>
-		// 					{isLoading ? (
-		// 						<LoadingTitle value='&ensp; Đang kết nối máy chủ ...' />
-		// 					) : (
-		// 						<LoadingTitle value='&larr; Chọn phòng để bắt đầu chat nào !' />
-		// 					)}
-		// 				</ul>
-		// 			</Route>
-		// 			{rooms.map(room => (
-		// 				<Route
-		// 					key={room.id}
-		// 					path='/:roomId'
-		// 					component={MessageList}
-		// 				/>
-		// 			))}
-		// 		</Switch>
-		// 		<TypingList />
-		// 		<SendMessage />
-		// 		<UserList />
-		// 	</div>
-		// </BrowserRouter>
-		<div>
-			<h1>Chat</h1>
+		<div className='app'>
+			<Navigation />
+			<RoomList match={match} />
+			<div className='main'>
+				<div className='chat'>
+					<TopBar />
+					<div className='content'>
+						<div className='container'>
+							<Switch>
+								<Route exact path={match.path}>
+									{isLoading ? (
+										<NoMessages title='Đang kết nối máy chủ' />
+									) : (
+										<NoMessages title='Chọn phòng để bắt đầu chat nào!' />
+									)}
+								</Route>
+								{rooms.map(room => (
+									<Route
+										key={room.id}
+										path={`${match.path}/:roomId`}
+										component={MessageList}
+									/>
+								))}
+							</Switch>
+						</div>
+					</div>
+					<SendMessage />
+				</div>
+			</div>
 		</div>
 	);
 }

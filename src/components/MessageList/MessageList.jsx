@@ -3,16 +3,16 @@
 
 import React, { createRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { enterRoom } from '../../actions';
 
-import { enterRoom, addEmoji } from '../../actions';
-import LoadingTitle from './LoadingTitle';
+import NoMessages from './NoMessages';
 import Message from './Message';
 
-export default function MessageList(props) {
+export default function MessageList({ match }) {
 	const { roomUsers, messages, isLoading } = useSelector(state => state);
 	const dispatch = useDispatch();
 
-	const { roomId } = props.match.params;
+	const { roomId } = match.params;
 	const roomNotFound = !roomUsers.length;
 	const messagesNode = createRef();
 
@@ -25,27 +25,34 @@ export default function MessageList(props) {
 	}, [isLoading]);
 
 	useEffect(() => {
+		console.log(messagesNode.current);
 		if (document.hasFocus() && roomId)
 			messagesNode.current.scrollTop = messagesNode.current.scrollHeight;
 	}, [messages]);
 
 	const onShowMessage = () => {
 		if (messages.length === 0 && !isLoading && !roomNotFound)
-			return <LoadingTitle value='Bắt đầu cuộc trò chuyện mới...' />;
-		else if (isLoading && !roomNotFound)
-			return <LoadingTitle value='&ensp; Đang tải, đợi chút !' />;
+			return <NoMessages title='Bắt đầu cuộc trò chuyện mới...' />;
+		else if (isLoading) return <NoMessages title='Đang tải, đợi chút !' />;
 		else if (!isLoading && roomNotFound)
-			return <LoadingTitle value='404 Not Found :(' />;
+			return <NoMessages title='404 Not Found :(' />;
 		return messages.map(message => {
-			const { id, sender, text } = message;
-			return <Message key={id} sender={sender} text={text} />;
+			const { id, sender, createdAt, text } = message;
+			return (
+				<Message
+					key={id}
+					sender={sender}
+					createdAt={createdAt}
+					text={text}
+				/>
+			);
 		});
 	};
 
 	return (
-		<ul className='message-list' ref={messagesNode}>
+		<div className='col-md-12' ref={messagesNode}>
 			{onShowMessage()}
-		</ul>
+		</div>
 	);
 }
 

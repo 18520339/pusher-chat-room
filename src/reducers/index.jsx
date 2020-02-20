@@ -4,12 +4,14 @@
 import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
+import chatkit from './chatkit';
 import screen from './screen';
 import { currentUser, roomUsers, typingUsers } from './users';
 import { rooms, roomActive } from './rooms';
 import { messages, isLoading, showPicker } from './messages';
 
 const rootReducer = combineReducers({
+	chatkit,
 	screen,
 	rooms,
 	roomActive,

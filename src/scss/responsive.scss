@@ -5,7 +5,7 @@
 }
 
 @media(min-width: 992px) {
-    main {
+    .app {
         @include d-flex(null, flex-start);
     }
 

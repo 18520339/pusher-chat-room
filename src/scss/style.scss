@@ -15,10 +15,6 @@ body {
     font-size  : 15px;
 }
 
-main {
-    overflow: hidden;
-}
-
 a {
     @include transition(all 0.3s);
     text-decoration: none;
@@ -36,6 +32,10 @@ img {
 
 p {
     @include font-style(500, null, null, 1.7, (bottom, 0));
+}
+
+.app {
+    overflow: hidden;
 }
 
 @each $color in (blue $color_dodger_blue,
@@ -77,12 +77,4 @@ p {
 
 .start {
     padding-bottom: 0;
-}
-
-::-webkit-scrollbar {
-    width: 15px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: $color_mercury;
 }

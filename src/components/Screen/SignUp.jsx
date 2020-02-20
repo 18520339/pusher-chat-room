@@ -33,8 +33,7 @@ export default function SignUp() {
 	};
 
 	return (
-		<main>
-			{/* Start of Sign Up  */}
+		<div className='app'>
 			<div className='main order-md-2'>
 				<div className='start'>
 					<div className='container'>
@@ -46,10 +45,14 @@ export default function SignUp() {
 										<i className='material-icons'>pages</i>
 									</button>
 									<button className='btn item bg-teal'>
-										<i className='material-icons'>party_mode</i>
+										<i className='material-icons'>
+											party_mode
+										</i>
 									</button>
 									<button className='btn item bg-purple'>
-										<i className='material-icons'>whatshot</i>
+										<i className='material-icons'>
+											whatshot
+										</i>
 									</button>
 								</div>
 								<p>Sử dụng email của bạn để đăng kí:</p>
@@ -80,7 +83,12 @@ export default function SignUp() {
 										icon='lock_outline'
 										onChange={onChange}
 									/>
-									<button type='submit' className='btn button'>Đăng kí</button>
+									<button
+										type='submit'
+										className='btn button'
+									>
+										Đăng kí
+									</button>
 									<div className='callout'>
 										<span>
 											Đã có tài khoản? &nbsp;
@@ -93,8 +101,6 @@ export default function SignUp() {
 					</div>
 				</div>
 			</div>
-			{/* End of Sign Up */}
-			{/* Start of Sidebar */}
 			<div className='aside order-md-1'>
 				<div className='container'>
 					<div className='col-md-12'>
@@ -104,13 +110,14 @@ export default function SignUp() {
 								Để giữ kết nối với bạn bè, vui lòng sử dụng
 								thông tin tài khoản mà bạn đã đăng kí .
 							</p>
-							<Link to='/' className='btn button'>Đăng nhập</Link>
+							<Link to='/' className='btn button'>
+								Đăng nhập
+							</Link>
 						</div>
 					</div>
 				</div>
 			</div>
-			{/* End of Sidebar */}
-		</main>
+		</div>
 	);
 }
 
