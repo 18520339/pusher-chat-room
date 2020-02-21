@@ -59,7 +59,7 @@
             }
 
             .new {
-                @include combine((null, 39px, 0, null), 30px, 2px solid $white, 5px 0 10px 0 $black_4, -12px, $color_ronchi);
+                @include combine((null, 39px, 0, null), 30px, 2px solid $white, 5px 0 10px 0 $black_4, -23px, $color_ronchi);
                 @include d-flex(center, center);
 
                 span {

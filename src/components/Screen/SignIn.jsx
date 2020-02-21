@@ -34,7 +34,7 @@ export default function SignIn() {
 					<div className='container'>
 						<div className='col-md-12'>
 							<div className='content'>
-								<h1>Welcome to QuanChat</h1>
+								<h1>Sign in QuanChat</h1>
 								<div className='third-party'>
 									<button className='btn item bg-blue'>
 										<i className='material-icons'>pages</i>
@@ -90,7 +90,7 @@ export default function SignIn() {
 				<div className='container'>
 					<div className='col-md-12'>
 						<div className='preference'>
-							<h2>Chào, Bạn!</h2>
+							<h2>Hello, Friend!</h2>
 							<p>
 								Nhập thông tin tài khoản và bắt đầu hành trình
 								với QuanChat ngay nào.

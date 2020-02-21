@@ -9,7 +9,7 @@ export default function RoomBrief(props) {
 	const { chatkit, currentUser } = useSelector(state => state);
 	const [lastMessage, setLastMessage] = useState({
 		sender: { id: '', name: '' },
-		content: 'Tham gia để được cập nhật các tin nhắn mới nhất',
+		content: 'Chưa có tin nhắn',
 		updated_at: 'Được đề xuất'
 	});
 

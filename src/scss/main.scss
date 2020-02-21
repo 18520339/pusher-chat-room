@@ -307,6 +307,33 @@
             @include d-flex(null, center, null, 30px 0);
             border-top: 2px solid $color_alabaster;
 
+            .rta {
+                position: relative;
+                width   : 100%;
+            }
+
+            .rta__autocomplete {
+                @include pos-absolute(unset !important, 14% !important, null, 77%);
+                @include border(1px solid $color_chatelle, 5px);
+                max-height      : 250px;
+                background-color: $white;
+                overflow        : scroll;
+            }
+
+            .rta__autocomplete ul {
+                @include d-flex(null, null, column, 0);
+                margin: 0;
+            }
+
+            .rta__autocomplete li {
+                padding: 3px 20px;
+                color  : #2196f3;
+            }
+
+            .rta__autocomplete li:hover {
+                @include box-color(#2196f3, $white);
+            }
+
             label {
                 margin-bottom: 0;
 

@@ -1,7 +1,7 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import React, { createRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { enterRoom } from '../../actions';
 
@@ -12,22 +12,21 @@ export default function MessageList({ match }) {
 	const { roomUsers, messages, isLoading } = useSelector(state => state);
 	const dispatch = useDispatch();
 
+	const messageNode = useRef(null);
 	const { roomId } = match.params;
 	const roomNotFound = !roomUsers.length;
-	const messagesNode = createRef();
 
 	useEffect(() => {
 		dispatch(enterRoom(roomId));
 	}, [roomId]);
 
 	useEffect(() => {
-		messagesNode.current.scrollTop = messagesNode.current.scrollHeight;
+		messageNode.current.scrollIntoView();
 	}, [isLoading]);
 
 	useEffect(() => {
-		console.log(messagesNode.current);
 		if (document.hasFocus() && roomId)
-			messagesNode.current.scrollTop = messagesNode.current.scrollHeight;
+			messageNode.current.scrollIntoView({ behavior: 'smooth' });
 	}, [messages]);
 
 	const onShowMessage = () => {
@@ -50,8 +49,9 @@ export default function MessageList({ match }) {
 	};
 
 	return (
-		<div className='col-md-12' ref={messagesNode}>
+		<div className='col-md-12'>
 			{onShowMessage()}
+			<div ref={messageNode} />
 		</div>
 	);
 }

@@ -51,6 +51,7 @@ export default function Chat({ match }) {
 					<SendMessage />
 				</div>
 			</div>
+			<UserList match={match} />
 		</div>
 	);
 }

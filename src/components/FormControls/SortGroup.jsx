@@ -3,30 +3,12 @@
 
 import React from 'react';
 
-export default function SortGroup() {
+export default function SortGroup(props) {
 	return (
 		<div className='list-group sort'>
-			<button
-				className='btn filterDiscussionsBtn active show'
-				data-toggle='list'
-				data-filter='all'
-			>
-				All
-			</button>
-			<button
-				className='btn filterDiscussionsBtn'
-				data-toggle='list'
-				data-filter='read'
-			>
-				Read
-			</button>
-			<button
-				className='btn filterDiscussionsBtn'
-				data-toggle='list'
-				data-filter='unread'
-			>
-				Unread
-			</button>
+			<button className='btn active show'>Tất cả</button>
+			<button className='btn'>{props.groups[0]}</button>
+			<button className='btn'>{props.groups[1]}</button>
 		</div>
 	);
 }

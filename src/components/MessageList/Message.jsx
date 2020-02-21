@@ -15,53 +15,38 @@ export default function Message(props) {
 		hour: '2-digit',
 		minute: '2-digit'
 	});
-	// const insertTextAtIndices = (text, obj) => {
-	// 	return text.replace(/./g, (character, index) => {
-	// 		return obj[index] ? obj[index] + character : character;
-	// 	});
-	// };
 
-	// const mentions = text.match(/@[a-zA-Z0-9]+/g) || [];
-	// const roomUserNames = roomUsers.map(user => `@${user.name}`);
-	// const mentionedUsers = mentions.filter(username =>
-	// 	roomUserNames.includes(username)
-	// );
+	const insertTextAtIndices = (text, obj) => {
+		return text.replace(/./g, (character, index) => {
+			return obj[index] ? obj[index] + character : character;
+		});
+	};
 
-	// let messageText = text;
-	// mentionedUsers.forEach(user => {
-	// 	const startIndex = messageText.indexOf(user);
-	// 	const endIndex = startIndex + user.length;
-	// 	const isCurrent = name === user.substring(1) ? ' is-current' : '';
+	const mentions = text.match(/@[a-zA-Z0-9]+/g) || [];
+	const roomUserNames = roomUsers.map(user => `@${user.name}`);
+	const mentionedUsers = mentions.filter(username =>
+		roomUserNames.includes(username)
+	);
 
-	// 	messageText = insertTextAtIndices(messageText, {
-	// 		[startIndex]: `<span class="mentioned-user${isCurrent}">`,
-	// 		[endIndex]: '</span>'
-	// 	});
-	// });
+	let messageText = text;
+	mentionedUsers.forEach(user => {
+		const startIndex = messageText.indexOf(user);
+		const endIndex = startIndex + user.length;
+		const isMe = name === user.substring(1) ? 'danger' : 'info';
+
+		messageText = insertTextAtIndices(messageText, {
+			[startIndex]: `<p class="badge badge-pill badge-${isMe}">`,
+			[endIndex]: '</p>'
+		});
+	});
 
 	return (
-		// <li className={'message ' + isRight}>
-		// 	{isRight === 'd-flex' && (
-		// 		<div className='avatar mr-2'>
-		// 			<img src={avatar} />
-		// 		</div>
-		// 	)}
-		// 	<div className='message-info'>
-		// 		<div className='message-username'>
-		// 			<h6>{sender.name}</h6>
-		// 		</div>
-		// 		<span
-		// 			className='message-text'
-		// 			dangerouslySetInnerHTML={{ __html: messageText }}
-		// 		/>
-		// 	</div>
-		// </li>
 		<div className={`message${isMe}`}>
 			{!isMe && <Avatar name={sender.name} type='user' tooltip='top' />}
 			<div className='text-main'>
 				<div className={`text-group${isMe}`}>
 					<div className={`text${isMe}`}>
-						<p>{text}</p>
+						<p dangerouslySetInnerHTML={{ __html: messageText }} />
 					</div>
 				</div>
 				<span>{textDate}</span>

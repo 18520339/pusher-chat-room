@@ -105,7 +105,7 @@ export default function SignUp() {
 				<div className='container'>
 					<div className='col-md-12'>
 						<div className='preference'>
-							<h2>Mừng trở lại!</h2>
+							<h2>Welcome Back!</h2>
 							<p>
 								Để giữ kết nối với bạn bè, vui lòng sử dụng
 								thông tin tài khoản mà bạn đã đăng kí .

@@ -27,8 +27,8 @@ $black_5              : rgba(0, 0, 0, 0.05);
 @import url('https://fonts.googleapis.com/css?family=Maven+Pro:500&display=swap&subset=vietnamese');
 
 @mixin d-flex($justify, $align, $direction: null, $padding: null, $margin: null) {
-    display        : -ms-flexbox;
     display        : flex;
+    display        : -ms-flexbox;
     justify-content: $justify;
     -ms-flex-align : $align;
     align-items    : $align;
@@ -139,7 +139,7 @@ $black_5              : rgba(0, 0, 0, 0.05);
     transform        : $transform;
 }
 
-@mixin combine($pos, $size, $border, $box-shadow, $margin-top, $background: null) {
+@mixin combine($pos, $size, $border, $box-shadow, $margin-top: null, $background: null) {
     @include pos-absolute(#{nth($pos, 1)}, #{nth($pos, 2)}, #{nth($pos, 3)}, #{nth($pos, 4)});
     @include box-size($size, $size);
     @include border($border, 100%, $box-shadow);
@@ -174,7 +174,7 @@ $black_5              : rgba(0, 0, 0, 0.05);
 }
 
 %details {
-    @include d-flex(null, flex-start, null, 20px 0);
+    @include d-flex(null, center, null, 20px 0);
     border-bottom: 2px solid $color_alabaster;
 
     .data {
@@ -207,7 +207,7 @@ $black_5              : rgba(0, 0, 0, 0.05);
         }
 
         .status {
-            @include combine((null, 4px, 0, null), 20px, 5px solid $white, null, 12px);
+            @include combine((null, 4px, 0, null), 20px, 5px solid $white, null);
 
             .online {
                 color: $color_dodger_blue;

@@ -32,64 +32,57 @@ export default function SendMessage() {
 	};
 
 	const onSubmit = event => {
-		if (event.key === 'Enter' && message.trim() !== '') {
+		event.preventDefault();
+		if (message.trim()) {
 			dispatch(sendMessage(message));
 			setMessage('');
 		}
 	};
 
 	return (
-		// <form className='send-message-form'>
-		// 	<button
-		// 		type='button'
-		// 		className='toggle-emoji'
-		// 		onClick={onTogglePicker}
-		// 	>
-		// 		<Smile />
-		// 	</button>
-		// 	<ReactTextareaAutocomplete
-		// 		className='message-input'
-		// 		value={message}
-		// 		loadingComponent={() => <span>Loading...</span>}
-		// 		onKeyUp={onSubmit}
-		// 		onChange={onChange}
-		// 		placeholder='Nhập tin nhắn...'
-		// 		trigger={{
-		// 			'@': {
-		// 				dataProvider: token => [...filterUserNames(token)],
-		// 				component: ({ entity: { name } }) => <div>{name}</div>,
-		// 				output: item => `@${item.name}`
-		// 			},
-		// 			':': {
-		// 				dataProvider: token =>
-		// 					emojiIndex.search(token).map(o => ({
-		// 						colons: o.colons,
-		// 						native: o.native
-		// 					})),
-		// 				component: ({ entity: { native, colons } }) => (
-		// 					<div>{`${colons} ${native}`}</div>
-		// 				),
-		// 				output: item => `${item.native}`
-		// 			}
-		// 		}}
-		// 		disabled={!roomActive.id}
-		// 	/>
-		// 	{showPicker && <Picker set='emojione' onSelect={onAddEmoji} />}
-		// </form>
 		<div className='container'>
 			<div className='col-md-12'>
 				<div className='bottom'>
-					<form className='position-relative w-100'>
-						<textarea
+					<form
+						className='position-relative w-100'
+						onSubmit={onSubmit}
+					>
+						<ReactTextareaAutocomplete
 							className='form-control'
-							placeholder='Nhập tin nhắn...'
+							value={message}
+							loadingComponent={() => <span>Loading...</span>}
 							onChange={onChange}
-							rows='1'
-						></textarea>
+							placeholder='Nhập tin nhắn...'
+							trigger={{
+								'@': {
+									dataProvider: token => [
+										...filterUserNames(token)
+									],
+									component: ({ entity: { name } }) => (
+										<div>{name}</div>
+									),
+									output: item => `@${item.name}`
+								},
+								':': {
+									dataProvider: token =>
+										emojiIndex.search(token).map(o => ({
+											colons: o.colons,
+											native: o.native
+										})),
+									component: ({
+										entity: { native, colons }
+									}) => <div>{`${colons} ${native}`}</div>,
+									output: item => `${item.native}`
+								}
+							}}
+							disabled={!roomActive.id}
+						/>
+
 						<button
 							type='button'
 							className='btn emoticons'
 							onClick={onTogglePicker}
+							disabled={!roomActive.id}
 						>
 							<i className='material-icons'>insert_emoticon</i>
 						</button>
