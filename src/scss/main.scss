@@ -317,7 +317,7 @@
                 @include border(1px solid $color_chatelle, 5px);
                 max-height      : 250px;
                 background-color: $white;
-                overflow        : scroll;
+                overflow        : auto;
             }
 
             .rta__autocomplete ul {
@@ -327,11 +327,12 @@
 
             .rta__autocomplete li {
                 padding: 3px 20px;
-                color  : #2196f3;
+                color  : $color_dodger_blue;
+                cursor : pointer;
             }
 
             .rta__autocomplete li:hover {
-                @include box-color(#2196f3, $white);
+                @include box-color($color_dodger_blue, $white);
             }
 
             label {

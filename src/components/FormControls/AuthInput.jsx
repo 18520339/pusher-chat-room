@@ -3,7 +3,7 @@
 
 import React from 'react';
 
-export default function Input(props) {
+export default function AuthInput(props) {
 	const { type, id, value, placeholder, icon } = props;
 	const onChange = event => props.onChange(event);
 

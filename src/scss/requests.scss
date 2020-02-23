@@ -54,7 +54,7 @@
         }
 
         .text-control {
-            @include box-size(100% !important, null, (height, 150px));
+            @include box-size(100% !important, 56px !important);
             @include main-decoration(14px 17px, $color_wild_sand, null);
             @include font-style(400, 16px, $color_chatelle !important);
             @include border(2px solid transparent, 6px !important);
@@ -69,23 +69,37 @@
             }
         }
 
-        .user {
-            @include d-flex(null, center, null, null, (top, -47px));
-            @include pos-absolute(null, 49px, null, null);
-            @include main-decoration(4px 8px, $color_white, 6px);
+        .rta {
+            z-index: 1;
+        }
 
-            .avatar-sm {
-                margin-right: 10px;
-                box-shadow  : 0 0 10px 1px $black_4;
-            }
+        .members {
+            @include pos-absolute(28%, 9%, null, null);
+            @include box-size(82%, 62px);
+            display   : flex;
+            overflow  : scroll;
+            overflow-y: hidden;
 
-            h5 {
-                @include font-style(600, 15px, $color_shark, 1.7, (bottom, 0));
-                margin-right: 6px;
-            }
+            .user {
+                @include d-flex(null, center, null, null, (right, 7px));
+                @include main-decoration(15px, $color_white, 6px);
+                margin-bottom: 30px;
+                z-index      : 2;
 
-            .btn .material-icons {
-                @include font-style(600, 16px, null);
+                .avatar-sm {
+                    margin-right: 10px;
+                    box-shadow  : 0 0 10px 1px $black_4;
+                }
+
+                h5 {
+                    @include font-style(600, 15px, $color_shark, 1.7, (bottom, 0));
+                    margin-right: 6px;
+                    white-space : nowrap;
+                }
+
+                .btn .material-icons {
+                    @include font-style(600, 16px, null);
+                }
             }
         }
 

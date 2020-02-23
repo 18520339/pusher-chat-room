@@ -50,7 +50,7 @@ export default function SendMessage() {
 						<ReactTextareaAutocomplete
 							className='form-control'
 							value={message}
-							loadingComponent={() => <span>Loading...</span>}
+							loadingComponent={() => <p>Loading...</p>}
 							onChange={onChange}
 							placeholder='Nhập tin nhắn...'
 							trigger={{

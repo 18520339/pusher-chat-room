@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { Input } from '../FormControls';
+import { AuthInput } from '../FormControls';
 import { signInAPI } from '../../actions';
 
 export default function SignIn() {
@@ -22,9 +22,8 @@ export default function SignIn() {
 		event.preventDefault();
 		const { email, password } = userInfo;
 
-		if (email.trim() && password.trim()) {
+		if (email.trim() && password.trim())
 			dispatch(signInAPI(email, password, history));
-		}
 	};
 
 	return (
@@ -52,7 +51,7 @@ export default function SignIn() {
 								</div>
 								<p>Sử dụng tài khoản email đã đăng kí:</p>
 								<form onSubmit={onSubmit}>
-									<Input
+									<AuthInput
 										type='email'
 										id='inputEmail'
 										value={userInfo.email}
@@ -60,7 +59,7 @@ export default function SignIn() {
 										icon='mail_outline'
 										onChange={onChange}
 									/>
-									<Input
+									<AuthInput
 										type='password'
 										id='inputPassword'
 										value={userInfo.password}

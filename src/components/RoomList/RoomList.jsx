@@ -21,14 +21,17 @@ export default function RoomList({ match }) {
 			);
 		}
 	};
-
 	return (
 		<div className='sidebar'>
 			<div className='container'>
 				<div className='col-md-12'>
 					<SearchName placeholder='Tìm kiếm phòng chat...' />
 					<SortGroup groups={['Đã đọc', 'Chưa đọc']} />
-					<button className='btn create'>
+					<button
+						className='btn create'
+						data-toggle='modal'
+						data-target='#startnewchat'
+					>
 						<i className='material-icons'>create</i>
 					</button>
 					<div className='discussions'>

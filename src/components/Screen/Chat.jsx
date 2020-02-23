@@ -10,7 +10,7 @@ import Navigation from '../Navigation';
 import { RoomList } from '../RoomList';
 import { TopBar } from '../TopBar';
 import { MessageList, NoMessages } from '../MessageList';
-import { UserList, TypingList } from '../Users';
+import UserList from '../UserList';
 import { CreateRoom, SendMessage } from '../FormControls';
 
 export default function Chat({ match }) {
@@ -25,6 +25,7 @@ export default function Chat({ match }) {
 		<div className='app'>
 			<Navigation />
 			<RoomList match={match} />
+			<CreateRoom />
 			<div className='main'>
 				<div className='chat'>
 					<TopBar />

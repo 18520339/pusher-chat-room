@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { Input } from '../FormControls';
+import { AuthInput } from '../FormControls';
 import { signUpAPI } from '../../actions';
 
 export default function SignUp() {
@@ -58,7 +58,7 @@ export default function SignUp() {
 								<p>Sử dụng email của bạn để đăng kí:</p>
 								<form className='signup' onSubmit={onSubmit}>
 									<div className='form-parent'>
-										<Input
+										<AuthInput
 											type='name'
 											id='inputName'
 											value={userInfo.name}
@@ -66,7 +66,7 @@ export default function SignUp() {
 											icon='person_outline'
 											onChange={onChange}
 										/>
-										<Input
+										<AuthInput
 											type='email'
 											id='inputEmail'
 											value={userInfo.email}
@@ -75,7 +75,7 @@ export default function SignUp() {
 											onChange={onChange}
 										/>
 									</div>
-									<Input
+									<AuthInput
 										type='password'
 										id='inputPassword'
 										value={userInfo.password}

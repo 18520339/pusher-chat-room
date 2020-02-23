@@ -5,11 +5,18 @@ import React, { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { enterRoom } from '../../actions';
 
-import NoMessages from './NoMessages';
 import Message from './Message';
+import MessageText from './MessageText';
+import NoMessages from './NoMessages';
 
 export default function MessageList({ match }) {
-	const { roomUsers, messages, isLoading } = useSelector(state => state);
+	const {
+		currentUser,
+		roomUsers,
+		typingUsers,
+		messages,
+		isLoading
+	} = useSelector(state => state);
 	const dispatch = useDispatch();
 
 	const messageNode = useRef(null);
@@ -27,9 +34,9 @@ export default function MessageList({ match }) {
 	useEffect(() => {
 		if (document.hasFocus() && roomId)
 			messageNode.current.scrollIntoView({ behavior: 'smooth' });
-	}, [messages]);
+	}, [messages, typingUsers]);
 
-	const onShowMessage = () => {
+	const onShowMessageText = () => {
 		if (messages.length === 0 && !isLoading && !roomNotFound)
 			return <NoMessages title='Bắt đầu cuộc trò chuyện mới...' />;
 		else if (isLoading) return <NoMessages title='Đang tải, đợi chút !' />;
@@ -37,20 +44,42 @@ export default function MessageList({ match }) {
 			return <NoMessages title='404 Not Found :(' />;
 		return messages.map(message => {
 			const { id, sender, createdAt, text } = message;
+			const userType = sender.id === currentUser.id ? 'me' : '';
 			return (
 				<Message
 					key={id}
-					sender={sender}
+					userType={userType}
+					userName={sender.name}
 					createdAt={createdAt}
-					text={text}
-				/>
+				>
+					<MessageText
+						currentUserName={currentUser.name}
+						text={text}
+					/>
+				</Message>
+			);
+		});
+	};
+
+	const onShowTypingUsers = () => {
+		return typingUsers.map(user => {
+			const { id, name } = user;
+			return (
+				<Message key={id} userType='typing' userName={name}>
+					<div className='wave'>
+						<span className='dot'></span>&nbsp;
+						<span className='dot'></span>&nbsp;
+						<span className='dot'></span>
+					</div>
+				</Message>
 			);
 		});
 	};
 
 	return (
 		<div className='col-md-12'>
-			{onShowMessage()}
+			{onShowMessageText()}
+			{typingUsers.length > 0 && onShowTypingUsers()}
 			<div ref={messageNode} />
 		</div>
 	);

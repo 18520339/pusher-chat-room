@@ -7,9 +7,9 @@ const initialState = [];
 const typingUsers = (state = initialState, action) => {
 	switch (action.type) {
 		case types.USER_STARTED_TYPING:
-			return [...state, action.user.name];
+			return [...state, action.user];
 		case types.USER_STOPED_TYPING:
-			return state.filter(userName => userName !== action.user.name);
+			return state.filter(user => user.id !== action.user.id);
 		default:
 			return state;
 	}
