@@ -4,8 +4,9 @@
 import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
 import { tokenUrl, instanceLocator } from '../config';
 
-import { alertError } from '../functions';
 import * as types from '../constants';
+import { alertError } from '../functions';
+import { sendMessage } from './messages';
 
 export const connect = userId => (dispatch, getState) => {
 	const chatManager = new ChatManager({
@@ -42,12 +43,15 @@ export const getRooms = currentUser => (dispatch, getState) => {
 export const enterRoom = roomId => (dispatch, getState) => {
 	dispatch({ type: types.CLEAR_MESSAGE });
 	const { currentUser, roomActive } = getState();
-	if (roomActive.id) currentUser.roomSubscriptions[roomActive.id].cancel();
+
+	try {
+		currentUser.roomSubscriptions[roomActive.id].cancel();
+	} catch {}
 
 	currentUser
-		.subscribeToRoom({
+		.subscribeToRoomMultipart({
 			roomId,
-			messageLimit: 100,
+			messageLimit: 50,
 			hooks: {
 				onMessage: message => {
 					dispatch({ type: types.ON_MESSAGE, message });
@@ -81,7 +85,12 @@ export const enterRoom = roomId => (dispatch, getState) => {
 		});
 };
 
-export const createRoom = (name, privateUserId = null, isPrivate = false) => {
+export const createRoom = (
+	name,
+	firstMessage,
+	privateUserId = null,
+	isPrivate = false
+) => {
 	return (dispatch, getState) => {
 		const { currentUser } = getState();
 		const addUserIds = isPrivate ? [currentUser.id, privateUserId] : [];
@@ -90,7 +99,13 @@ export const createRoom = (name, privateUserId = null, isPrivate = false) => {
 			.createRoom({ name, private: isPrivate, addUserIds })
 			.then(room => {
 				dispatch(enterRoom(room.id));
-				window.history.pushState(null, null, room.id);
+				window.history.pushState(null, null, `room/${room.id}`);
+
+				const parts = [];
+				if (firstMessage.trim()) {
+					parts.push({ type: 'text/plain', content: firstMessage });
+					dispatch(sendMessage(parts, `${room.id}`));
+				}
 			})
 			.catch(err => alertError('Error on creating rooms', err));
 	};

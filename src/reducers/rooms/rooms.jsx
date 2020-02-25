@@ -10,6 +10,8 @@ const rooms = (state = initialState, action) => {
 			return action.rooms;
 		case types.UPDATE_ROOMS:
 			return action.rooms;
+		case types.SIGN_OUT:
+			return [];
 		default:
 			return state;
 	}

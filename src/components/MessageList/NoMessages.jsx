@@ -3,6 +3,7 @@
 
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Spinner } from 'react-bootstrap';
 
 export default function NoMessages(props) {
 	const { isLoading } = useSelector(state => state);
@@ -11,13 +12,7 @@ export default function NoMessages(props) {
 			<div className='no-messages'>
 				{!isLoading && <i className='material-icons md-48'>forum</i>}
 				<p>{props.title}</p>
-				{isLoading && (
-					<div className='wave'>
-						<span className='dot'></span>&nbsp;
-						<span className='dot'></span>&nbsp;
-						<span className='dot'></span>
-					</div>
-				)}
+				{isLoading && <Spinner animation='border' variant='primary' />}
 			</div>
 		</div>
 	);

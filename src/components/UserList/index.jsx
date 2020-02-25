@@ -5,7 +5,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { SearchName, SortGroup } from '../FormControls';
+import { SearchName, FilterGroup } from '../FormControls';
 import Avatar from '../Avatar';
 
 export default function UserList({ match }) {
@@ -13,7 +13,7 @@ export default function UserList({ match }) {
 	const { name, createdByUserId } = roomActive;
 
 	return (
-		<div className='sidebar' id='sidebar'>
+		<div className='sidebar'>
 			<div className='container'>
 				<div className='col-md-12'>
 					<div className='info'>
@@ -25,7 +25,7 @@ export default function UserList({ match }) {
 						<h4>{name}</h4>
 					</div>
 					<SearchName placeholder='Tìm kiếm thành viên...' />
-					<SortGroup groups={['Online', 'Offline']} />
+					<FilterGroup groups={['Online', 'Offline']} />
 					<div className='contacts'>
 						<h1>Thành viên</h1>
 						<div className='list-group'>

@@ -43,6 +43,14 @@
 
         .single {
             .data {
+                overflow: hidden;
+
+                p {
+                    overflow     : hidden;
+                    text-overflow: ellipsis;
+                    white-space  : nowrap;
+                }
+
                 span {
                     @include font-style(400, 14px, null);
                     float: right;

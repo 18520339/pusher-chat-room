@@ -5,7 +5,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { SearchName, SortGroup } from '../FormControls';
+import { CreateRoom, SearchName, FilterGroup } from '../FormControls';
 import Avatar from '../Avatar';
 import RoomBrief from './RoomBrief';
 
@@ -26,49 +26,43 @@ export default function RoomList({ match }) {
 			<div className='container'>
 				<div className='col-md-12'>
 					<SearchName placeholder='Tìm kiếm phòng chat...' />
-					<SortGroup groups={['Đã đọc', 'Chưa đọc']} />
-					<button
-						className='btn create'
-						data-toggle='modal'
-						data-target='#startnewchat'
-					>
-						<i className='material-icons'>create</i>
-					</button>
+					<FilterGroup groups={['Đã đọc', 'Chưa đọc']} />
+					<CreateRoom />
 					<div className='discussions'>
 						<h1>Các phòng chat</h1>
 						<div className='list-group'>
 							{rooms.map(room => {
 								const { id, name, userIds, unreadCount } = room;
+								const active = roomActive.id === id && 'active';
+								const unread = unreadCount > 0 && 'unread';
 								const isJoined = userIds
 									? userIds.find(id => currentUser.id === id)
 									: userIds;
 								return (
-									<Link
-										key={id}
-										to={`${match.path}/${id}`}
-										className={`${
-											unreadCount > 0 ? 'unread' : ''
-										} single ${
-											roomActive.id === id ? 'active' : ''
-										}`}
-									>
-										<Avatar
-											name={name}
-											type='room'
-											tooltip='top'
-										/>
-										<div className='status'>
-											<i
-												className={`material-icons ${
-													isJoined ? 'online' : ''
-												}`}
-											>
-												fiber_manual_record
-											</i>
-										</div>
-										<RoomBrief roomId={id} name={name} />
-										{onUnreadCount(unreadCount)}
-									</Link>
+									id && (
+										<Link
+											key={id}
+											to={`${match.path}/${id}`}
+											className={`${unread} ${active} single`}
+										>
+											<Avatar
+												name={name}
+												type='room'
+												tooltip='top'
+											/>
+											<div className='status'>
+												<i
+													className={`material-icons 
+														${isJoined && 'online'}
+													`}
+												>
+													fiber_manual_record
+												</i>
+											</div>
+											<RoomBrief id={id} name={name} />
+											{onUnreadCount(unreadCount)}
+										</Link>
+									)
 								);
 							})}
 						</div>

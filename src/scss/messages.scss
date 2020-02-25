@@ -3,7 +3,8 @@
     background: $color_white;
 
     .chat {
-        height: 100%;
+        @include d-flex(space-between, null, column);
+        height: 100vh;
 
         .content {
             @include overflow(20px 0 0, hidden, scroll);
@@ -17,6 +18,25 @@
                     @include main-decoration(15px, $color_wild_sand, 6px);
                     display  : inline-block;
                     max-width: 450px;
+
+                    .embedded-link {
+                        text-decoration: underline;
+
+                        &:hover {
+                            color          : inherit;
+                            text-decoration: none;
+                        }
+                    }
+
+                    .microlink_card {
+                        .microlink_card__content {
+                            width: 0;
+                        }
+
+                        &:hover {
+                            color: initial;
+                        }
+                    }
 
                     .attachment {
                         @include d-flex(null, center);
@@ -44,7 +64,11 @@
 
                     &.me {
                         @include transition(all 0.3s);
-                        background: $color_dodger_blue;
+                        background-color: $color_dodger_blue;
+
+                        &.image {
+                            background-color: $color_wild_sand
+                        }
 
                         .attachment {
                             .attach {
@@ -65,13 +89,14 @@
                             }
                         }
 
-                        p {
+                        &>div>p {
                             color: $white;
                         }
                     }
 
-                    p {
+                    &>div>p {
                         @include font-style(400, 16px, null, 1.4);
+                        word-break: break-all;
                     }
                 }
 
@@ -96,11 +121,16 @@
                 }
 
                 .text-group {
+                    @include d-flex(null, flex-start, column);
                     width        : 100%;
                     margin-bottom: 10px;
 
+                    &>a {
+                        display: contents;
+                    }
+
                     &.me {
-                        @include d-flex(flex-end, null)
+                        align-items: flex-end;
                     }
                 }
 
@@ -209,7 +239,7 @@
                 }
 
                 p {
-                    @include font-style(400, 18px, null);
+                    @include font-style(400, 18px, null, null, (bottom, 10px));
                 }
             }
         }

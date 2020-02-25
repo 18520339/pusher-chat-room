@@ -36,26 +36,51 @@ export default function MessageList({ match }) {
 			messageNode.current.scrollIntoView({ behavior: 'smooth' });
 	}, [messages, typingUsers]);
 
-	const onShowMessageText = () => {
+	const onShowMessage = () => {
 		if (messages.length === 0 && !isLoading && !roomNotFound)
 			return <NoMessages title='Bắt đầu cuộc trò chuyện mới...' />;
 		else if (isLoading) return <NoMessages title='Đang tải, đợi chút !' />;
 		else if (!isLoading && roomNotFound)
 			return <NoMessages title='404 Not Found :(' />;
 		return messages.map(message => {
-			const { id, sender, createdAt, text } = message;
-			const userType = sender.id === currentUser.id ? 'me' : '';
+			const { id, sender, updatedAt, parts } = message;
 			return (
 				<Message
 					key={id}
-					userType={userType}
+					userType={sender.id === currentUser.id && 'me'}
 					userName={sender.name}
-					createdAt={createdAt}
+					updatedAt={updatedAt}
 				>
-					<MessageText
-						currentUserName={currentUser.name}
-						text={text}
-					/>
+					{parts.map((part, index) => {
+						const { partType, payload } = part;
+
+						if (partType === 'inline')
+							return (
+								<MessageText
+									key={index}
+									currentUserName={currentUser.name}
+									text={payload.content}
+								/>
+							);
+
+						if (Date.now() > Date.parse(payload._expiration))
+							payload._fetchNewDownloadURL();
+
+						return (
+							<a
+								key={index}
+								href={payload._downloadURL}
+								target='_blank'
+							>
+								<img
+									className={`w-50 rounded ${index !==
+										parts.length - 1 && 'mb-3'}`}
+									src={payload._downloadURL}
+									alt='attachment'
+								/>
+							</a>
+						);
+					})}
 				</Message>
 			);
 		});
@@ -78,7 +103,7 @@ export default function MessageList({ match }) {
 
 	return (
 		<div className='col-md-12'>
-			{onShowMessageText()}
+			{onShowMessage()}
 			{typingUsers.length > 0 && onShowTypingUsers()}
 			<div ref={messageNode} />
 		</div>

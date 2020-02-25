@@ -3,6 +3,9 @@
 
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
+import ReactTextareaAutocomplete from '@webscopeio/react-textarea-autocomplete';
+import { Picker, emojiIndex } from 'emoji-mart';
 import {
 	typingMessage,
 	sendMessage,
@@ -10,13 +13,13 @@ import {
 	togglePicker
 } from '../../actions';
 
-import ReactTextareaAutocomplete from '@webscopeio/react-textarea-autocomplete';
-import { Picker, emojiIndex } from 'emoji-mart';
+import UploadImage from './UploadImage';
 import 'emoji-mart/css/emoji-mart.css';
 
 export default function SendMessage() {
 	const { roomActive, showPicker } = useSelector(state => state);
 	const dispatch = useDispatch();
+
 	const [message, setMessage] = useState('');
 
 	const onAddEmoji = emoji => setMessage(dispatch(addEmoji(emoji, message)));
@@ -33,12 +36,14 @@ export default function SendMessage() {
 
 	const onSubmit = event => {
 		event.preventDefault();
+		const parts = [];
 		if (message.trim()) {
-			dispatch(sendMessage(message));
+			parts.push({ type: 'text/plain', content: message });
+			dispatch(sendMessage(parts));
 			setMessage('');
 		}
 	};
-
+	//attach d-sm-block d-none
 	return (
 		<div className='container'>
 			<div className='col-md-12'>
@@ -93,12 +98,7 @@ export default function SendMessage() {
 							<Picker set='emojione' onSelect={onAddEmoji} />
 						)}
 					</form>
-					<label>
-						<input type='file' />
-						<span className='btn attach d-sm-block d-none'>
-							<i className='material-icons'>attach_file</i>
-						</span>
-					</label>
+					<UploadImage />
 				</div>
 			</div>
 		</div>

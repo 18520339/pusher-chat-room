@@ -107,6 +107,10 @@
         display: none;
     }
 
+    .chat {
+        height: 93vh !important;
+    }
+
     .navigation {
         @include pos-fixed(null, 0, 0, 0);
         box-shadow: 0 0 20px 0 $black_4;
@@ -204,7 +208,7 @@
         }
 
         .content {
-            height: 310px;
+            height: 100%;
         }
     }
 }

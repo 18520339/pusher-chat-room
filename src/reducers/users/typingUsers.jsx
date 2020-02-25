@@ -10,6 +10,8 @@ const typingUsers = (state = initialState, action) => {
 			return [...state, action.user];
 		case types.USER_STOPED_TYPING:
 			return state.filter(user => user.id !== action.user.id);
+		case types.SIGN_OUT:
+			return [];
 		default:
 			return state;
 	}

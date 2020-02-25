@@ -8,6 +8,8 @@ const currentUser = (state = initialState, action) => {
 	switch (action.type) {
 		case types.CONNECT:
 			return action.currentUser;
+		case types.SIGN_OUT:
+			return {};
 		default:
 			return state;
 	}

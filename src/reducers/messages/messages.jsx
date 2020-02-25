@@ -10,6 +10,8 @@ const messages = (state = initialState, action) => {
 			return [...state, action.message];
 		case types.CLEAR_MESSAGE:
 			return [];
+		case types.SIGN_OUT:
+			return [];
 		default:
 			return state;
 	}

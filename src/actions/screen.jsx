@@ -18,20 +18,20 @@ export const signUpAPI = (name, email, password) => (dispatch, getState) => {
 		.catch(err => alertError('Error on sign up', err));
 };
 
-export const signInAPI = (email, password, history, from) => {
+export const signInAPI = (email, password) => {
 	return (dispatch, getState) => {
 		const chatkit = getState().chatkit;
 		const id = HmacSHA1(email + '@!?#?' + password, key).toString();
 
 		chatkit
 			.getUser({ id })
-			.then(() => dispatch({ type: SIGN_IN, userId: id, history, from }))
+			.then(() => dispatch({ type: SIGN_IN, userId: id }))
 			.catch(err => alertError('Error on sign in', err));
 	};
 };
 
-export const signOut = history => {
-	return { type: SIGN_OUT, history };
+export const signOut = () => {
+	return { type: SIGN_OUT };
 };
 
 /* eslint-enable */

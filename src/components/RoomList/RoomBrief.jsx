@@ -3,39 +3,27 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { alertError } from '../../functions';
 
 export default function RoomBrief(props) {
-	const { chatkit, currentUser } = useSelector(state => state);
+	const { chatkit, currentUser, roomActive } = useSelector(state => state);
 	const [lastMessage, setLastMessage] = useState({
 		sender: { id: '', name: '' },
 		content: 'Chưa có tin nhắn',
 		updated_at: 'Được đề xuất'
 	});
 
-	const { roomId, name } = props;
-	const onShowLastMessage = () => {
-		const { sender, content } = lastMessage;
-		const { id, name } = sender;
-		return (
-			<p>
-				{currentUser.id === id ? 'Bạn: ' : name}
-				{content}
-			</p>
-		);
-	};
+	const { id, name } = props;
 
-	useEffect(() => {
+	const fetchLastMessage = () => {
 		chatkit
-			.fetchMultipartMessages({ roomId, limit: 1 })
+			.fetchMultipartMessages({ roomId: id, limit: 1 })
 			.then(message => {
 				if (message.length) {
 					const { user_id, parts, updated_at } = message[0];
 					chatkit.getUser({ id: user_id }).then(user => {
-						const { id, name } = user;
 						setLastMessage({
 							...lastMessage,
-							sender: { id, name: `${name}: ` },
+							sender: { id: user.id, name: `${user.name}: ` },
 							content: parts[0].content,
 							updated_at: new Date(updated_at).toLocaleDateString(
 								'vi-Vn',
@@ -49,9 +37,22 @@ export default function RoomBrief(props) {
 						});
 					});
 				}
-			})
-			.catch(err => alertError('Error on fetching message', err));
-	}, []);
+			});
+	};
+
+	const onShowLastMessage = () => {
+		const { sender, content } = lastMessage;
+		return (
+			<p>
+				{currentUser.id === sender.id ? 'Bạn: ' : sender.name}
+				{content}
+			</p>
+		);
+	};
+
+	useEffect(() => {
+		fetchLastMessage();
+	}, [roomActive]);
 
 	return (
 		<div className='data'>

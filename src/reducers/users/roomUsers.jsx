@@ -13,6 +13,8 @@ const roomUsers = (state = initialState, action) => {
 				if (a.presence.state === 'online') return -1;
 				else return 1;
 			});
+		case types.SIGN_OUT:
+			return [];
 		default:
 			return state;
 	}

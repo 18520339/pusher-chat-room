@@ -6,25 +6,30 @@
     background    : $white;
     pointer-events: auto;
 
-    .title {
-        @include d-flex(space-between, center, null, 30px 40px);
-        background: $color_white;
+    .modal-title {
+        width: 100%;
 
-        h1 {
-            @include font-style(800, 22px, $color_shark, null, (bottom, 0));
-        }
+        .title {
+            @include d-flex(space-between, center, null, 15px 20px);
+            background: $color_white;
 
-        .material-icons {
-            font-weight: 800;
-        }
+            h1 {
+                @include font-style(800, 22px, $color_shark, null, (bottom, 0));
+            }
 
-        .close:hover {
-            color: $color_shark !important;
+            .material-icons {
+                font-weight: 800;
+            }
+
+            .close:hover {
+                color: $color_shark !important;
+            }
         }
     }
 
+
     .content {
-        padding: 35px 40px 40px;
+        padding: 18px 20px 20px;
 
         .form-group {
             margin-bottom: 30px;
@@ -54,7 +59,7 @@
         }
 
         .text-control {
-            @include box-size(100% !important, 56px !important);
+            @include box-size(100%, 130px);
             @include main-decoration(14px 17px, $color_wild_sand, null);
             @include font-style(400, 16px, $color_chatelle !important);
             @include border(2px solid transparent, 6px !important);
@@ -67,10 +72,6 @@
             &::placeholder {
                 color: $color_chatelle;
             }
-        }
-
-        .rta {
-            z-index: 1;
         }
 
         .members {
@@ -112,5 +113,14 @@
     .btn {
         padding    : 0;
         line-height: 0;
+    }
+}
+
+.fileContainer {
+    @include box-color($color_wild_sand, $color_shark);
+
+    .uploadPictureContainer {
+        width : 46%;
+        margin: 2%;
     }
 }

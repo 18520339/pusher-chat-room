@@ -1,7 +1,7 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import React, { useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from '../../actions';
@@ -11,23 +11,27 @@ import { RoomList } from '../RoomList';
 import { TopBar } from '../TopBar';
 import { MessageList, NoMessages } from '../MessageList';
 import UserList from '../UserList';
-import { CreateRoom, SendMessage } from '../FormControls';
+import { SendMessage } from '../FormControls';
 
 export default function Chat({ match }) {
 	const { screen, rooms, isLoading } = useSelector(state => state);
 	const dispatch = useDispatch();
+	const chatNode = useRef(null);
 
 	useEffect(() => {
 		dispatch(connect(screen.userId));
 	}, []);
 
+	useEffect(() => {
+		chatNode.current.scrollIntoView();
+	}, [isLoading]);
+
 	return (
 		<div className='app'>
 			<Navigation />
 			<RoomList match={match} />
-			<CreateRoom />
 			<div className='main'>
-				<div className='chat'>
+				<div className='chat' ref={chatNode}>
 					<TopBar />
 					<div className='content'>
 						<div className='container'>
