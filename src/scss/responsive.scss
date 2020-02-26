@@ -248,6 +248,17 @@
             padding: 0 15px;
         }
     }
+
+    .not-found {
+        svg {
+            @include not-found(-250px, -190px);
+        }
+
+        &-content {
+            @include not-found(-100px, -190px);
+            text-align: center;
+        }
+    }
 }
 
 @media(max-width: 350px) {

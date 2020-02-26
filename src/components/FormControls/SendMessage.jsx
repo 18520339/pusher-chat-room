@@ -19,15 +19,14 @@ import 'emoji-mart/css/emoji-mart.css';
 export default function SendMessage() {
 	const { roomActive, showPicker } = useSelector(state => state);
 	const dispatch = useDispatch();
-
 	const [message, setMessage] = useState('');
-
-	const onAddEmoji = emoji => setMessage(dispatch(addEmoji(emoji, message)));
-	const onTogglePicker = () => dispatch(togglePicker());
 
 	const filterUserNames = token => {
 		return roomActive.users.filter(user => user.name.includes(token));
 	};
+
+	const onTogglePicker = () => dispatch(togglePicker());
+	const onAddEmoji = emoji => setMessage(dispatch(addEmoji(emoji, message)));
 
 	const onChange = event => {
 		setMessage(event.target.value);
@@ -43,7 +42,7 @@ export default function SendMessage() {
 			setMessage('');
 		}
 	};
-	//attach d-sm-block d-none
+
 	return (
 		<div className='container'>
 			<div className='col-md-12'>

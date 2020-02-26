@@ -3,6 +3,13 @@
 
 export { signUpAPI, signInAPI, signOut } from './screen';
 export { connect, getRooms, enterRoom, createRoom } from './rooms';
-export { typingMessage, sendMessage, addEmoji, togglePicker } from './messages';
+export { typingMessage, sendMessage } from './messages';
+export {
+	filterRooms,
+	sortMembers,
+	toggleUsersBar,
+	togglePicker,
+	addEmoji
+} from './controls';
 
 /* eslint-enable */

@@ -36,6 +36,14 @@
 
     .contacts {
         @include sidebar-info(contact, $color_dodger_blue);
+
+        .sort-members {
+            @include d-flex(space-between, center, null, null, (bottom, 20px));
+
+            h1 {
+                padding-bottom: 0
+            }
+        }
     }
 
     .discussions {

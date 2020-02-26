@@ -6,21 +6,26 @@ import thunk from 'redux-thunk';
 
 import chatkit from './chatkit';
 import screen from './screen';
-import { currentUser, roomUsers, typingUsers } from './users';
+
+import { messages, isLoading } from './messages';
+import { currentUser, typingUsers, roomUsers } from './users';
 import { rooms, roomActive } from './rooms';
-import { messages, isLoading, showPicker } from './messages';
+import { roomFilter, userSort, showPicker, showUsersBar } from './controls';
 
 const rootReducer = combineReducers({
 	chatkit,
 	screen,
-	rooms,
-	roomActive,
 	messages,
 	isLoading,
-	showPicker,
 	currentUser,
+	typingUsers,
 	roomUsers,
-	typingUsers
+	rooms,
+	roomActive,
+	roomFilter,
+	userSort,
+	showPicker,
+	showUsersBar
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

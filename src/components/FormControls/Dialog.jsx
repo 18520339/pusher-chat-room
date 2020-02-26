@@ -6,10 +6,12 @@ import { Modal, ButtonToolbar, Button } from 'react-bootstrap';
 
 export default function Dialog(props) {
 	const [modalShow, setModalShow] = useState(false);
-	const { type, icon, title, children } = props;
+	const { type, title, icon, disabled, children } = props;
 
-	const onShowModal = () => setModalShow(true);
 	const onCloseModal = () => setModalShow(false);
+	const onShowModal = () => {
+		if (!disabled) setModalShow(true);
+	};
 
 	const onSubmit = event => {
 		event.preventDefault();

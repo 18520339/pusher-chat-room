@@ -2,7 +2,8 @@
 /* eslint-disable */
 
 import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
-import { tokenUrl, instanceLocator } from '../config';
+import { tokenUrl, instanceLocator, key } from '../config';
+import { AES, enc } from 'crypto-js';
 
 import * as types from '../constants';
 import { alertError } from '../functions';
@@ -42,11 +43,11 @@ export const getRooms = currentUser => (dispatch, getState) => {
 
 export const enterRoom = roomId => (dispatch, getState) => {
 	dispatch({ type: types.CLEAR_MESSAGE });
-	const { currentUser, roomActive } = getState();
+	const { chatkit, currentUser, roomActive } = getState();
 
 	try {
 		currentUser.roomSubscriptions[roomActive.id].cancel();
-	} catch {}
+	} catch { }
 
 	currentUser
 		.subscribeToRoomMultipart({
@@ -79,35 +80,64 @@ export const enterRoom = roomId => (dispatch, getState) => {
 			dispatch(getRooms(currentUser));
 		})
 		.catch(err => {
-			alertError('Error on entering rooms: ', err);
-			if (err.info.error === 'services/chatkit/not_found/room_not_found')
-				dispatch({ type: types.NOT_FOUND });
+			const { error } = err.info;
+			if (error === 'services/chatkit/not_found/room_not_found') {
+				console.log(roomId)
+				const bytes = AES.decrypt(roomId, key);
+				const decryptedId = bytes.toString().replace('@!?#?', '');
+				console.log(decryptedId)
+
+				// chatkit
+				// 	.getUser({ id: decryptedId })
+				// 	.then(user => {
+				// 		const { id, name } = user;
+				// 		dispatch(createRoom(name, '', id, true));
+				// 	})
+				// 	.catch(() => {
+				// 		alertError('Error on entering rooms: ', err);
+				// 		dispatch({ type: types.NOT_FOUND });
+				// 	});
+			} else alertError('Error on entering rooms: ', err);
 		});
 };
 
-export const createRoom = (
-	name,
-	firstMessage,
-	privateUserId = null,
-	isPrivate = false
-) => {
+export const createRoom = (name, message, userId = null, isPrivate = false) => {
 	return (dispatch, getState) => {
 		const { currentUser } = getState();
-		const addUserIds = isPrivate ? [currentUser.id, privateUserId] : [];
+		const accessNewRoom = id => {
+			dispatch(enterRoom(id));
+			window.history.pushState(null, null, `room/${id}`);
 
-		currentUser
-			.createRoom({ name, private: isPrivate, addUserIds })
-			.then(room => {
-				dispatch(enterRoom(room.id));
-				window.history.pushState(null, null, `room/${room.id}`);
+			const parts = [];
+			if (message.trim()) {
+				parts.push({ type: 'text/plain', content: message });
+				dispatch(sendMessage(parts, `${id}`));
+			}
+		};
 
-				const parts = [];
-				if (firstMessage.trim()) {
-					parts.push({ type: 'text/plain', content: firstMessage });
-					dispatch(sendMessage(parts, `${room.id}`));
-				}
-			})
-			.catch(err => alertError('Error on creating rooms', err));
+		if (isPrivate) {
+			const id = AES.encrypt(
+				userId + '@!?#?', key
+			).toString().replace('/', '').substr(0, 36);
+			currentUser
+				.createRoom({
+					id,
+					name,
+					private: true,
+					addUserIds: [currentUser.id, userId]
+				})
+				.then(room => accessNewRoom(room.id))
+				.catch(err => {
+					const { error } = err.info;
+					if (error === 'services/chatkit/bad_request/duplicate_room_id')
+						dispatch(enterRoom(id));
+					else lertError('Error on chatting 1 to 1', err);
+				});
+		} else
+			currentUser
+				.createRoom({ name })
+				.then(room => accessNewRoom(room.id))
+				.catch(err => alertError('Error on creating rooms', err));
 	};
 };
 

@@ -302,9 +302,13 @@
 
                 .data {
                     margin-right: auto;
+                    overflow    : hidden;
 
                     h5 {
                         @include font-style(700, 16px, $color_shark, null, (bottom, 2px));
+                        white-space  : nowrap;
+                        overflow     : hidden;
+                        text-overflow: ellipsis;
                     }
 
                     span {
@@ -314,7 +318,7 @@
                 }
 
                 .btn {
-                    @include font-style(null, null, inherit, 0, (right, 30px));
+                    @include font-style(null, null, inherit, 0, (left, 30px));
                     padding: 0;
 
                     &:hover {
@@ -343,7 +347,7 @@
             }
 
             .rta__autocomplete {
-                @include pos-absolute(unset !important, 14% !important, null, 77%);
+                @include pos-absolute(unset !important, 7% !important, null, 77%);
                 @include border(1px solid $color_chatelle, 5px);
                 max-height      : 250px;
                 background-color: $white;

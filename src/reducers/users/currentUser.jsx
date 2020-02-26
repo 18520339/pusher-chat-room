@@ -1,14 +1,14 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import * as types from '../../constants';
+import { CONNECT, SIGN_OUT } from '../../constants';
 
 const initialState = {};
 const currentUser = (state = initialState, action) => {
 	switch (action.type) {
-		case types.CONNECT:
+		case CONNECT:
 			return action.currentUser;
-		case types.SIGN_OUT:
+		case SIGN_OUT:
 			return {};
 		default:
 			return state;

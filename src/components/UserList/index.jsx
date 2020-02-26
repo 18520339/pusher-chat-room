@@ -4,16 +4,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { AES } from 'crypto-js';
 
-import { SearchName, FilterGroup } from '../FormControls';
+import { key } from '../../config';
 import Avatar from '../Avatar';
+import { SortMembers } from '../FormControls';
 
 export default function UserList({ match }) {
-	const { roomActive, roomUsers } = useSelector(state => state);
+	const { roomActive, roomUsers, userSort, showUsersBar } = useSelector(state => state);
 	const { name, createdByUserId } = roomActive;
 
 	return (
-		<div className='sidebar'>
+		<div className={`sidebar ${!showUsersBar && 'd-none'}`}>
 			<div className='container'>
 				<div className='col-md-12'>
 					<div className='info'>
@@ -24,53 +26,62 @@ export default function UserList({ match }) {
 						/>
 						<h4>{name}</h4>
 					</div>
-					<SearchName placeholder='Tìm kiếm thành viên...' />
-					<FilterGroup groups={['Online', 'Offline']} />
 					<div className='contacts'>
-						<h1>Thành viên</h1>
+						<div className='sort-members'>
+							<h1>Thành viên</h1>
+							<SortMembers />
+						</div>
 						<div className='list-group'>
-							{roomUsers.map(user => {
-								const { id, name, presence, createdAt } = user;
-								const createdDate = new Date(
-									createdAt
-								).toLocaleDateString('vi-VN', {
-									year: '2-digit',
-									month: 'numeric'
-								});
-								return (
-									<Link
-										key={id}
-										to={`${match.path}/${id}`}
-										className='contact'
-									>
-										<Avatar
-											name={name}
-											type='user'
-											tooltip='top'
-										/>
-										<div className='status'>
-											<i
-												className={`material-icons ${presence.state}`}
-											>
-												fiber_manual_record
-											</i>
-										</div>
-										<div className='data'>
-											<h5>{name}</h5>
-											<p>
-												{createdByUserId === id
-													? 'Quản trị viên'
-													: `Được tạo vào tháng ${createdDate}`}
-											</p>
-										</div>
-										<div className='person-add'>
-											<i className='material-icons'>
-												person
-											</i>
-										</div>
-									</Link>
-								);
-							})}
+							{roomUsers
+								.sort((a, b) => {
+									const { by, value } = userSort;
+									if (by == 'name') {
+										if (a.name.toLowerCase() > b.name.toLowerCase())
+											return value;
+										if (a.name.toLowerCase() < b.name.toLowerCase())
+											return -value;
+										return 0;
+									} else if (by == 'status') {
+										if (a.presence.state > b.presence.state)
+											return -value;
+										if (a.presence.state < b.presence.state)
+											return value;
+										return 0;
+									}
+								})
+								.map(user => {
+									const { id, name, presence, createdAt } = user;
+									const path = AES.encrypt(
+										id + '@!?#?', key
+									).toString().replace('/', '').substr(0, 36);
+									const createdDate = new Date(
+										createdAt
+									).toLocaleDateString('vi-VN', {
+										year: '2-digit',
+										month: 'numeric'
+									});
+									return (
+										<Link key={id} to={`${match.path}/${path}`} className='contact'>
+											<Avatar name={name} type='user' tooltip='top' />
+											<div className='status'>
+												<i className={`material-icons ${presence.state}`}>
+													fiber_manual_record
+												</i>
+											</div>
+											<div className='data'>
+												<h5>{name}</h5>
+												<p>
+													{createdByUserId === id
+														? 'Quản trị viên'
+														: `Được tạo vào tháng ${createdDate}`}
+												</p>
+											</div>
+											<div className='person-add'>
+												<i className='material-icons'>person</i>
+											</div>
+										</Link>
+									);
+								})}
 						</div>
 					</div>
 				</div>

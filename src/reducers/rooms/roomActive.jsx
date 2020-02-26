@@ -1,14 +1,14 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import * as types from '../../constants';
+import { ENTER_ROOM, SIGN_OUT } from '../../constants';
 
 const initialState = {};
 const roomActive = (state = initialState, action) => {
 	switch (action.type) {
-		case types.ENTER_ROOM:
+		case ENTER_ROOM:
 			return action.roomActive;
-		case types.SIGN_OUT:
+		case SIGN_OUT:
 			return {};
 		default:
 			return state;

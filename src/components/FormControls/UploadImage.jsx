@@ -2,12 +2,13 @@
 /* eslint-disable */
 
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ImageUploader from 'react-images-upload';
 import { sendMessage } from '../../actions';
 import Dialog from './Dialog';
 
 export default function UploadImage() {
+	const roomActive = useSelector(state => state.roomActive)
 	const dispatch = useDispatch();
 
 	const [pictures, setPictures] = useState([]);
@@ -36,6 +37,7 @@ export default function UploadImage() {
 			title='Thêm ảnh'
 			icon='photo'
 			onSubmit={onSubmit}
+			disabled={!roomActive.id}
 		>
 			<div className='form-group'>
 				<label>Tin nhắn:</label>

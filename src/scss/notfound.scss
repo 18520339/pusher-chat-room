@@ -1,0 +1,44 @@
+.not-found {
+    svg {
+        @include not-found(-250px, -400px);
+    }
+
+    &-content {
+        @include not-found(-100px, 50px);
+        @include box-size(380px, 200px);
+        @include font-style(300, null, $color_shark);
+        font-family: Roboto;
+
+        h1 {
+            @include font-style(null, 60px, null, 46px, (bottom, 40px));
+        }
+    }
+
+    .buttons-con .action-link-wrap {
+        margin-top: 40px;
+
+        a {
+            @include main-decoration(8px 25px, $color_shamrock, 4px);
+            @include font-style(bold, 14px, $white, null, (right, 10px));
+            @include transition(all 0.3s linear);
+            text-decoration: none;
+            cursor         : pointer;
+
+            &:hover {
+                @include box-color($color_mid_gray, $white);
+            }
+
+        }
+    }
+
+    $i: 1;
+
+    @while $i <=5 {
+        #Polygon-#{$i} {
+            animation      : float 1s infinite ease-in-out alternate;
+            animation-delay: ($i * 2 - 2) * 1s/10;
+        }
+
+        $i: $i+1;
+    }
+}

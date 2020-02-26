@@ -5,7 +5,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-import { SignIn, SignUp, Chat } from '../Screen';
+import { SignIn, SignUp, Chat, NotFound } from '../Screen';
 import '../../scss/style.scss';
 
 export default function App() {
@@ -17,9 +17,7 @@ export default function App() {
 				<Redirect exact from='/' to='/room' />
 				<Route path='/room' component={currentScreen} />
 				<Route path='/sign-up' component={SignUp} />
-				<Route>
-					<h1>404 NOT_FOUND</h1>
-				</Route>
+				<Route component={NotFound} />
 			</Switch>
 		</BrowserRouter>
 	);

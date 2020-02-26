@@ -1,16 +1,16 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import * as types from '../../constants';
+import { ON_MESSAGE, CLEAR_MESSAGE, SIGN_OUT } from '../../constants';
 
 const initialState = [];
 const messages = (state = initialState, action) => {
 	switch (action.type) {
-		case types.ON_MESSAGE:
+		case ON_MESSAGE:
 			return [...state, action.message];
-		case types.CLEAR_MESSAGE:
+		case CLEAR_MESSAGE:
 			return [];
-		case types.SIGN_OUT:
+		case SIGN_OUT:
 			return [];
 		default:
 			return state;

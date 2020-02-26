@@ -7,10 +7,10 @@ import { Route, Switch } from 'react-router-dom';
 import { connect } from '../../actions';
 
 import Navigation from '../Navigation';
-import { RoomList } from '../RoomList';
-import { TopBar } from '../TopBar';
-import { MessageList, NoMessages } from '../MessageList';
+import TopBar from '../TopBar';
 import UserList from '../UserList';
+import { RoomList } from '../RoomList';
+import { MessageList, NoMessages } from '../MessageList';
 import { SendMessage } from '../FormControls';
 
 export default function Chat({ match }) {
@@ -40,16 +40,20 @@ export default function Chat({ match }) {
 									{isLoading ? (
 										<NoMessages title='Đang kết nối máy chủ' />
 									) : (
-										<NoMessages title='Chọn phòng để bắt đầu chat nào!' />
-									)}
+											<NoMessages title='Chọn phòng để bắt đầu chat nào!' />
+										)}
 								</Route>
-								{rooms.map(room => (
-									<Route
-										key={room.id}
-										path={`${match.path}/:roomId`}
-										component={MessageList}
-									/>
-								))}
+								{rooms.map(room => {
+									return (
+										room.id && (
+											<Route
+												key={room.id}
+												path={`${match.path}/:roomId`}
+												component={MessageList}
+											/>
+										)
+									);
+								})}
 							</Switch>
 						</div>
 					</div>

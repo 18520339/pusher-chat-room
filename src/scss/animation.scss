@@ -30,3 +30,9 @@
         box-shadow: 0 0 0 20px transparent;
     }
 }
+
+@keyframes float {
+    100% {
+        @include transform(translateY(20px));
+    }
+}

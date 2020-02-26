@@ -1,8 +1,8 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import { ADD_EMOJI, TOGGLE_PICKER } from '../constants';
 import { alertError } from '../functions';
+import { enterRoom } from './rooms';
 
 export const typingMessage = () => (dispatch, getState) => {
 	const { currentUser, roomActive } = getState();
@@ -18,14 +18,3 @@ export const sendMessage = (parts, roomId = null) => (dispatch, getState) => {
 		.sendMultipartMessage({ roomId, parts })
 		.catch(err => alertError('Error on sending message', err));
 };
-
-export const addEmoji = (emoji, message) => (dispatch, getState) => {
-	dispatch({ type: ADD_EMOJI });
-	return `${message}${emoji.native}`;
-};
-
-export const togglePicker = () => {
-	return { type: TOGGLE_PICKER };
-};
-
-/* eslint-enable */

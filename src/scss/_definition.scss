@@ -17,6 +17,7 @@ $color_shamrock       : #20c997;
 $color_amber          : #ffc107;
 $color_silver         : #ccc;
 $color_shark          : #212529;
+$color_mid_gray       : #5a5c6c;
 $color_ronchi         : #f0d24b;
 $color_azure_radiance : #007bff;
 $color_portage        : rgba(140, 167, 255, 1);
@@ -232,4 +233,10 @@ $black_5              : rgba(0, 0, 0, 0.05);
     a:hover {
         color: inherit;
     }
+}
+
+@mixin not-found($mt, $ml) {
+    @include pos-absolute(50%, 50%, null, null);
+    margin-top : $mt;
+    margin-left: $ml;
 }

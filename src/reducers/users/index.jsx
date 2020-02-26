@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 export { default as currentUser } from './currentUser';
-export { default as roomUsers } from './roomUsers';
 export { default as typingUsers } from './typingUsers';
+export { default as roomUsers } from './roomUsers';
 
 /* eslint-enable */

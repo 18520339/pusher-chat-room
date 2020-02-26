@@ -73,7 +73,7 @@ export default function MessageList({ match }) {
 								target='_blank'
 							>
 								<img
-									className={`w-50 rounded ${index !==
+									className={`w-25 rounded ${index !==
 										parts.length - 1 && 'mb-3'}`}
 									src={payload._downloadURL}
 									alt='attachment'
