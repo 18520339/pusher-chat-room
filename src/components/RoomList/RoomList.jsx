@@ -42,10 +42,13 @@ export default function RoomList({ match }) {
 								})
 								.map(room => {
 									if (!room.id) return;
-									const { id, name, userIds, unreadCount } = room;
+									const { id, name, userIds, unreadCount, isPrivate } = room;
 									const unread = unreadCount > 0 && 'unread';
 									const active = roomActive.id === id && 'active';
-									const isJoined = userIds.find(id => currentUser.id === id);
+									const isJoined = userIds
+										? userIds.find(id => currentUser.id === id)
+										: false;
+									const avatarType = isPrivate ? 'user' : 'room';
 
 									return (
 										<Link
@@ -53,7 +56,11 @@ export default function RoomList({ match }) {
 											to={`${match.path}/${id}`}
 											className={`${unread} ${active} single`}
 										>
-											<Avatar name={name} type='room' tooltip='top' />
+											<Avatar
+												name={name}
+												type={avatarType}
+												tooltip='top'
+											/>
 											<div className='status'>
 												<i className={`material-icons ${isJoined && 'online'}`}>
 													fiber_manual_record

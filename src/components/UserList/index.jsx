@@ -4,25 +4,23 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { AES } from 'crypto-js';
-
-import { key } from '../../config';
 import Avatar from '../Avatar';
 import { SortMembers } from '../FormControls';
 
 export default function UserList({ match }) {
 	const { roomActive, roomUsers, userSort, showUsersBar } = useSelector(state => state);
-	const { name, createdByUserId } = roomActive;
-
+	const { name, createdByUserId, isPrivate } = roomActive;
+	const avatarType = isPrivate ? 'user' : 'room';
 	return (
 		<div className={`sidebar ${!showUsersBar && 'd-none'}`}>
 			<div className='container'>
 				<div className='col-md-12'>
 					<div className='info'>
-						<img
-							className='avatar-xl'
-							src={`https://avatars.dicebear.com/v2/jdenticon/${name}.svg`}
-							alt={name}
+						<Avatar
+							name={name}
+							type={avatarType}
+							tooltip='bottom'
+							size='xl'
 						/>
 						<h4>{name}</h4>
 					</div>
@@ -51,9 +49,7 @@ export default function UserList({ match }) {
 								})
 								.map(user => {
 									const { id, name, presence, createdAt } = user;
-									const path = AES.encrypt(
-										id + '@!?#?', key
-									).toString().replace('/', '').substr(0, 36);
+									const path = 'user=' + id;
 									const createdDate = new Date(
 										createdAt
 									).toLocaleDateString('vi-VN', {

@@ -11,7 +11,6 @@ export default function RoomBrief(props) {
 		content: 'Chưa có tin nhắn',
 		updated_at: 'Được đề xuất'
 	});
-
 	const { id, name } = props;
 
 	const fetchLastMessage = () => {

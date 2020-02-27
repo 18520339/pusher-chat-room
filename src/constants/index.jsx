@@ -13,6 +13,7 @@ export const ENTER_ROOM = 'ENTER_ROOM';
 export const FILTER_ROOMS = 'FILTER_ROOMS';
 export const SORT_MEMBERS = 'SORT_MEMBERS';
 export const TOGGLE_USERS_BAR = 'TOGGLE_USERS_BAR';
+export const TOGGLE_CALL = 'TOGGLE_CALL';
 export const TOGGLE_PICKER = 'TOGGLE_PICKER';
 export const ADD_EMOJI = 'ADD_EMOJI';
 

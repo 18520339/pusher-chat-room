@@ -10,7 +10,13 @@ import screen from './screen';
 import { messages, isLoading } from './messages';
 import { currentUser, typingUsers, roomUsers } from './users';
 import { rooms, roomActive } from './rooms';
-import { roomFilter, userSort, showPicker, showUsersBar } from './controls';
+import {
+	roomFilter,
+	userSort,
+	showUsersBar,
+	showCall,
+	showPicker
+} from './controls';
 
 const rootReducer = combineReducers({
 	chatkit,
@@ -24,8 +30,9 @@ const rootReducer = combineReducers({
 	roomActive,
 	roomFilter,
 	userSort,
-	showPicker,
-	showUsersBar
+	showUsersBar,
+	showCall,
+	showPicker
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

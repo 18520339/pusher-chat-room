@@ -6,7 +6,6 @@ import React from 'react';
 export default function AuthInput(props) {
 	const { type, id, value, placeholder, icon } = props;
 	const onChange = event => props.onChange(event);
-
 	return (
 		<div className='form-group'>
 			<input

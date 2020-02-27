@@ -6,6 +6,7 @@ import Avatar from '../Avatar';
 
 export default function Message(props) {
 	const { userType, userName, updatedAt, children } = props;
+	const message = children.length ? children : [children];
 	return (
 		<div className={`message ${userType}`}>
 			{userType !== 'me' && (
@@ -13,7 +14,7 @@ export default function Message(props) {
 			)}
 			<div className='text-main'>
 				<div className={`text-group ${userType}`}>
-					{children.map((child, index) => {
+					{message.map((child, index) => {
 						if (child.type === 'a') return child;
 						return (
 							<div key={index} className={`text ${userType}`}>

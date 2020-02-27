@@ -5,7 +5,8 @@ import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 export default function Avatar(props) {
-	const { name, type, tooltip } = props;
+	const { name, type, tooltip, size } = props;
+	const avatarSize = !size ? 'avatar-md' : `avatar-${size}`;
 	var avatarAPI = 'https://avatars.dicebear.com/v2';
 
 	if (type === 'room') {
@@ -20,7 +21,7 @@ export default function Avatar(props) {
 
 	return (
 		<OverlayTrigger placement={tooltip} overlay={<Tooltip>{name}</Tooltip>}>
-			<img className='avatar-md' src={avatarAPI} alt={name} />
+			<img className={avatarSize} src={avatarAPI} alt={name} />
 		</OverlayTrigger>
 	);
 }

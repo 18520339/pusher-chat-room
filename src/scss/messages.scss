@@ -2,9 +2,16 @@
     width     : 100%;
     background: $color_white;
 
-    .chat {
-        @include d-flex(space-between, null, column);
+    &.order-md-1,
+    &.order-md-2 {
         height: 100vh;
+        margin: 0;
+    }
+
+    .chat {
+        @include border(null, null, 0px 0px 20px 0px $black_20);
+        @include d-flex(space-between, null, column);
+        height: 100%;
 
         .content {
             @include overflow(20px 0 0, hidden, scroll);
@@ -15,7 +22,8 @@
                 @include d-flex(null, flex-end, null, null, (bottom, 20px));
 
                 .text {
-                    @include main-decoration(15px, $color_wild_sand, 6px);
+                    @include main-decoration(15px, $white, 6px);
+                    @include border(null, 15px, 0px 0px 20px 0px $black_20);
                     display  : inline-block;
                     max-width: 450px;
 
@@ -269,7 +277,8 @@
         }
 
         .top {
-            @include border-bottom(26.5px 0, 2px solid $color_alabaster);
+            @include border(null, null, 0px 0px 20px 0px $black_20);
+            padding   : 20px 5px;
             background: $white;
 
             .inside {
@@ -309,6 +318,11 @@
                         white-space  : nowrap;
                         overflow     : hidden;
                         text-overflow: ellipsis;
+
+                        &:hover {
+                            color : $color_dodger_blue;
+                            cursor: pointer;
+                        }
                     }
 
                     span {
@@ -318,11 +332,11 @@
                 }
 
                 .btn {
-                    @include font-style(null, null, inherit, 0, (left, 30px));
+                    @include font-style(null, null, $color_dodger_blue, 0, (left, 30px));
                     padding: 0;
 
                     &:hover {
-                        color: $color_dodger_blue;
+                        background: $color_mercury;
                     }
                 }
 
@@ -339,7 +353,7 @@
 
         .bottom {
             @include d-flex(null, center, null, 30px 0);
-            border-top: 2px solid $color_alabaster;
+            border-top: 1.5px solid $color_mercury;
 
             .rta {
                 position: relative;
@@ -378,10 +392,13 @@
             }
 
             .form-control {
+                @include border(null, 50px, 0px 0px 24px 0px $black_20);
                 padding    : 16px 58px;
                 height     : 56px;
                 resize     : none;
                 font-weight: 400;
+                background : white;
+
 
                 &:disabled {
                     background-color: $color_wild_sand;
@@ -397,21 +414,27 @@
             }
 
             .btn {
-                @include font-style(null, null, $color_chatelle, 0);
+                @include font-style(null, null, $color_dodger_blue, 0);
                 padding: 0;
-
-                &:hover {
-                    color: $color_dodger_blue;
-                }
 
                 &.emoticons {
                     @include pos-absolute(0, 0, null, 0);
                     padding: 0 15px 0 20px;
+
+                    &:hover {
+                        background   : #f5f5f5;
+                        border-radius: 50% 0% 0% 50%;
+                    }
                 }
 
                 &.send {
                     @include pos-absolute(0, null, 0, 0);
                     padding: 0 20px 0 15px;
+
+                    &:hover {
+                        background   : #f5f5f5;
+                        border-radius: 0% 50% 50% 0%;
+                    }
                 }
 
                 &.attach {
@@ -525,12 +548,12 @@
 
     .call {
         @include pos-sticky(hidden, auto);
-        display   : none;
+        height    : 100%;
         background: linear-gradient(145deg, $color_portage 0, $color_medium_purple 50%, $color_electric_violet 100%);
 
         .content {
             @include d-flex(center, center);
-            height    : 100vh;
+            height    : 100%;
             text-align: center;
 
             .options {

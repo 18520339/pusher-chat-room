@@ -89,6 +89,7 @@ export default function MessageList({ match }) {
 	const onShowTypingUsers = () => {
 		return typingUsers.map(user => {
 			const { id, name } = user;
+			if (currentUser.id === id) return <div></div>
 			return (
 				<Message key={id} userType='typing' userName={name}>
 					<div className='wave'>

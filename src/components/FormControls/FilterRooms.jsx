@@ -6,15 +6,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { filterRooms } from '../../actions';
 
 export default function FilterRooms() {
-	const roomFilter = useSelector(state => state.roomFilter);
+	const { name, status } = useSelector(state => state.roomFilter);
 	const dispatch = useDispatch();
-	const { name, status } = roomFilter;
-
 	const onChange = event => {
 		const roomName = event.target.value.toLowerCase().trim();
 		dispatch(filterRooms(roomName));
 	};
-
 	return (
 		<div id='room-filter'>
 			<div className='search'>

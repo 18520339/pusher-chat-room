@@ -8,6 +8,7 @@ export {
 	filterRooms,
 	sortMembers,
 	toggleUsersBar,
+	toggleCall,
 	togglePicker,
 	addEmoji
 } from './controls';

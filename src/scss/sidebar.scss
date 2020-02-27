@@ -1,5 +1,6 @@
 .sidebar {
-    background: $color_white;
+    @include border(null, 25px, 0px 0px 20px 0px $black_20);
+    background: $white;
 
     .create {
         @include combine((30px, null, 20px, 0), 50px, null, 0 0 30px 5px $black_4, null, $white);

@@ -2,11 +2,12 @@
 /* eslint-disable */
 
 import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
-import { tokenUrl, instanceLocator, key } from '../config';
-import { AES, enc } from 'crypto-js';
+import { tokenUrl, instanceLocator } from '../config';
 
 import * as types from '../constants';
 import { alertError } from '../functions';
+
+import { toggleCall } from './controls';
 import { sendMessage } from './messages';
 
 export const connect = userId => (dispatch, getState) => {
@@ -42,12 +43,13 @@ export const getRooms = currentUser => (dispatch, getState) => {
 };
 
 export const enterRoom = roomId => (dispatch, getState) => {
+	const { chatkit, currentUser, roomActive, showCall } = getState();
 	dispatch({ type: types.CLEAR_MESSAGE });
-	const { chatkit, currentUser, roomActive } = getState();
+	if (showCall) dispatch(toggleCall());
 
 	try {
 		currentUser.roomSubscriptions[roomActive.id].cancel();
-	} catch { }
+	} catch {}
 
 	currentUser
 		.subscribeToRoomMultipart({
@@ -82,21 +84,16 @@ export const enterRoom = roomId => (dispatch, getState) => {
 		.catch(err => {
 			const { error } = err.info;
 			if (error === 'services/chatkit/not_found/room_not_found') {
-				console.log(roomId)
-				const bytes = AES.decrypt(roomId, key);
-				const decryptedId = bytes.toString().replace('@!?#?', '');
-				console.log(decryptedId)
-
-				// chatkit
-				// 	.getUser({ id: decryptedId })
-				// 	.then(user => {
-				// 		const { id, name } = user;
-				// 		dispatch(createRoom(name, '', id, true));
-				// 	})
-				// 	.catch(() => {
-				// 		alertError('Error on entering rooms: ', err);
-				// 		dispatch({ type: types.NOT_FOUND });
-				// 	});
+				chatkit
+					.getUser({ id: roomId.replace('user=', '') })
+					.then(user => {
+						const { id, name } = user;
+						dispatch(createRoom(name, '', id, true));
+					})
+					.catch(() => {
+						alertError('Error on entering rooms: ', err);
+						dispatch({ type: types.NOT_FOUND });
+					});
 			} else alertError('Error on entering rooms: ', err);
 		});
 };
@@ -115,13 +112,10 @@ export const createRoom = (name, message, userId = null, isPrivate = false) => {
 			}
 		};
 
-		if (isPrivate) {
-			const id = AES.encrypt(
-				userId + '@!?#?', key
-			).toString().replace('/', '').substr(0, 36);
+		if (isPrivate)
 			currentUser
 				.createRoom({
-					id,
+					id: 'user=' + userId,
 					name,
 					private: true,
 					addUserIds: [currentUser.id, userId]
@@ -129,11 +123,14 @@ export const createRoom = (name, message, userId = null, isPrivate = false) => {
 				.then(room => accessNewRoom(room.id))
 				.catch(err => {
 					const { error } = err.info;
-					if (error === 'services/chatkit/bad_request/duplicate_room_id')
-						dispatch(enterRoom(id));
+					if (
+						error ===
+						'services/chatkit/bad_request/duplicate_room_id'
+					)
+						dispatch(enterRoom('user=' + userId));
 					else lertError('Error on chatting 1 to 1', err);
 				});
-		} else
+		else
 			currentUser
 				.createRoom({ name })
 				.then(room => accessNewRoom(room.id))

@@ -12,7 +12,6 @@
     .navigation {
         @include pos-sticky(hidden, auto);
         @include box-size(null, null, (width, 100px));
-        border-right: 5px solid $color_alabaster;
 
         .inside {
             @include d-flex(null, center, column, 30px 0 0);
@@ -38,13 +37,14 @@
 
     .sidebar {
         @include pos-sticky(hidden, scroll);
-        @include box-size(null, 100vh, (width, 372px));
-        padding: 30px 0 0;
+        @include box-size(null, 95vh, (width, 372px));
+        padding: 30px 0;
+        margin : auto 15px;
     }
 
     .main {
-        height      : 100vh;
-        border-right: 5px solid $color_alabaster;
+        height: 95vh;
+        margin: auto 15px;
 
         .start {
             height: 100vh;
@@ -72,10 +72,6 @@
             }
         }
 
-        .chat {
-            border-left: 2px solid $color_alabaster;
-        }
-
         .call .content .inside {
             max-height: calc(100vh - 0);
 
@@ -100,7 +96,8 @@
 
 @media(max-width: 991px) {
     body {
-        padding-bottom: 54px;
+        padding-bottom  : 54px;
+        background-image: none !important;
     }
 
     .aside {
@@ -203,9 +200,6 @@
 
 @media(max-width: 768px) {
     .main .chat {
-        .top {
-            padding: 20px 0;
-        }
 
         .content {
             height: 100%;
