@@ -36,7 +36,7 @@
     }
 
     .contacts {
-        @include sidebar-info(contact, $color_dodger_blue);
+        @include sidebar-info(contact);
 
         .sort-members {
             @include d-flex(space-between, center, null, null, (bottom, 20px));
@@ -48,7 +48,7 @@
     }
 
     .discussions {
-        @include sidebar-info(single, $color_shark);
+        @include sidebar-info(single);
 
         .single {
             .data {

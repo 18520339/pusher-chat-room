@@ -1,7 +1,7 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import { ENTER_ROOM, PRESENCE_CHANGED, SIGN_OUT } from '../../constants';
+import { ENTER_ROOM, PRESENCE_CHANGED } from '../../constants';
 
 const initialState = [];
 const roomUsers = (state = initialState, action) => {
@@ -13,8 +13,6 @@ const roomUsers = (state = initialState, action) => {
 				if (a.presence.state === 'online') return -1;
 				else return 1;
 			});
-		case SIGN_OUT:
-			return [];
 		default:
 			return state;
 	}

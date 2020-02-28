@@ -196,7 +196,7 @@ $black_5              : rgba(0, 0, 0, 0.05);
     text-transform: uppercase;
 }
 
-@mixin sidebar-info($name, $icon-color) {
+@mixin sidebar-info($name) {
     @extend %h1;
 
     .#{$name} {
@@ -207,7 +207,7 @@ $black_5              : rgba(0, 0, 0, 0.05);
         }
 
         &.active .material-icons {
-            color: $icon-color;
+            color: $color_dodger_blue;
         }
 
         .status {

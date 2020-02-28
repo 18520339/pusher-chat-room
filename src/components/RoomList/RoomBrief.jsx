@@ -5,7 +5,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 export default function RoomBrief(props) {
-	const { chatkit, currentUser, roomActive } = useSelector(state => state);
+	const { chatkit, screen, currentUser, roomActive, messages } = useSelector(
+		state => state
+	);
 	const [lastMessage, setLastMessage] = useState({
 		sender: { id: '', name: '' },
 		content: 'Chưa có tin nhắn',
@@ -13,8 +15,8 @@ export default function RoomBrief(props) {
 	});
 	const { id, name } = props;
 
-	const fetchLastMessage = () => {
-		chatkit
+	const fetchLastMessage = async () => {
+		await chatkit
 			.fetchMultipartMessages({ roomId: id, limit: 1 })
 			.then(message => {
 				if (message.length) {
@@ -50,8 +52,13 @@ export default function RoomBrief(props) {
 	};
 
 	useEffect(() => {
-		fetchLastMessage();
-	}, [roomActive]);
+		if (
+			screen.currentScreen === 'Chat' &&
+			roomActive.id &&
+			messages.length > 0
+		)
+			fetchLastMessage();
+	}, [roomActive, messages]);
 
 	return (
 		<div className='data'>

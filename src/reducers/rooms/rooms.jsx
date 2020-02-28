@@ -1,7 +1,7 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import { GET_ROOMS, UPDATE_ROOMS, SIGN_OUT } from '../../constants';
+import { GET_ROOMS, UPDATE_ROOMS } from '../../constants';
 
 const initialState = [];
 const rooms = (state = initialState, action) => {
@@ -10,8 +10,6 @@ const rooms = (state = initialState, action) => {
 			return action.rooms;
 		case UPDATE_ROOMS:
 			return action.rooms;
-		case SIGN_OUT:
-			return [];
 		default:
 			return state;
 	}

@@ -1,4 +1,7 @@
 .not-found {
+    height    : 100vh;
+    background: white;
+
     svg {
         @include not-found(-250px, -400px);
     }

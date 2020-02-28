@@ -108,8 +108,7 @@ module.exports = {
 		overlay: true,
 		stats: 'minimal',
 		inline: true,
-		compress: true,
-		contentBase: './public'
+		compress: true
 	},
 	devtool: 'eval-source-map'
 };

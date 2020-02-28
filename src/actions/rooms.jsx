@@ -45,8 +45,9 @@ export const getRooms = currentUser => (dispatch, getState) => {
 export const enterRoom = roomId => (dispatch, getState) => {
 	const { chatkit, currentUser, roomActive, showCall } = getState();
 	dispatch({ type: types.CLEAR_MESSAGE });
-	if (showCall) dispatch(toggleCall());
 
+	if (!currentUser.id) return;
+	if (showCall) dispatch(toggleCall());
 	try {
 		currentUser.roomSubscriptions[roomActive.id].cancel();
 	} catch {}
