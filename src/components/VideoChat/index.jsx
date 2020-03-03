@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleCall } from '../../actions';
 import Avatar from '../Avatar';
 
-export default function CallChat() {
+export default function VideoChat() {
 	const { name, isPrivate } = useSelector(state => state.roomActive);
 	const dispatch = useDispatch();
 

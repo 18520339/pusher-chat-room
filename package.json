@@ -1,5 +1,5 @@
 {
-	"name": "chat-app",
+	"name": "quanchat",
 	"version": "1.0.0",
 	"description": "Chat application using React JS and Chatkit",
 	"main": "index.jsx",
@@ -7,12 +7,13 @@
 	"author": "Quan Dang",
 	"license": "MIT",
 	"scripts": {
-		"start-local": "concurrently \"nodemon --experimental-modules src/server\" \"webpack-dev-server --mode development\"",
+		"start-local": "concurrently \"nodemon --experimental-modules src/server/localEntry\" \"webpack-dev-server --mode development\"",
 		"start": "webpack-dev-server --mode development",
 		"build": "yarn clean && webpack --mode production",
 		"clean": "rimraf dist"
 	},
 	"dependencies": {
+		"@andyet/simplewebrtc": "^1.16.0",
 		"@microlink/react": "^5.1.0",
 		"@pusher/chatkit-client": "^1.13.4",
 		"@pusher/chatkit-server": "^2.4.0",
@@ -26,7 +27,7 @@
 		"jquery": "^3.4.1",
 		"material-design-icons": "^3.0.1",
 		"nodemon": "^2.0.2",
-		"peer": "^0.2.10",
+		"peerjs": "^1.2.0",
 		"popper.js": "^1.16.1",
 		"react": "^16.12.0",
 		"react-bootstrap": "^1.0.0-beta.16",
