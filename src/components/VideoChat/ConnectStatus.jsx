@@ -6,13 +6,13 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { toggleCall } from '../../actions';
 import Avatar from '../Avatar';
+import Options from './Options';
 
 export default function ConnectStatus({ status }) {
 	const { name, isPrivate } = useSelector(state => state.roomActive);
 	const dispatch = useDispatch();
 
 	const avatarType = isPrivate ? 'user' : 'room';
-	const options = ['mic', 'videocam', 'call_end', 'person_add', 'volume_up'];
 	const onCloseCall = () => dispatch(toggleCall());
 
 	return (
@@ -30,21 +30,7 @@ export default function ConnectStatus({ status }) {
 								/>
 								<span>{status}</span>
 							</div>
-							<div className='options'>
-								{options.map((opt, index) => (
-									<button
-										key={index}
-										className={`btn option 
-											${opt.replace('_', '-')}
-										`}
-										onClick={onCloseCall}
-									>
-										<i className='material-icons md-30'>
-											{opt}
-										</i>
-									</button>
-								))}
-							</div>
+							<Options />
 							<button className='btn back' onClick={onCloseCall}>
 								<i className='material-icons md-24'>chat</i>
 							</button>

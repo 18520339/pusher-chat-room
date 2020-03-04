@@ -13,6 +13,8 @@ import {
 	RequestUserMedia,
 	RemoteAudioPlayer,
 	Video,
+	Audio,
+	VolumeMeter,
 	GridLayout
 } from '@andyet/simplewebrtc';
 
@@ -25,7 +27,7 @@ export default function CallBySWRTC({ userData }) {
 	const dispatch = useDispatch();
 	const onUnload = () => dispatch(toggleCall());
 	return (
-		<NewWindow title={name} center='parent' onUnload={onUnload}>
+		<NewWindow title={name} onUnload={onUnload}>
 			<link
 				href='https://fonts.googleapis.com/icon?family=Material+Icons'
 				rel='stylesheet'
