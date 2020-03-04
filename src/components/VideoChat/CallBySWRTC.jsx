@@ -18,15 +18,14 @@ import {
 
 import { SWRTC_CONFIG_URL } from '../../config';
 import { toggleCall } from '../../actions';
-
-import Connect from './Connect';
+import ConnectStatus from './ConnectStatus';
 
 export default function CallBySWRTC({ userData }) {
 	const { id, name } = useSelector(state => state.roomActive);
 	const dispatch = useDispatch();
 	const onUnload = () => dispatch(toggleCall());
 	return (
-		<NewWindow title={name} center='screen' onUnload={onUnload}>
+		<NewWindow title={name} center='parent' onUnload={onUnload}>
 			<link
 				href='https://fonts.googleapis.com/icon?family=Material+Icons'
 				rel='stylesheet'
@@ -35,25 +34,26 @@ export default function CallBySWRTC({ userData }) {
 				<Provider configUrl={SWRTC_CONFIG_URL} userData={userData}>
 					<RemoteAudioPlayer />
 					<Connecting>
-						<Connect status='Đang kết nối' />
+						<ConnectStatus status='Đang kết nối' />
 					</Connecting>
 					<Disconnected>
-						<Connect status='Mất kết nối' />
+						<ConnectStatus status='Không có kết nối' />
 					</Disconnected>
 					<Connected>
 						<RequestUserMedia audio video auto />
 						<Room name={id}>
 							{({ localMedia, remoteMedia }) => {
-								const remoteVideos = remoteMedia.filter(
+								const localVideos = localMedia.filter(
 									m => m.kind === 'video'
 								);
-								const localVideos = localMedia.filter(
-									m => m.kind === 'video' && m.shared
+
+								const remoteVideos = remoteMedia.filter(
+									m => m.kind === 'video'
 								);
 
 								return (
 									<GridLayout
-										className='videogrid'
+										className='w-100'
 										items={[
 											...localVideos,
 											...remoteVideos
@@ -65,7 +65,6 @@ export default function CallBySWRTC({ userData }) {
 								);
 							}}
 						</Room>
-						<Connect />
 					</Connected>
 				</Provider>
 			</div>

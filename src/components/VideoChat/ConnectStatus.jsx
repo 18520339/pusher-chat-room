@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleCall } from '../../actions';
 import Avatar from '../Avatar';
 
-export default function Connect({ status }) {
+export default function ConnectStatus({ status }) {
 	const { name, isPrivate } = useSelector(state => state.roomActive);
 	const dispatch = useDispatch();
 

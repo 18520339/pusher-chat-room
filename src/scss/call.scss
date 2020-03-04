@@ -1,7 +1,11 @@
 .call {
-	@include pos-sticky(hidden, auto);
+	@include d-flex(center, stretch);
 	height    : 100%;
 	background: linear-gradient(145deg, $color_portage 0, $color_medium_purple 50%, $color_electric_violet 100%);
+
+	video {
+		@include box-size(100%, 100%);
+	}
 
 	.content {
 		@include d-flex(center, center);
