@@ -1,16 +1,11 @@
 .call {
 	@include pos-sticky(hidden, auto);
-	height: 100%;
-	background: linear-gradient(
-		145deg,
-		$color_portage 0,
-		$color_medium_purple 50%,
-		$color_electric_violet 100%
-	);
+	height    : 100%;
+	background: linear-gradient(145deg, $color_portage 0, $color_medium_purple 50%, $color_electric_violet 100%);
 
 	.content {
 		@include d-flex(center, center);
-		height: 100%;
+		height    : 100%;
 		text-align: center;
 
 		.options {
@@ -21,12 +16,7 @@
 				padding: 0 20px;
 
 				&.call-end {
-					@include main-decoration(
-						15px,
-						$color_mandy,
-						100%,
-						call-end 2s infinite
-					);
+					@include main-decoration(15px, $color_mandy, 100%, call-end 2s infinite);
 					@include font-style(null, null, $white, 0);
 					margin: 0 20px;
 
@@ -44,8 +34,8 @@
 
 		.avatar-xxl {
 			margin-bottom: 56px;
-			animation: pulse 2s infinite;
-			cursor: pointer;
+			animation    : pulse 2s infinite;
+			cursor       : pointer;
 		}
 
 		.participant {
@@ -53,7 +43,7 @@
 
 			span {
 				@include font-style(500, null, $white);
-				display: block;
+				display   : block;
 				text-align: center;
 			}
 		}
@@ -68,6 +58,7 @@
 			}
 		}
 	}
+
 	&::-webkit-scrollbar {
 		display: none;
 	}

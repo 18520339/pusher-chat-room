@@ -18,25 +18,31 @@ import {
 
 import { SWRTC_CONFIG_URL } from '../../config';
 import { toggleCall } from '../../actions';
+
 import Connect from './Connect';
 
 export default function CallBySWRTC({ userData }) {
-	const { roomActive } = useSelector(state => state);
+	const { id, name } = useSelector(state => state.roomActive);
 	const dispatch = useDispatch();
+	const onUnload = () => dispatch(toggleCall());
 	return (
-		<NewWindow center>
+		<NewWindow title={name} center='screen' onUnload={onUnload}>
+			<link
+				href='https://fonts.googleapis.com/icon?family=Material+Icons'
+				rel='stylesheet'
+			></link>
 			<div className='call'>
 				<Provider configUrl={SWRTC_CONFIG_URL} userData={userData}>
 					<RemoteAudioPlayer />
 					<Connecting>
-						<Connect />
+						<Connect status='Đang kết nối' />
 					</Connecting>
 					<Disconnected>
-						<Connect />
+						<Connect status='Mất kết nối' />
 					</Disconnected>
 					<Connected>
 						<RequestUserMedia audio video auto />
-						<Room name={roomActive.id}>
+						<Room name={id}>
 							{({ localMedia, remoteMedia }) => {
 								const remoteVideos = remoteMedia.filter(
 									m => m.kind === 'video'
@@ -59,6 +65,7 @@ export default function CallBySWRTC({ userData }) {
 								);
 							}}
 						</Room>
+						<Connect />
 					</Connected>
 				</Provider>
 			</div>

@@ -13,6 +13,7 @@
 
 body {
     @include box-color($color_white, $color_chatelle);
+    display        : initial;
     font-family    : 'Maven Pro', sans-serif;
     font-size      : 15px;
     background     : url('https://img.wallpapersafari.com/desktop/1920/1080/15/47/bld5Un.jpg') no-repeat center;
@@ -39,7 +40,7 @@ p {
 }
 
 .app {
-    overflow: hidden;
+    overflow: auto;
 }
 
 @each $color in (blue $color_dodger_blue,

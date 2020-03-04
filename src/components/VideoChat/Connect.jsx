@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleCall } from '../../actions';
 import Avatar from '../Avatar';
 
-export default function Connect() {
+export default function Connect({ status }) {
 	const { name, isPrivate } = useSelector(state => state.roomActive);
 	const dispatch = useDispatch();
 
@@ -28,24 +28,22 @@ export default function Connect() {
 									tooltip='bottom'
 									size='xxl'
 								/>
-								<span>Connecting</span>
+								<span>{status}</span>
 							</div>
 							<div className='options'>
-								{options.map((opt, index) => {
-									return (
-										<button
-											key={index}
-											className={`btn option 
-													${opt.replace('_', '-')}
-												`}
-											onClick={onCloseCall}
-										>
-											<i className='material-icons md-30'>
-												{opt}
-											</i>
-										</button>
-									);
-								})}
+								{options.map((opt, index) => (
+									<button
+										key={index}
+										className={`btn option 
+											${opt.replace('_', '-')}
+										`}
+										onClick={onCloseCall}
+									>
+										<i className='material-icons md-30'>
+											{opt}
+										</i>
+									</button>
+								))}
 							</div>
 							<button className='btn back' onClick={onCloseCall}>
 								<i className='material-icons md-24'>chat</i>
