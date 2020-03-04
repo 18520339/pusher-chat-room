@@ -8,11 +8,10 @@ import { connect } from '../../actions';
 
 import Navigation from '../Navigation';
 import TopBar from '../TopBar';
-import VideoChat from '../VideoChat';
+import { CallByPeerJs, CallBySWRTC } from '../VideoChat';
 
 import UserList from '../UserList';
 import RoomList from '../RoomList';
-
 import { MessageList, NoMessages } from '../MessageList';
 import { SendMessage } from '../FormControls';
 
@@ -34,7 +33,7 @@ export default function Chat({ match }) {
 			<Navigation />
 			<RoomList match={match} />
 			<div className='main'>
-				<div className={`chat ${showCall && 'd-none'}`} ref={chatNode}>
+				<div className='chat' ref={chatNode}>
 					<TopBar />
 					<div className='content'>
 						<div className='container'>
@@ -62,9 +61,7 @@ export default function Chat({ match }) {
 					</div>
 					<SendMessage />
 				</div>
-				<div className={`call ${!showCall && 'd-none'}`}>
-					<VideoChat />
-				</div>
+				{showCall && <CallBySWRTC />}
 			</div>
 			<UserList match={match} />
 		</div>

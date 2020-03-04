@@ -3,6 +3,7 @@
 
 import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { reducer } from '@andyet/simplewebrtc';
 
 import chatkit from './chatkit';
 import screen from './screen';
@@ -19,6 +20,7 @@ import {
 } from './controls';
 
 const rootReducer = combineReducers({
+	simplewebrtc: reducer,
 	chatkit,
 	screen,
 	messages,
@@ -36,7 +38,11 @@ const rootReducer = combineReducers({
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer, composeEnhancer(applyMiddleware(thunk)));
+const store = createStore(
+	rootReducer,
+	{ simplewebrtc: {} },
+	composeEnhancer(applyMiddleware(thunk))
+);
 
 export default store;
 

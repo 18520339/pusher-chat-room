@@ -37,9 +37,10 @@
 
     .sidebar {
         @include pos-sticky(hidden, scroll);
-        @include box-size(null, 95vh, (width, 372px));
-        padding: 30px 0;
-        margin : auto 15px;
+        @include box-size(100%, 95vh);
+        max-width: 29%;
+        padding  : 30px 0;
+        margin   : auto 15px;
     }
 
     .main {

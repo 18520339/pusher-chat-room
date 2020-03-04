@@ -117,6 +117,7 @@
         .btn {
             @include font-style(500, 15px, inherit);
             padding      : 8px 20px;
+            white-space  : nowrap;
             border-radius: 100px;
 
             &.active {

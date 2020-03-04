@@ -1,0 +1,74 @@
+.call {
+	@include pos-sticky(hidden, auto);
+	height: 100%;
+	background: linear-gradient(
+		145deg,
+		$color_portage 0,
+		$color_medium_purple 50%,
+		$color_electric_violet 100%
+	);
+
+	.content {
+		@include d-flex(center, center);
+		height: 100%;
+		text-align: center;
+
+		.options {
+			@include d-flex(center, center, null, null, (bottom, 60px));
+
+			.option {
+				@include font-style(null, null, $white, 0);
+				padding: 0 20px;
+
+				&.call-end {
+					@include main-decoration(
+						15px,
+						$color_mandy,
+						100%,
+						call-end 2s infinite
+					);
+					@include font-style(null, null, $white, 0);
+					margin: 0 20px;
+
+					&:hover {
+						@include transform(scale(1.05));
+						@include transition(all 0.3s linear);
+					}
+				}
+
+				&:hover {
+					opacity: 0.9;
+				}
+			}
+		}
+
+		.avatar-xxl {
+			margin-bottom: 56px;
+			animation: pulse 2s infinite;
+			cursor: pointer;
+		}
+
+		.participant {
+			margin-bottom: 56px;
+
+			span {
+				@include font-style(500, null, $white);
+				display: block;
+				text-align: center;
+			}
+		}
+
+		.back {
+			@include main-decoration(18px, $black_5, 100%);
+			@include font-style(null, null, $white, 0);
+			@include transition(all 0.3s linear);
+
+			&:hover {
+				@include transform(translateY(10px) translateZ(0));
+			}
+		}
+	}
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
