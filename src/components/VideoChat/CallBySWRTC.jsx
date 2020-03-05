@@ -14,15 +14,16 @@ import {
 	RemoteAudioPlayer,
 	Video,
 	Audio,
-	VolumeMeter,
 	GridLayout
 } from '@andyet/simplewebrtc';
 
-import { SWRTC_CONFIG_URL } from '../../config';
+import { key, SWRTC_CONFIG_URL } from '../../config';
 import { toggleCall } from '../../actions';
-import ConnectStatus from './ConnectStatus';
 
-export default function CallBySWRTC({ userData }) {
+import ConnectStatus from './ConnectStatus';
+import Options from './Options';
+
+export default function CallBySWRTC() {
 	const { id, name } = useSelector(state => state.roomActive);
 	const dispatch = useDispatch();
 	const onUnload = () => dispatch(toggleCall());
@@ -33,7 +34,7 @@ export default function CallBySWRTC({ userData }) {
 				rel='stylesheet'
 			></link>
 			<div className='call'>
-				<Provider configUrl={SWRTC_CONFIG_URL} userData={userData}>
+				<Provider configUrl={SWRTC_CONFIG_URL}>
 					<RemoteAudioPlayer />
 					<Connecting>
 						<ConnectStatus status='Đang kết nối' />
@@ -42,15 +43,17 @@ export default function CallBySWRTC({ userData }) {
 						<ConnectStatus status='Không có kết nối' />
 					</Disconnected>
 					<Connected>
-						<RequestUserMedia audio video auto />
-						<Room name={id}>
+						<RequestUserMedia audio auto />
+						<Room roomAddress={id} name={name} password={key}>
 							{({ localMedia, remoteMedia }) => {
-								const localVideos = localMedia.filter(
-									m => m.kind === 'video'
-								);
-
 								const remoteVideos = remoteMedia.filter(
 									m => m.kind === 'video'
+								);
+								const localVideos = localMedia.filter(
+									m => m.kind === 'video' && m.shared
+								);
+								const localScreens = localVideos.filter(
+									m => m.screenCapture
 								);
 
 								return (
@@ -67,6 +70,7 @@ export default function CallBySWRTC({ userData }) {
 								);
 							}}
 						</Room>
+						<Options />
 					</Connected>
 				</Provider>
 			</div>

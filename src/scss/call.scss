@@ -4,37 +4,46 @@
 	background: linear-gradient(145deg, $color_portage 0, $color_medium_purple 50%, $color_electric_violet 100%);
 
 	video {
-		@include box-size(100%, 100%);
+		@include box-size(100%, null);
+		align-self: center;
+	}
+
+	.options {
+		@include d-flex(center, center, null, null, (bottom, 37px));
+		@include pos-absolute(null, null, null, 0);
+
+		.option {
+			@include font-style(null, null, $white, 0);
+			padding: 0 20px;
+
+			&.call-end {
+				@include main-decoration(15px, $color_mandy, 100%, call-end 2s infinite);
+				@include font-style(null, null, $white, 0);
+				margin: 0 20px;
+			}
+
+			&:hover {
+				@include transform(scale(1.1));
+				@include transition(all 0.3s linear);
+				opacity: 0.9;
+			}
+		}
+	}
+
+	.back {
+		@include main-decoration(18px, $black_5, 100%);
+		@include font-style(null, null, $white, 0);
+		@include transition(all 0.3s linear);
+
+		&:hover {
+			@include transform(translateY(10px) translateZ(0));
+		}
 	}
 
 	.content {
 		@include d-flex(center, center);
 		height    : 100%;
 		text-align: center;
-
-		.options {
-			@include d-flex(center, center, null, null, (bottom, 60px));
-
-			.option {
-				@include font-style(null, null, $white, 0);
-				padding: 0 20px;
-
-				&.call-end {
-					@include main-decoration(15px, $color_mandy, 100%, call-end 2s infinite);
-					@include font-style(null, null, $white, 0);
-					margin: 0 20px;
-
-					&:hover {
-						@include transform(scale(1.05));
-						@include transition(all 0.3s linear);
-					}
-				}
-
-				&:hover {
-					opacity: 0.9;
-				}
-			}
-		}
 
 		.avatar-xxl {
 			margin-bottom: 56px;
@@ -52,14 +61,9 @@
 			}
 		}
 
-		.back {
-			@include main-decoration(18px, $black_5, 100%);
-			@include font-style(null, null, $white, 0);
-			@include transition(all 0.3s linear);
-
-			&:hover {
-				@include transform(translateY(10px) translateZ(0));
-			}
+		.options {
+			position     : unset;
+			margin-bottom: 60px;
 		}
 	}
 
