@@ -3,16 +3,19 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleUsersBar, toggleCall } from '../../actions';
+import { toggleCall, toggleUsersBar } from '../../actions';
 import Avatar from '../Avatar';
 
 export default function TopBar() {
 	const { id, name, isPrivate } = useSelector(state => state.roomActive);
 	const dispatch = useDispatch();
-
 	const avatarType = isPrivate ? 'user' : 'room';
-	const onShowChat = () => {
+
+	const onPhoneChat = () => {
 		if (id) dispatch(toggleCall());
+	};
+	const onVideoChat = () => {
+		if (id) dispatch(toggleCall(true));
 	};
 	const onShowMembers = () => {
 		if (id) dispatch(toggleUsersBar());
@@ -39,12 +42,12 @@ export default function TopBar() {
 							<h5>{name}</h5>
 							<span>Active now</span>
 						</div>
-						<button className='btn' onClick={onShowChat}>
+						<button className='btn' onClick={onPhoneChat}>
 							<i className='material-icons md-30'>
 								phone_in_talk
 							</i>
 						</button>
-						<button className='btn' onClick={onShowChat}>
+						<button className='btn' onClick={onVideoChat}>
 							<i className='material-icons md-36'>videocam</i>
 						</button>
 						<button className='btn' onClick={onShowMembers}>

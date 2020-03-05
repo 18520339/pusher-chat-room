@@ -16,7 +16,7 @@ import { MessageList, NoMessages } from '../MessageList';
 import { SendMessage } from '../FormControls';
 
 export default function Chat({ match }) {
-	const { screen, rooms, isLoading, showCall } = useSelector(state => state);
+	const { screen, rooms, isLoading, videoChat } = useSelector(state => state);
 	const dispatch = useDispatch();
 	const chatNode = useRef(null);
 
@@ -61,7 +61,7 @@ export default function Chat({ match }) {
 					</div>
 					<SendMessage />
 				</div>
-				{showCall && <CallBySWRTC />}
+				{videoChat.show && <CallBySWRTC />}
 			</div>
 			<UserList match={match} />
 		</div>

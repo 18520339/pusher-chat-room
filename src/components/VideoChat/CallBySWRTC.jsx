@@ -24,9 +24,12 @@ import ConnectStatus from './ConnectStatus';
 import Options from './Options';
 
 export default function CallBySWRTC() {
-	const { id, name } = useSelector(state => state.roomActive);
+	const { roomActive, videoChat } = useSelector(state => state);
 	const dispatch = useDispatch();
+
+	const { id, name } = roomActive;
 	const onUnload = () => dispatch(toggleCall());
+
 	return (
 		<NewWindow title={name} onUnload={onUnload}>
 			<link
@@ -43,7 +46,11 @@ export default function CallBySWRTC() {
 						<ConnectStatus status='Không có kết nối' />
 					</Disconnected>
 					<Connected>
-						<RequestUserMedia audio auto />
+						{videoChat.cam ? (
+							<RequestUserMedia video audio auto />
+						) : (
+							<RequestUserMedia audio auto />
+						)}
 						<Room roomAddress={id} name={name} password={key}>
 							{({ localMedia, remoteMedia }) => {
 								const remoteVideos = remoteMedia.filter(
@@ -52,10 +59,6 @@ export default function CallBySWRTC() {
 								const localVideos = localMedia.filter(
 									m => m.kind === 'video' && m.shared
 								);
-								const localScreens = localVideos.filter(
-									m => m.screenCapture
-								);
-
 								return (
 									<GridLayout
 										className='w-100'

@@ -14,10 +14,6 @@ export const toggleUsersBar = () => {
 	return { type: types.TOGGLE_USERS_BAR };
 };
 
-export const toggleCall = () => {
-	return { type: types.TOGGLE_CALL };
-};
-
 export const togglePicker = () => {
 	return { type: types.TOGGLE_PICKER };
 };
