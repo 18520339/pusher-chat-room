@@ -1,6 +1,8 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
+import * as types from '../constants';
+
 export const toggleCall = (cam = false) => {
 	return { type: types.TOGGLE_CALL, cam };
 };

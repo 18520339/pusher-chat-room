@@ -12,13 +12,7 @@ import videoChat from './videoChat';
 import { messages, isLoading } from './messages';
 import { currentUser, typingUsers, roomUsers } from './users';
 import { rooms, roomActive } from './rooms';
-import {
-	roomFilter,
-	userSort,
-	showUsersBar,
-	showCall,
-	showPicker
-} from './controls';
+import { roomFilter, userSort, showUsersBar, showPicker } from './controls';
 
 const rootReducer = combineReducers({
 	simplewebrtc: reducer,
@@ -35,7 +29,6 @@ const rootReducer = combineReducers({
 	roomFilter,
 	userSort,
 	showUsersBar,
-	showCall,
 	showPicker
 });
 

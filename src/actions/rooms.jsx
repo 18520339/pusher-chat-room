@@ -7,7 +7,7 @@ import { tokenUrl, instanceLocator } from '../config';
 import * as types from '../constants';
 import { alertError } from '../functions';
 
-import { toggleCall } from './controls';
+import { toggleCall } from './videoChat';
 import { sendMessage } from './messages';
 
 export const connect = userId => (dispatch, getState) => {
@@ -50,7 +50,7 @@ export const enterRoom = roomId => (dispatch, getState) => {
 	if (showCall) dispatch(toggleCall());
 	try {
 		currentUser.roomSubscriptions[roomActive.id].cancel();
-	} catch {}
+	} catch { }
 
 	currentUser
 		.subscribeToRoomMultipart({
@@ -124,10 +124,7 @@ export const createRoom = (name, message, userId = null, isPrivate = false) => {
 				.then(room => accessNewRoom(room.id))
 				.catch(err => {
 					const { error } = err.info;
-					if (
-						error ===
-						'services/chatkit/bad_request/duplicate_room_id'
-					)
+					if (error === 'services/chatkit/bad_request/duplicate_room_id')
 						dispatch(enterRoom('user=' + userId));
 					else lertError('Error on chatting 1 to 1', err);
 				});
