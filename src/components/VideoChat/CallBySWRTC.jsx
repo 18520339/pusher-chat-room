@@ -3,7 +3,6 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import NewWindow from 'react-new-window';
 import {
 	Provider,
 	Connected,
@@ -13,13 +12,13 @@ import {
 	RequestUserMedia,
 	RemoteAudioPlayer,
 	Video,
-	Audio,
 	GridLayout
 } from '@andyet/simplewebrtc';
 
 import { key, SWRTC_CONFIG_URL } from '../../config';
 import { toggleCall } from '../../actions';
 
+import NewWindow from '../NewWindow';
 import ConnectStatus from './ConnectStatus';
 import Options from './Options';
 
@@ -28,7 +27,7 @@ export default function CallBySWRTC() {
 	const dispatch = useDispatch();
 	const onUnload = () => dispatch(toggleCall());
 	return (
-		<NewWindow title={name} onUnload={onUnload}>
+		<NewWindow title={name}>
 			<link
 				href='https://fonts.googleapis.com/icon?family=Material+Icons'
 				rel='stylesheet'
