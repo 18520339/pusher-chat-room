@@ -7,7 +7,6 @@
 	"author": "Quan Dang",
 	"license": "MIT",
 	"scripts": {
-		"start-local": "concurrently \"nodemon --experimental-modules src/server/localEntry\" \"webpack-dev-server --mode development\"",
 		"start": "webpack-dev-server --mode development",
 		"build": "yarn clean && webpack --mode production",
 		"clean": "rimraf dist"
@@ -19,14 +18,10 @@
 		"@pusher/chatkit-server": "^2.4.0",
 		"@webscopeio/react-textarea-autocomplete": "^4.6.3",
 		"bootstrap": "^4.4.1",
-		"concurrently": "^5.1.0",
-		"cors": "^2.8.5",
 		"crypto-js": "^4.0.0",
 		"emoji-mart": "^2.11.2",
-		"express": "^4.17.1",
 		"jquery": "^3.4.1",
 		"material-design-icons": "^3.0.1",
-		"nodemon": "^2.0.2",
 		"peerjs": "^1.2.0",
 		"popper.js": "^1.16.1",
 		"react": "^16.13.0",
@@ -38,7 +33,6 @@
 		"react-router-dom": "^5.1.2",
 		"redux": "^4.0.5",
 		"redux-thunk": "^2.3.0",
-		"socket.io": "^2.3.0",
 		"styled-components": "^5.0.1"
 	},
 	"devDependencies": {
