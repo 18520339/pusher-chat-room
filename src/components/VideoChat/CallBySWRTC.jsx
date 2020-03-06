@@ -1,18 +1,18 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+	Room,
+	Video,
 	Provider,
 	Connected,
+	GridLayout,
 	Connecting,
 	Disconnected,
-	Room,
 	RequestUserMedia,
-	RemoteAudioPlayer,
-	Video,
-	GridLayout
+	RemoteAudioPlayer
 } from '@andyet/simplewebrtc';
 
 import { key, SWRTC_CONFIG_URL } from '../../config';
@@ -25,9 +25,12 @@ import Options from './Options';
 export default function CallBySWRTC() {
 	const { id, name } = useSelector(state => state.roomActive);
 	const dispatch = useDispatch();
+
+	var localScreens = [];
 	const onUnload = () => dispatch(toggleCall());
+
 	return (
-		<NewWindow title={name}>
+		<NewWindow title={name} onUnload={onUnload}>
 			<link
 				href='https://fonts.googleapis.com/icon?family=Material+Icons'
 				rel='stylesheet'
@@ -42,21 +45,24 @@ export default function CallBySWRTC() {
 					</Disconnected>
 					<Connected>
 						<RemoteAudioPlayer />
-						<RequestUserMedia audio auto />
+						<RequestUserMedia video audio auto />
 						<Room roomAddress={id} name={name} password={key}>
 							{({ localMedia, remoteMedia }) => {
-								const remoteStream = remoteMedia.filter(
+								const remoteVideos = remoteMedia.filter(
 									m => m.kind === 'video'
 								);
-								const localStream = localMedia.filter(
+								const localVideos = localMedia.filter(
 									m => m.kind === 'video' && m.shared
+								);
+								localScreens = localVideos.filter(
+									m => m.screenCapture
 								);
 								return (
 									<GridLayout
 										className='w-100'
 										items={[
-											localStream[0],
-											...remoteStream
+											...localVideos,
+											...remoteVideos
 										]}
 										renderCell={item => (
 											<Video media={item} />
@@ -65,7 +71,7 @@ export default function CallBySWRTC() {
 								);
 							}}
 						</Room>
-						<Options />
+						<Options localScreens={localScreens} />
 					</Connected>
 				</Provider>
 			</div>

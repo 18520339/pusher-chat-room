@@ -3,9 +3,14 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import {
+	RequestDisplayMedia,
+	MediaControls,
+	UserControls
+} from '@andyet/simplewebrtc';
 import { toggleCall, toggleCallOption } from '../../actions';
 
-export default function Options() {
+export default function Options({ localScreens }) {
 	const { pause, cam, screenShare, mute } = useSelector(
 		state => state.videoChat
 	);
@@ -21,7 +26,34 @@ export default function Options() {
 		dispatch(toggleCall());
 	};
 	const onScreenShare = () => {
-		dispatch(toggleCallOption('screenShare'));
+		if (localScreens) {
+			if (localScreens.length)
+				return (
+					<MediaControls
+						media={localScreens[0]}
+						autoRemove
+						render={({ stopSharingLocalMedia }) => (
+							<button
+								className='btn option'
+								onClick={stopSharingLocalMedia}
+							>
+								<i className='material-icons md-30'>
+									stop_screen_share
+								</i>
+							</button>
+						)}
+					/>
+				);
+		}
+		return (
+			<RequestDisplayMedia
+				render={getDisplayMedia => (
+					<button className='btn option' onClick={getDisplayMedia}>
+						<i className='material-icons md-30'>screen_share</i>
+					</button>
+				)}
+			/>
+		);
 	};
 	const onVolumeUp = () => {
 		dispatch(toggleCallOption('mute'));
@@ -42,11 +74,7 @@ export default function Options() {
 			<button className='btn option call-end' onClick={onCallEnd}>
 				<i className='material-icons md-30'>call_end</i>
 			</button>
-			<button className='btn option' onClick={onScreenShare}>
-				<i className='material-icons md-30'>
-					{screenShare ? 'stop_screen_share' : 'screen_share'}
-				</i>
-			</button>
+			{onScreenShare()}
 			<button className='btn option' onClick={onVolumeUp}>
 				<i className='material-icons md-30'>
 					{mute ? 'volume_off' : 'volume_up'}

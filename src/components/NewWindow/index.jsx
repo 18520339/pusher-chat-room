@@ -40,10 +40,13 @@ export default class NewWindow extends PureComponent {
 
 		this.externalWindow.document.title = this.props.title;
 		this.externalWindow.document.body.appendChild(this.containerEl);
+		this.externalWindow.addEventListener('beforeunload', () =>
+			this.props.onUnload()
+		);
 	}
 
 	componentWillUnmount() {
-		this.externalWindow.close();
+		if (this.externalWindow) this.externalWindow.close();
 	}
 
 	render() {
