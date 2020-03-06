@@ -14,6 +14,10 @@ export const toggleUsersBar = () => {
 	return { type: types.TOGGLE_USERS_BAR };
 };
 
+export const toggleCall = (cam = false) => {
+	return { type: types.TOGGLE_CALL, cam };
+};
+
 export const togglePicker = () => {
 	return { type: types.TOGGLE_PICKER };
 };

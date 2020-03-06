@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { AuthInput } from '../FormControls';
-import { signUpAPI } from '../../actions';
+import { signUp } from '../../actions';
 
 export default function SignUp() {
 	const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export default function SignUp() {
 		const { name, email, password } = userInfo;
 
 		if (name.trim() && email.trim() && password.trim()) {
-			dispatch(signUpAPI(name, email, password));
+			dispatch(signUp(name, email, password));
 			setUserInfo({ name: '', email: '', password: '' });
 		}
 	};

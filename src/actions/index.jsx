@@ -1,14 +1,14 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-export { signUpAPI, signInAPI, signOut } from './screen';
+export { signUp, signIn, signOut } from './screen';
 export { connect, getRooms, enterRoom, createRoom } from './rooms';
 export { typingMessage, sendMessage } from './messages';
-export { toggleCall, toggleCallOption } from './videoChat';
 export {
 	filterRooms,
 	sortMembers,
 	toggleUsersBar,
+	toggleCall,
 	togglePicker,
 	addEmoji
 } from './controls';

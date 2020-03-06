@@ -7,7 +7,7 @@ import { SIGN_IN, SIGN_OUT } from '../constants';
 import { HmacSHA1 } from 'crypto-js';
 import { alertError } from '../functions';
 
-export const signUpAPI = (name, email, password) => (dispatch, getState) => {
+export const signUp = (name, email, password) => (dispatch, getState) => {
 	const chatkit = getState().chatkit;
 	const id = HmacSHA1(email + '@!?#?' + password, key).toString();
 	const avatarURL = `https://avatars.dicebear.com/v2/avataaars/${name}.svg?options[eyes][]=squint&options[eyebrow][]=raised&options[mouth][]=smile`;
@@ -18,7 +18,7 @@ export const signUpAPI = (name, email, password) => (dispatch, getState) => {
 		.catch(err => alertError('Error on sign up', err));
 };
 
-export const signInAPI = (email, password) => {
+export const signIn = (email, password) => {
 	return (dispatch, getState) => {
 		const chatkit = getState().chatkit;
 		const id = HmacSHA1(email + '@!?#?' + password, key).toString();

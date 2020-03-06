@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { AuthInput } from '../FormControls';
-import { signInAPI } from '../../actions';
+import { signIn } from '../../actions';
 
 export default function SignIn() {
 	const dispatch = useDispatch();
@@ -23,7 +23,7 @@ export default function SignIn() {
 		const { email, password } = userInfo;
 
 		if (email.trim() && password.trim())
-			dispatch(signInAPI(email, password, history));
+			dispatch(signIn(email, password, history));
 	};
 
 	return (

@@ -8,7 +8,7 @@ import { connect } from '../../actions';
 
 import Navigation from '../Navigation';
 import TopBar from '../TopBar';
-import { CallByPeerJs, CallBySWRTC } from '../VideoChat';
+import VideoChat from '../VideoChat';
 
 import UserList from '../UserList';
 import RoomList from '../RoomList';
@@ -61,7 +61,7 @@ export default function Chat({ match }) {
 					</div>
 					<SendMessage />
 				</div>
-				{videoChat.show && <CallBySWRTC />}
+				{videoChat.show && <VideoChat />}
 			</div>
 			<UserList match={match} />
 		</div>
