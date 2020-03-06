@@ -61,7 +61,8 @@ export default function CallBySWRTC() {
 									<GridLayout
 										className='w-100'
 										items={[
-											...localVideos,
+											localVideos[0],
+											...localScreens,
 											...remoteVideos
 										]}
 										renderCell={item => (

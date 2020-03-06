@@ -11,9 +11,7 @@ import {
 import { toggleCall, toggleCallOption } from '../../actions';
 
 export default function Options({ localScreens }) {
-	const { pause, cam, screenShare, mute } = useSelector(
-		state => state.videoChat
-	);
+	const { pause, cam, mute } = useSelector(state => state.videoChat);
 	const dispatch = useDispatch();
 
 	const onPause = () => {
@@ -55,9 +53,6 @@ export default function Options({ localScreens }) {
 			/>
 		);
 	};
-	const onVolumeUp = () => {
-		dispatch(toggleCallOption('mute'));
-	};
 
 	return (
 		<div className='options'>
@@ -75,11 +70,18 @@ export default function Options({ localScreens }) {
 				<i className='material-icons md-30'>call_end</i>
 			</button>
 			{onScreenShare()}
-			<button className='btn option' onClick={onVolumeUp}>
-				<i className='material-icons md-30'>
-					{mute ? 'volume_off' : 'volume_up'}
-				</i>
-			</button>
+			<UserControls
+				render={({ isMuted, mute, unmute }) => (
+					<button
+						className='btn option'
+						onClick={() => (isMuted ? unmute() : mute())}
+					>
+						<i className='material-icons md-30'>
+							{isMuted ? 'volume_off' : 'volume_up'}
+						</i>
+					</button>
+				)}
+			/>
 		</div>
 	);
 }
