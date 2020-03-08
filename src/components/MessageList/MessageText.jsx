@@ -5,10 +5,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import MicrolinkCard from '@microlink/react';
 
-export default function MessageText(props) {
+export default function MessageText({ currentUserName, text }) {
 	const { roomUsers } = useSelector(state => state);
-	const { currentUserName, text } = props;
-
 	const insertTextAtIndices = (text, obj) => {
 		return text.replace(/./g, (character, index) => {
 			return obj[index] ? obj[index] + character : character;

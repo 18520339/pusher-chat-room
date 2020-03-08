@@ -8,7 +8,7 @@ const userSort = (state = initialState, action) => {
 	switch (action.type) {
 		case SORT_MEMBERS:
 			const { by, value } = action;
-			return { by, value };
+			return { ...state, by, value };
 		default:
 			return state;
 	}

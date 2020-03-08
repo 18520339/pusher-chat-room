@@ -47,8 +47,7 @@ export default function UserList({ match }) {
 										return 0;
 									}
 								})
-								.map(user => {
-									const { id, name, presence, createdAt } = user;
+								.map(({ id, name, presence, createdAt }) => {
 									const path = 'user=' + id;
 									const createdDate = new Date(
 										createdAt

@@ -4,8 +4,7 @@
 import React from 'react';
 import Avatar from '../Avatar';
 
-export default function Message(props) {
-	const { userType, userName, updatedAt, children } = props;
+export default function Message({ userType, userName, updatedAt, children }) {
 	const message = children.length ? children : [children];
 	return (
 		<div className={`message ${userType}`}>

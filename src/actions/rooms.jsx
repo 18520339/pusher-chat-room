@@ -1,34 +1,9 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
-import { tokenUrl, instanceLocator } from '../config';
-
 import * as types from '../constants';
 import { alertError } from '../functions';
-import { sendMessage } from './messages';
-
-export const connect = userId => (dispatch, getState) => {
-	const chatManager = new ChatManager({
-		instanceLocator,
-		userId,
-		tokenProvider: new TokenProvider({ url: tokenUrl })
-	});
-	chatManager
-		.connect({
-			onRoomUpdated: room => {
-				const { rooms } = getState();
-				const index = rooms.findIndex(r => r.id === room.id);
-				rooms[index] = room;
-				dispatch({ type: types.UPDATE_ROOMS, rooms });
-			}
-		})
-		.then(currentUser => {
-			dispatch({ type: types.CONNECT, currentUser });
-			dispatch(getRooms(currentUser));
-		})
-		.catch(err => alertError('Error on connection', err));
-};
+import { sendMessage, fetchLastMessage } from './messages';
 
 export const getRooms = currentUser => (dispatch, getState) => {
 	currentUser
@@ -41,13 +16,9 @@ export const getRooms = currentUser => (dispatch, getState) => {
 };
 
 export const enterRoom = roomId => (dispatch, getState) => {
-	const { chatkit, currentUser, roomActive, showCall } = getState();
+	const { chatkit, currentUser } = getState();
 	dispatch({ type: types.CLEAR_MESSAGE });
-
 	if (!currentUser.id) return;
-	try {
-		currentUser.roomSubscriptions[roomActive.id].cancel();
-	} catch {}
 
 	currentUser
 		.subscribeToRoomMultipart({
@@ -55,22 +26,38 @@ export const enterRoom = roomId => (dispatch, getState) => {
 			messageLimit: 50,
 			hooks: {
 				onMessage: message => {
-					dispatch({ type: types.ON_MESSAGE, message });
-					if (roomActive.id)
-						return currentUser.setReadCursor({
-							roomId: roomActive.id,
+					const { roomId, sender, parts } = message;
+					const { partType, payload } = parts[parts.length - 1];
+
+					const { id, name } = sender;
+					const owner = currentUser.id === id ? 'Bạn' : name;
+					var lastMessage = `${owner} đã gửi 1 ảnh`;
+
+					if (partType === 'inline')
+						lastMessage = `${owner}: ${payload.content}`;
+					dispatch(fetchLastMessage(roomId, lastMessage));
+
+					if (location.hash.substr(7) === roomId) {
+						dispatch({ type: types.ON_MESSAGE, message });
+						currentUser.setReadCursor({
+							roomId,
 							position: message.id
 						});
+					}
 				},
 				onUserStartedTyping: user => {
-					dispatch({ type: types.USER_STARTED_TYPING, user });
+					const { roomActive } = getState();
+					if (roomActive.id === roomId)
+						dispatch({ type: types.USER_STARTED_TYPING, user });
 				},
 				onUserStoppedTyping: user => {
-					dispatch({ type: types.USER_STOPED_TYPING, user });
+					const { roomActive } = getState();
+					if (roomActive.id === roomId)
+						dispatch({ type: types.USER_STOPED_TYPING, user });
 				},
 				onPresenceChanged: () => {
 					const { roomActive } = getState();
-					if (roomActive.id)
+					if (roomActive.id === roomId)
 						dispatch({ type: types.PRESENCE_CHANGED, roomActive });
 				}
 			}
@@ -99,39 +86,39 @@ export const enterRoom = roomId => (dispatch, getState) => {
 export const createRoom = (name, message, userId = null, isPrivate = false) => {
 	return (dispatch, getState) => {
 		const { currentUser } = getState();
-		const accessNewRoom = id => {
-			dispatch(enterRoom(id));
-			window.history.pushState(null, null, `room/${id}`);
-
+		const accessNewRoom = room => {
+			const roomId = room.id;
 			const parts = [];
 			if (message.trim()) {
 				parts.push({ type: 'text/plain', content: message });
-				dispatch(sendMessage(parts, `${id}`));
+				dispatch(sendMessage(parts, `${roomId}`));
 			}
+			history.pushState(null, null, `#/room/${roomId}`);
+			setTimeout(() => dispatch(enterRoom(roomId)), 100);
 		};
 
 		if (isPrivate)
 			currentUser
 				.createRoom({
-					id: 'user=' + userId,
+					id: `user=${userId}`,
 					name,
 					private: true,
-					addUserIds: [currentUser.id, userId]
+					addUserIds: [currentUser.id, userId],
+					customData: { lastMessage: '' }
 				})
-				.then(room => accessNewRoom(room.id))
+				.then(room => accessNewRoom(room))
 				.catch(err => {
-					const { error } = err.info;
 					if (
-						error ===
+						err.info ===
 						'services/chatkit/bad_request/duplicate_room_id'
 					)
 						dispatch(enterRoom('user=' + userId));
-					else lertError('Error on chatting 1 to 1', err);
+					else alertError('Error on chatting 1 to 1', err);
 				});
 		else
 			currentUser
-				.createRoom({ name })
-				.then(room => accessNewRoom(room.id))
+				.createRoom({ name, customData: { lastMessage: '' } })
+				.then(room => accessNewRoom(room))
 				.catch(err => alertError('Error on creating rooms', err));
 	};
 };

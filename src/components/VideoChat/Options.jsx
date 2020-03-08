@@ -12,9 +12,8 @@ import {
 import { toggleCall } from '../../actions';
 import LocalOptions from './LocalOptions';
 
-export default function Options(props) {
+export default function Options({ localVideos, localScreen }) {
 	const dispatch = useDispatch();
-	const { localVideos, localScreen } = props;
 	return (
 		<LocalOptions>
 			{localVideos && localVideos.length ? (

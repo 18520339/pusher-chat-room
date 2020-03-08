@@ -4,7 +4,7 @@
 import React from 'react';
 import { UserControls } from '@andyet/simplewebrtc';
 
-export default function LocalOptions(props) {
+export default function LocalOptions({ children }) {
 	return (
 		<UserControls
 			render={({
@@ -26,7 +26,7 @@ export default function LocalOptions(props) {
 							{isPaused ? 'play_arrow' : 'pause'}
 						</i>
 					</button>
-					{props.children}
+					{children}
 					<button
 						className='btn option'
 						onClick={() => (isMuted ? unmute() : mute())}

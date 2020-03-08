@@ -2,26 +2,6 @@
     @include border(null, 30px, 0px 0px 20px 0px $black_20);
     background: $white;
 
-    .create {
-        @include combine((30px, null, 20px, 0), 50px, null, 0 0 30px 5px $black_4, null, $white);
-        @include d-flex(center, center, null, 0);
-        @include transition(all 0.3s);
-        float : right;
-        cursor: pointer;
-
-        &:hover {
-            @include transform(translateY(-5px) translateZ(0));
-        }
-
-        .material-icons {
-            @include font-style(null, 22px, $color_chatelle);
-        }
-
-        &.btn:not(:disabled):not(.disabled).active {
-            box-shadow: 0 0 30px 5px $black_4;
-        }
-    }
-
     .info {
         @include d-flex(null, center, column, null, (bottom, 20px));
 
@@ -51,20 +31,6 @@
         @include sidebar-info(single);
 
         .single {
-            .data {
-                overflow: hidden;
-
-                p {
-                    overflow     : hidden;
-                    text-overflow: ellipsis;
-                    white-space  : nowrap;
-                }
-
-                span {
-                    @include font-style(400, 14px, null);
-                    float: right;
-                }
-            }
 
             &.active,
             &.unread {

@@ -4,8 +4,7 @@
 import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-export default function Avatar(props) {
-	const { name, type, tooltip, size } = props;
+export default function Avatar({ name, type, tooltip, size }) {
 	const avatarSize = !size ? 'avatar-md' : `avatar-${size}`;
 	var avatarAPI = 'https://avatars.dicebear.com/v2';
 

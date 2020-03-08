@@ -8,8 +8,7 @@ import { signOut } from '../../actions';
 export default function Navigation() {
 	const { avatarURL } = useSelector(state => state.currentUser);
 	const dispatch = useDispatch();
-	const onPower = () => dispatch(signOut());
-
+	const onSignOut = () => dispatch(signOut());
 	return (
 		<div className='navigation'>
 			<div className='container'>
@@ -30,7 +29,7 @@ export default function Navigation() {
 						<button className='btn mode'>
 							<i className='material-icons'>brightness_2</i>
 						</button>
-						<button className='btn power' onClick={onPower}>
+						<button className='btn power' onClick={onSignOut}>
 							<i className='material-icons'>power_settings_new</i>
 						</button>
 					</div>

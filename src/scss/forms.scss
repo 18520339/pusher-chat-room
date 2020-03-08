@@ -116,6 +116,26 @@
     }
 }
 
+.create {
+    @include combine((30px, null, 20px, 0), 50px, null, 0 0 30px 5px $black_4, null, $white);
+    @include d-flex(center, center, null, 0);
+    @include transition(all 0.3s);
+    float : right;
+    cursor: pointer;
+
+    &:hover {
+        @include transform(translateY(-5px) translateZ(0));
+    }
+
+    .material-icons {
+        @include font-style(normal !important, 22px, $color_chatelle, null, (bottom, 0 !important));
+    }
+
+    &.btn:not(:disabled):not(.disabled).active {
+        box-shadow: 0 0 30px 5px $black_4;
+    }
+}
+
 .fileContainer {
     @include box-color($color_wild_sand, $color_shark);
 

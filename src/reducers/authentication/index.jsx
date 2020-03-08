@@ -4,7 +4,7 @@
 import { SIGN_IN, SIGN_OUT } from '../../constants';
 
 const initialState = { userId: '', currentScreen: 'SignIn' };
-const screen = (state = initialState, action) => {
+const authentication = (state = initialState, action) => {
 	switch (action.type) {
 		case SIGN_IN:
 			return { userId: action.userId, currentScreen: 'Chat' };
@@ -15,6 +15,6 @@ const screen = (state = initialState, action) => {
 	}
 };
 
-export default screen;
+export default authentication;
 
 /* eslint-enable */

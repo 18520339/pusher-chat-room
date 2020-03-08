@@ -9,7 +9,7 @@ const roomFilter = (state = initialState, action) => {
 		case FILTER_ROOMS:
 			var { name, status } = action;
 			if (status === null) status = state.status;
-			return { name, status };
+			return { ...state, name, status };
 		default:
 			return state;
 	}

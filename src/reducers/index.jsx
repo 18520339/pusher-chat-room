@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import { reducer } from '@andyet/simplewebrtc';
 
 import chatkit from './chatkit';
-import screen from './screen';
+import authentication from './authentication';
 import videoChat from './videoChat';
 
 import { messages, isLoading } from './messages';
@@ -17,7 +17,7 @@ import { roomFilter, userSort, showUsersBar, showPicker } from './controls';
 const rootReducer = combineReducers({
 	simplewebrtc: reducer,
 	chatkit,
-	screen,
+	authentication,
 	videoChat,
 	messages,
 	isLoading,

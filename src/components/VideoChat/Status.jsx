@@ -8,7 +8,7 @@ import { toggleCall } from '../../actions';
 import Avatar from '../Avatar';
 import Options from './Options';
 
-export default function Status(props) {
+export default function Status({ value }) {
 	const { name, isPrivate } = useSelector(state => state.roomActive);
 	const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ export default function Status(props) {
 									tooltip='bottom'
 									size='xxl'
 								/>
-								<span>{props.value}</span>
+								<span>{value}</span>
 							</div>
 							<Options />
 							<button className='btn back' onClick={onCloseCall}>

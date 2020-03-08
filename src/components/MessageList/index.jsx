@@ -7,10 +7,9 @@ import { enterRoom } from '../../actions';
 
 import Message from './Message';
 import MessageText from './MessageText';
-import NoMessages from './NoMessages';
+import { RoomStatus } from '../RoomList';
 
-export { default as NoMessages } from './NoMessages';
-export function MessageList({ match }) {
+export default function MessageList({ match }) {
 	const {
 		currentUser,
 		roomUsers,
@@ -39,68 +38,64 @@ export function MessageList({ match }) {
 
 	const onShowMessage = () => {
 		if (messages.length === 0 && !isLoading && !roomNotFound)
-			return <NoMessages title='Bắt đầu cuộc trò chuyện mới...' />;
-		else if (isLoading) return <NoMessages title='Đang tải, đợi chút !' />;
+			return <RoomStatus title='Bắt đầu cuộc trò chuyện mới...' />;
+		else if (isLoading) return <RoomStatus title='Đang tải, đợi chút !' />;
 		else if (!isLoading && roomNotFound)
-			return <NoMessages title='404 Not Found :(' />;
-		return messages.map(message => {
-			const { id, sender, updatedAt, parts } = message;
-			return (
-				<Message
-					key={id}
-					userType={sender.id === currentUser.id && 'me'}
-					userName={sender.name}
-					updatedAt={updatedAt}
-				>
-					{parts.map((part, index) => {
-						const { partType, payload } = part;
+			return <RoomStatus title='404 Not Found :(' />;
+		return messages.map(({ id, sender, updatedAt, parts }) => (
+			<Message
+				key={id}
+				userType={sender.id === currentUser.id && 'me'}
+				userName={sender.name}
+				updatedAt={updatedAt}
+			>
+				{parts.map((part, index) => {
+					const { partType, payload } = part;
 
-						if (partType === 'inline')
-							return (
-								<MessageText
-									key={index}
-									currentUserName={currentUser.name}
-									text={payload.content}
-								/>
-							);
-
-						if (Date.now() > Date.parse(payload._expiration))
-							payload._fetchNewDownloadURL();
-
+					if (partType === 'inline')
 						return (
-							<a
+							<MessageText
 								key={index}
-								href={payload._downloadURL}
-								target='_blank'
-							>
-								<img
-									className={`w-25 rounded ${index !==
-										parts.length - 1 && 'mb-3'}`}
-									src={payload._downloadURL}
-									alt='attachment'
-								/>
-							</a>
+								currentUserName={currentUser.name}
+								text={payload.content}
+							/>
 						);
-					})}
-				</Message>
-			);
-		});
+
+					if (Date.now() > Date.parse(payload._expiration))
+						payload._fetchNewDownloadURL();
+
+					return (
+						<a
+							key={index}
+							href={payload._downloadURL}
+							target='_blank'
+						>
+							<img
+								className={`w-25 rounded ${index !==
+									parts.length - 1 && 'mb-3'}`}
+								src={payload._downloadURL}
+								alt='attachment'
+							/>
+						</a>
+					);
+				})}
+			</Message>
+		));
 	};
 
 	const onShowTypingUsers = () => {
-		return typingUsers.map(user => {
-			const { id, name } = user;
-			if (currentUser.id === id) return <div></div>;
-			return (
-				<Message key={id} userType='typing' userName={name}>
-					<div className='wave'>
-						<span className='dot'></span>&nbsp;
-						<span className='dot'></span>&nbsp;
-						<span className='dot'></span>
-					</div>
-				</Message>
-			);
-		});
+		return typingUsers.map(
+			({ id, name }) =>
+				currentUser.id === id && (
+					<Message key={id} userType='typing' userName={name}>
+						<div className='wave'>
+							<span className='dot'></span>&nbsp;
+							<span className='dot'></span>&nbsp;
+							<span className='dot'></span>
+						</div>
+					</Message>
+				)
+		);
 	};
 
 	return (

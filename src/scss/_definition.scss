@@ -169,11 +169,23 @@ $black_5              : rgba(0, 0, 0, 0.05);
 %data {
     h5 {
         @include font-style(700, 16px, $color_shark, null, (bottom, 5px));
-        display: inline-flex;
+        width        : 60%;
+        overflow     : hidden;
+        text-overflow: ellipsis;
+        white-space  : nowrap;
+    }
+
+    span {
+        @include font-style(400, 14px, null);
+        white-space: nowrap;
     }
 
     p {
         @include font-style(400, 16px, null, 1.4);
+        width        : 100%;
+        overflow     : hidden;
+        text-overflow: ellipsis;
+        white-space  : nowrap;
     }
 }
 
@@ -182,8 +194,11 @@ $black_5              : rgba(0, 0, 0, 0.05);
     border-bottom: 2px solid $color_alabaster;
 
     .data {
+        @include d-flex(space-between, flex-start);
         @extend %data;
-        width: 100%;
+        flex-wrap: wrap;
+        width    : 100%;
+        overflow : hidden;
     }
 
     &:last-of-type {

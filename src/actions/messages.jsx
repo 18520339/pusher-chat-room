@@ -2,7 +2,6 @@
 /* eslint-disable */
 
 import { alertError } from '../functions';
-import { enterRoom } from './rooms';
 
 export const typingMessage = () => (dispatch, getState) => {
 	const { currentUser, roomActive } = getState();
@@ -17,4 +16,11 @@ export const sendMessage = (parts, roomId = null) => (dispatch, getState) => {
 	currentUser
 		.sendMultipartMessage({ roomId, parts })
 		.catch(err => alertError('Error on sending message', err));
+};
+
+export const fetchLastMessage = (roomId, lastMessage = '') => {
+	return (dispatch, getState) => {
+		const { currentUser } = getState();
+		currentUser.updateRoom({ roomId, customData: { lastMessage } });
+	};
 };

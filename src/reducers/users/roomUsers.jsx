@@ -9,8 +9,8 @@ const roomUsers = (state = initialState, action) => {
 		case ENTER_ROOM:
 			return action.roomActive.users;
 		case PRESENCE_CHANGED:
-			return action.roomActive.users.sort(a => {
-				if (a.presence.state === 'online') return -1;
+			return action.roomActive.users.sort(user => {
+				if (user.presence.state === 'online') return -1;
 				else return 1;
 			});
 		default:

@@ -9,13 +9,15 @@ import { SignIn, SignUp, Chat, NotFound } from '../Screen';
 import '../../scss/style.scss';
 
 export default function App() {
-	const screen = useSelector(state => state.screen);
-	const currentScreen = screen.currentScreen === 'SignIn' ? SignIn : Chat;
+	const { currentScreen } = useSelector(state => state.authentication);
 	return (
 		<HashRouter>
 			<Switch>
 				<Redirect exact from='/' to='/room' />
-				<Route path='/room' component={currentScreen} />
+				<Route
+					path='/room'
+					component={currentScreen === 'SignIn' ? SignIn : Chat}
+				/>
 				<Route path='/sign-up' component={SignUp} />
 				<Route component={NotFound} />
 			</Switch>

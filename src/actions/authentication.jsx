@@ -1,11 +1,17 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import { key } from '../config';
-import { SIGN_IN, SIGN_OUT } from '../constants';
-
+import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
+import { tokenUrl, instanceLocator, key } from '../config';
 import { HmacSHA1 } from 'crypto-js';
+
+import * as types from '../constants';
 import { alertError } from '../functions';
+import { getRooms } from './rooms';
+
+export const signOut = () => {
+	return { type: types.SIGN_OUT };
+};
 
 export const signUp = (name, email, password) => (dispatch, getState) => {
 	const chatkit = getState().chatkit;
@@ -25,13 +31,28 @@ export const signIn = (email, password) => {
 
 		chatkit
 			.getUser({ id })
-			.then(() => dispatch({ type: SIGN_IN, userId: id }))
+			.then(() => dispatch({ type: types.SIGN_IN, userId: id }))
 			.catch(err => alertError('Error on sign in', err));
 	};
 };
 
-export const signOut = () => {
-	return { type: SIGN_OUT };
+export const connect = userId => (dispatch, getState) => {
+	const chatManager = new ChatManager({
+		instanceLocator,
+		userId,
+		tokenProvider: new TokenProvider({ url: tokenUrl })
+	});
+	chatManager
+		.connect({
+			onRoomUpdated: room => {
+				dispatch({ type: types.UPDATE_ROOM, room });
+			}
+		})
+		.then(currentUser => {
+			dispatch({ type: types.CONNECT, currentUser });
+			dispatch(getRooms(currentUser));
+		})
+		.catch(err => alertError('Error on connection', err));
 };
 
 /* eslint-enable */

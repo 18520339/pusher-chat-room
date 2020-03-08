@@ -6,9 +6,9 @@ export const SIGN_OUT = 'SIGN_OUT';
 export const NOT_FOUND = 'NOT_FOUND';
 
 export const CONNECT = 'CONNECT';
-export const UPDATE_ROOMS = 'UPDATE_ROOMS';
 export const GET_ROOMS = 'GET_ROOMS';
 export const ENTER_ROOM = 'ENTER_ROOM';
+export const UPDATE_ROOM = 'UPDATE_ROOM';
 
 export const FILTER_ROOMS = 'FILTER_ROOMS';
 export const SORT_MEMBERS = 'SORT_MEMBERS';

@@ -10,18 +10,30 @@ import Navigation from '../Navigation';
 import TopBar from '../TopBar';
 import VideoChat from '../VideoChat';
 
+import { RoomList, RoomStatus } from '../RoomList';
 import UserList from '../UserList';
-import RoomList from '../RoomList';
-import { MessageList, NoMessages } from '../MessageList';
+import MessageList from '../MessageList';
 import { SendMessage } from '../FormControls';
 
 export default function Chat({ match }) {
-	const { screen, rooms, isLoading, videoChat } = useSelector(state => state);
+	const { authentication, rooms, isLoading, videoChat } = useSelector(
+		state => state
+	);
 	const dispatch = useDispatch();
 	const chatNode = useRef(null);
 
+	const onShowRoomStatus = () => {
+		if (isLoading) return <RoomStatus title='Đang kết nối máy chủ' />;
+		else if (rooms.length > 0)
+			return <RoomStatus title='Chọn phòng để bắt đầu chat nào !' />;
+		return <RoomStatus title='Mời bạn tạo phòng chat mới !' />;
+	};
+	const onScroll = event => {
+		// if (event.target.scrollTop === 0) alert('123');
+	};
+
 	useEffect(() => {
-		dispatch(connect(screen.userId));
+		dispatch(connect(authentication.userId));
 	}, []);
 
 	useEffect(() => {
@@ -35,27 +47,23 @@ export default function Chat({ match }) {
 			<div className='main'>
 				<div className='chat' ref={chatNode}>
 					<TopBar />
-					<div className='content'>
+					<div className='content' onScroll={onScroll}>
 						<div className='container'>
 							<Switch>
 								<Route exact path={match.path}>
-									{isLoading ? (
-										<NoMessages title='Đang kết nối máy chủ' />
-									) : (
-										<NoMessages title='Chọn phòng để bắt đầu chat nào!' />
-									)}
+									{onShowRoomStatus()}
 								</Route>
 								{rooms.map(room => {
+									if (!room) return;
 									return (
-										room.id && (
-											<Route
-												key={room.id}
-												path={`${match.path}/:roomId`}
-												component={MessageList}
-											/>
-										)
+										<Route
+											key={room.id}
+											path={`${match.path}/:roomId`}
+											component={MessageList}
+										/>
 									);
 								})}
+								<Route>{onShowRoomStatus()}</Route>
 							</Switch>
 						</div>
 					</div>
