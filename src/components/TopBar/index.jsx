@@ -26,13 +26,7 @@ export default function TopBar() {
 			<div className='container'>
 				<div className='col-md-12'>
 					<div className='inside'>
-						<a href='#'>
-							<Avatar
-								name={name}
-								type={avatarType}
-								tooltip='bottom'
-							/>
-						</a>
+						<Avatar name={name} type={avatarType} tooltip='left' />
 						<div className='status'>
 							<i className='material-icons online'>
 								fiber_manual_record

@@ -21,7 +21,11 @@ export default function Dialog(props) {
 
 	return (
 		<ButtonToolbar>
-			<Button className={type} onClick={onShowModal}>
+			<Button
+				className={type}
+				variant='outline-primary'
+				onClick={onShowModal}
+			>
 				<i className='material-icons'>{icon}</i>
 			</Button>
 			<Modal centered show={modalShow} onHide={onCloseModal}>

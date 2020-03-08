@@ -107,6 +107,12 @@ $black_5              : rgba(0, 0, 0, 0.05);
     text-align: center;
 }
 
+@mixin text-overflow {
+    overflow     : hidden;
+    text-overflow: ellipsis;
+    white-space  : nowrap;
+}
+
 @mixin box-color($background, $color) {
     background-color: $background;
     color           : $color;
@@ -162,44 +168,44 @@ $black_5              : rgba(0, 0, 0, 0.05);
     h1 {
         @include font-style(800, 24px, $color_shark, null, (bottom, 0));
         padding-bottom: 18px;
-        border-bottom : 2px solid $color_alabaster;
     }
 }
 
 %data {
-    h5 {
-        @include font-style(700, 16px, $color_shark, null, (bottom, 5px));
-        width        : 60%;
-        overflow     : hidden;
-        text-overflow: ellipsis;
-        white-space  : nowrap;
+    .avatar-md {
+        margin-right: 20px;
+        cursor      : pointer;
     }
 
-    span {
-        @include font-style(400, 14px, null);
-        white-space: nowrap;
-    }
+    .data {
+        @include d-flex(space-between, flex-start, null, null, (right, auto));
+        flex-wrap: wrap;
+        width    : 100%;
+        overflow : hidden;
 
-    p {
-        @include font-style(400, 16px, null, 1.4);
-        width        : 100%;
-        overflow     : hidden;
-        text-overflow: ellipsis;
-        white-space  : nowrap;
+        h5 {
+            @include font-style(700, 16px, $color_shark, null, (bottom, 5px));
+            @include text-overflow;
+            width: 60%;
+        }
+
+        span {
+            @include font-style(400, 14px, null);
+            white-space: nowrap;
+        }
+
+        p {
+            @include font-style(400, 16px, null, 1.4);
+            @include text-overflow;
+            width: 100%;
+        }
     }
 }
 
 %details {
     @include d-flex(null, center, null, 20px 0);
+    @extend %data;
     border-bottom: 2px solid $color_alabaster;
-
-    .data {
-        @include d-flex(space-between, flex-start);
-        @extend %data;
-        flex-wrap: wrap;
-        width    : 100%;
-        overflow : hidden;
-    }
 
     &:last-of-type {
         border-bottom: 2px solid transparent !important;
@@ -216,10 +222,6 @@ $black_5              : rgba(0, 0, 0, 0.05);
 
     .#{$name} {
         @extend %details;
-
-        .avatar-md {
-            margin-right: 15px;
-        }
 
         &.active .material-icons {
             color: $color_dodger_blue;

@@ -15,7 +15,8 @@ export default function MessageList({ match }) {
 		roomUsers,
 		typingUsers,
 		messages,
-		isLoading
+		isLoading,
+		justLoadMore
 	} = useSelector(state => state);
 	const dispatch = useDispatch();
 
@@ -32,7 +33,7 @@ export default function MessageList({ match }) {
 	}, [isLoading]);
 
 	useEffect(() => {
-		if (document.hasFocus() && roomId)
+		if (document.hasFocus() && roomId && !justLoadMore)
 			messageNode.current.scrollIntoView({ behavior: 'smooth' });
 	}, [messages, typingUsers]);
 
@@ -84,18 +85,19 @@ export default function MessageList({ match }) {
 	};
 
 	const onShowTypingUsers = () => {
-		return typingUsers.map(
-			({ id, name }) =>
-				currentUser.id === id && (
-					<Message key={id} userType='typing' userName={name}>
-						<div className='wave'>
-							<span className='dot'></span>&nbsp;
-							<span className='dot'></span>&nbsp;
-							<span className='dot'></span>
-						</div>
-					</Message>
-				)
-		);
+		return typingUsers.map(user => {
+			const { id, name } = user;
+			if (currentUser.id === id) return;
+			return (
+				<Message key={id} userType='typing' userName={name}>
+					<div className='wave'>
+						<span className='dot'></span>&nbsp;
+						<span className='dot'></span>&nbsp;
+						<span className='dot'></span>
+					</div>
+				</Message>
+			);
+		});
 	};
 
 	return (

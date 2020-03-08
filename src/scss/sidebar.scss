@@ -2,12 +2,13 @@
     @include border(null, 30px, 0px 0px 20px 0px $black_20);
     background: $white;
 
-    .info {
+    .room-info {
         @include d-flex(null, center, column, null, (bottom, 20px));
 
         .avatar-xl {
             @include box-size(null, auto, (width, 100px));
             margin-bottom: 20px;
+            cursor       : pointer;
         }
 
         h4 {
@@ -19,11 +20,31 @@
         @include sidebar-info(contact);
 
         .sort-members {
-            @include d-flex(space-between, center, null, null, (bottom, 20px));
+            @include d-flex(space-between, flex-start, null, null);
 
             h1 {
                 padding-bottom: 0
             }
+        }
+    }
+
+    .accordion {
+        button {
+            width     : 100%;
+            text-align: left;
+
+            .material-icons {
+                @include transition(all 0.3s);
+                float: right;
+
+                &.rotate {
+                    @include transform(rotate(90deg));
+                }
+            }
+        }
+
+        .img-thumbnail {
+            width: (100% / 3);
         }
     }
 

@@ -22,7 +22,6 @@
 		"emoji-mart": "^2.11.2",
 		"jquery": "^3.4.1",
 		"material-design-icons": "^3.0.1",
-		"peerjs": "^1.2.0",
 		"popper.js": "^1.16.1",
 		"react": "^16.13.0",
 		"react-bootstrap": "^1.0.0-beta.16",

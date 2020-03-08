@@ -12,6 +12,7 @@
     .navigation {
         @include pos-sticky(hidden, auto);
         @include box-size(null, null, (width, 100px));
+        z-index: 1021;
 
         .inside {
             @include d-flex(null, center, column, 30px 0 0);
@@ -106,7 +107,7 @@
     }
 
     .chat {
-        height: 93vh !important;
+        height: 100vh !important;
     }
 
     .navigation {

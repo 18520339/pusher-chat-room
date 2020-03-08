@@ -4,24 +4,30 @@
 import React, { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import { connect } from '../../actions';
+import { connect, loadMoreMessages, grantPermission } from '../../actions';
 
 import Navigation from '../Navigation';
 import TopBar from '../TopBar';
 import VideoChat from '../VideoChat';
 
 import { RoomList, RoomStatus } from '../RoomList';
-import UserList from '../UserList';
+import RoomInfo from '../RoomInfo';
+
 import MessageList from '../MessageList';
 import { SendMessage } from '../FormControls';
 
 export default function Chat({ match }) {
-	const { authentication, rooms, isLoading, videoChat } = useSelector(
-		state => state
-	);
+	const {
+		authentication,
+		notification,
+		isLoading,
+		videoChat,
+		rooms
+	} = useSelector(state => state);
 	const dispatch = useDispatch();
 	const chatNode = useRef(null);
 
+	const enablePermission = () => dispatch(grantPermission());
 	const onShowRoomStatus = () => {
 		if (isLoading) return <RoomStatus title='Đang kết nối máy chủ' />;
 		else if (rooms.length > 0)
@@ -29,7 +35,7 @@ export default function Chat({ match }) {
 		return <RoomStatus title='Mời bạn tạo phòng chat mới !' />;
 	};
 	const onScroll = event => {
-		// if (event.target.scrollTop === 0) alert('123');
+		if (event.target.scrollTop === 0) dispatch(loadMoreMessages());
 	};
 
 	useEffect(() => {
@@ -42,6 +48,12 @@ export default function Chat({ match }) {
 
 	return (
 		<div className='app'>
+			{notification && (
+				<div className='notification-toast'>
+					QuanChat cần bạn cho phép để&nbsp;
+					<span onClick={enablePermission}>hiển thị thông báo</span>
+				</div>
+			)}
 			<Navigation />
 			<RoomList match={match} />
 			<div className='main'>
@@ -71,7 +83,7 @@ export default function Chat({ match }) {
 				</div>
 				{videoChat.show && <VideoChat />}
 			</div>
-			<UserList match={match} />
+			<RoomInfo match={match} />
 		</div>
 	);
 }

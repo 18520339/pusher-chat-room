@@ -86,7 +86,7 @@ export function RoomList({ match }) {
 												to={`${match.path}/${id}`}
 												className={`${unread} ${active} single`}
 											>
-												<Avatar name={name} type={avatarType} tooltip='top' />
+												<Avatar name={name} type={avatarType} />
 												<div className='status'>
 													<i className={`material-icons ${
 														isJoined && 'online'}`

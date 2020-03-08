@@ -8,9 +8,7 @@ export default function Message({ userType, userName, updatedAt, children }) {
 	const message = children.length ? children : [children];
 	return (
 		<div className={`message ${userType}`}>
-			{userType !== 'me' && (
-				<Avatar name={userName} type='user' tooltip='top' />
-			)}
+			{userType !== 'me' && <Avatar name={userName} type='user' />}
 			<div className='text-main'>
 				<div className={`text-group ${userType}`}>
 					{message.map((child, index) => {

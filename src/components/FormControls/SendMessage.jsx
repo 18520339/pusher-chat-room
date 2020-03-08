@@ -9,6 +9,7 @@ import { Picker, emojiIndex } from 'emoji-mart';
 import {
 	typingMessage,
 	sendMessage,
+	sendNews,
 	addEmoji,
 	togglePicker
 } from '../../actions';
@@ -21,12 +22,22 @@ export default function SendMessage() {
 	const dispatch = useDispatch();
 	const [message, setMessage] = useState('');
 
+	const onTogglePicker = () => dispatch(togglePicker());
+	const onAddEmoji = emoji => setMessage(dispatch(addEmoji(emoji, message)));
+
 	const filterUserNames = token => {
 		return roomActive.users.filter(user => user.name.includes(token));
 	};
+	const handleSlashCommand = message => {
+		const cmd = message.split(' ')[0];
+		const query = message.slice(cmd.length).trim();
 
-	const onTogglePicker = () => dispatch(togglePicker());
-	const onAddEmoji = emoji => setMessage(dispatch(addEmoji(emoji, message)));
+		if (cmd !== '/news') {
+			alert(`Lệnh ${cmd} Không hợp lệ`);
+			return;
+		}
+		dispatch(sendNews(query));
+	};
 
 	const onChange = event => {
 		setMessage(event.target.value);
@@ -36,7 +47,13 @@ export default function SendMessage() {
 	const onSubmit = event => {
 		event.preventDefault();
 		const parts = [];
+
 		if (message.trim()) {
+			if (message.startsWith('/')) {
+				handleSlashCommand(message);
+				setMessage('');
+				return;
+			}
 			parts.push({ type: 'text/plain', content: message });
 			dispatch(sendMessage(parts));
 			setMessage('');

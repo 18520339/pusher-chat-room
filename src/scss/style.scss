@@ -70,6 +70,19 @@ p {
     }
 }
 
+.notification-toast {
+    @include pos-absolute(0, 0, 0, null);
+    @include box-color($color_medium_purple, $white);
+    padding   : 10px;
+    text-align: center;
+    z-index   : 1021;
+
+    span {
+        text-decoration: underline;
+        cursor         : pointer;
+    }
+}
+
 .modal {
     &-dialog {
         max-width: 450px;

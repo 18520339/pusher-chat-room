@@ -3,6 +3,8 @@
 
 import * as types from '../constants';
 import { alertError } from '../functions';
+
+import { showNotificationToast } from './notification';
 import { sendMessage, fetchLastMessage } from './messages';
 
 export const getRooms = currentUser => (dispatch, getState) => {
@@ -23,20 +25,10 @@ export const enterRoom = roomId => (dispatch, getState) => {
 	currentUser
 		.subscribeToRoomMultipart({
 			roomId,
-			messageLimit: 50,
+			messageLimit: 20,
 			hooks: {
 				onMessage: message => {
-					const { roomId, sender, parts } = message;
-					const { partType, payload } = parts[parts.length - 1];
-
-					const { id, name } = sender;
-					const owner = currentUser.id === id ? 'Bạn' : name;
-					var lastMessage = `${owner} đã gửi 1 ảnh`;
-
-					if (partType === 'inline')
-						lastMessage = `${owner}: ${payload.content}`;
-					dispatch(fetchLastMessage(roomId, lastMessage));
-
+					setTimeout(() => dispatch(fetchLastMessage()), 250);
 					if (location.hash.substr(7) === roomId) {
 						dispatch({ type: types.ON_MESSAGE, message });
 						currentUser.setReadCursor({
@@ -65,8 +57,10 @@ export const enterRoom = roomId => (dispatch, getState) => {
 		.then(roomActive => {
 			dispatch({ type: types.ENTER_ROOM, roomActive });
 			dispatch(getRooms(currentUser));
+			dispatch(showNotificationToast.call(this));
 		})
 		.catch(err => {
+			console.log(err);
 			const { error } = err.info;
 			if (error === 'services/chatkit/not_found/room_not_found') {
 				chatkit
@@ -94,7 +88,7 @@ export const createRoom = (name, message, userId = null, isPrivate = false) => {
 				dispatch(sendMessage(parts, `${roomId}`));
 			}
 			history.pushState(null, null, `#/room/${roomId}`);
-			setTimeout(() => dispatch(enterRoom(roomId)), 100);
+			setTimeout(() => dispatch(enterRoom(roomId)), 250);
 		};
 
 		if (isPrivate)
@@ -108,8 +102,9 @@ export const createRoom = (name, message, userId = null, isPrivate = false) => {
 				})
 				.then(room => accessNewRoom(room))
 				.catch(err => {
+					const { error } = err.info;
 					if (
-						err.info ===
+						error ===
 						'services/chatkit/bad_request/duplicate_room_id'
 					)
 						dispatch(enterRoom('user=' + userId));

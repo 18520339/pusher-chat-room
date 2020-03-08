@@ -285,14 +285,17 @@
 
         .top {
             @include border(null, null, 0px 0px 20px 0px $black_20);
+            @extend %data;
             padding   : 20px 5px;
             background: $white;
 
             .inside {
                 @include d-flex(null, center);
 
-                .avatar-md {
-                    margin-right: 15px;
+                .data {
+                    h5 {
+                        width: 100%;
+                    }
                 }
 
                 .status {
@@ -313,28 +316,6 @@
                     .material-icons {
                         @include pos-absolute(null, -3px, null, -3px);
                         font-size: 16px;
-                    }
-                }
-
-                .data {
-                    margin-right: auto;
-                    overflow    : hidden;
-
-                    h5 {
-                        @include font-style(700, 16px, $color_shark, null, (bottom, 2px));
-                        white-space  : nowrap;
-                        overflow     : hidden;
-                        text-overflow: ellipsis;
-
-                        &:hover {
-                            color : $color_dodger_blue;
-                            cursor: pointer;
-                        }
-                    }
-
-                    span {
-                        @include font-style(400, 15px, null, 1.4);
-                        display: block;
                     }
                 }
 
