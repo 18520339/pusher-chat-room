@@ -25,7 +25,7 @@ export const enterRoom = roomId => (dispatch, getState) => {
 	currentUser
 		.subscribeToRoomMultipart({
 			roomId,
-			messageLimit: 20,
+			messageLimit: 10,
 			hooks: {
 				onMessage: message => {
 					setTimeout(() => dispatch(fetchLastMessage()), 250);
