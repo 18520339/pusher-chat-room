@@ -14,12 +14,13 @@ export {
 } from './messages';
 
 export {
-	filterRooms,
+	addEmoji,
 	sortMembers,
-	toggleUsersBar,
+	filterRooms,
 	toggleCall,
 	togglePicker,
-	addEmoji
+	toggleCarousel,
+	toggleUsersBar
 } from './controls';
 
 /* eslint-enable */

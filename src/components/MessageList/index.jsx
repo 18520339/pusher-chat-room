@@ -3,11 +3,12 @@
 
 import React, { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { enterRoom } from '../../actions';
+import { enterRoom, toggleCarousel } from '../../actions';
 
 import Message from './Message';
 import MessageText from './MessageText';
 import { RoomStatus } from '../RoomList';
+import ImageCarousel from '../ImageCarousel';
 
 export default function MessageList({ match }) {
 	const {
@@ -66,18 +67,14 @@ export default function MessageList({ match }) {
 						payload._fetchNewDownloadURL();
 
 					return (
-						<a
+						<img
 							key={index}
-							href={payload._downloadURL}
-							target='_blank'
-						>
-							<img
-								className={`w-25 rounded ${index !==
-									parts.length - 1 && 'mb-3'}`}
-								src={payload._downloadURL}
-								alt='attachment'
-							/>
-						</a>
+							className={`img-thumbnail ${index !==
+								parts.length - 1 && 'mb-3'}`}
+							src={payload._downloadURL}
+							alt='attachment'
+							onClick={() => dispatch(toggleCarousel(index))}
+						/>
 					);
 				})}
 			</Message>
@@ -104,6 +101,7 @@ export default function MessageList({ match }) {
 		<div className='col-md-12'>
 			{onShowMessage()}
 			{typingUsers.length > 0 && onShowTypingUsers()}
+			<ImageCarousel />
 			<div ref={messageNode} />
 		</div>
 	);

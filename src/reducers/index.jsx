@@ -13,27 +13,35 @@ import videoChat from './videoChat';
 import { isLoading, justLoadMore, messages, images } from './messages';
 import { currentUser, typingUsers, roomUsers } from './users';
 import { rooms, roomActive } from './rooms';
-import { roomFilter, userSort, showUsersBar, showPicker } from './controls';
+
+import {
+	userSort,
+	roomFilter,
+	showPicker,
+	showCarousel,
+	showUsersBar
+} from './controls';
 
 const rootReducer = combineReducers({
 	simplewebrtc: reducer,
-	chatkit,
 	authentication,
 	notification,
-	videoChat,
-	isLoading,
 	justLoadMore,
-	messages,
-	images,
+	showCarousel,
+	showUsersBar,
 	currentUser,
 	typingUsers,
-	roomUsers,
-	rooms,
 	roomActive,
 	roomFilter,
+	showPicker,
+	videoChat,
+	roomUsers,
+	isLoading,
 	userSort,
-	showUsersBar,
-	showPicker
+	messages,
+	chatkit,
+	images,
+	rooms
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

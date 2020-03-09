@@ -12,7 +12,7 @@ export default function Message({ userType, userName, updatedAt, children }) {
 			<div className='text-main'>
 				<div className={`text-group ${userType}`}>
 					{message.map((child, index) => {
-						if (child.type === 'a') return child;
+						if (child.type === 'img') return child;
 						return (
 							<div key={index} className={`text ${userType}`}>
 								{child}

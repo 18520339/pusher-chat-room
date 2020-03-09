@@ -73,7 +73,7 @@ export default function SendMessage() {
 							value={message}
 							loadingComponent={() => <p>Loading...</p>}
 							onChange={onChange}
-							placeholder='Nhập tin nhắn...'
+							placeholder='Nhập tin nhắn. Gõ @ để đề cập ai đó'
 							trigger={{
 								'@': {
 									dataProvider: token => [

@@ -2,13 +2,39 @@
 /* eslint-disable */
 
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Accordion, Card, Button } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { Accordion, Card, Button, Jumbotron } from 'react-bootstrap';
+
+import { toggleCarousel } from '../../actions';
+import ImageCarousel from '../ImageCarousel';
 
 export default function ImageList() {
 	const images = useSelector(state => state.images);
+	const dispatch = useDispatch();
 	const [rotate, setRotate] = useState(false);
+
 	const onRotateIcon = () => setRotate(!rotate);
+	const onShowImages = () => {
+		if (images.length === 0)
+			return (
+				<Jumbotron className='m-0 text-center'>
+					<i className='material-icons display-4'>
+						photo_size_select_actual
+					</i>
+					<p>Không có hình ảnh để hiển thị</p>
+				</Jumbotron>
+			);
+		return images.map((url, index) => (
+			<img
+				key={index}
+				className='img-thumbnail'
+				src={url.src}
+				alt='attachment'
+				onClick={() => dispatch(toggleCarousel(index))}
+			/>
+		));
+	};
+
 	return (
 		<Accordion defaultActiveKey='0'>
 			<Card>
@@ -27,14 +53,13 @@ export default function ImageList() {
 				</Card.Header>
 				<Accordion.Collapse eventKey='0'>
 					<Card.Body className='p-0'>
-						{images.map((url, index) => (
-							<a key={index} href={url} target='_blank'>
-								<img className='img-thumbnail' src={url} />
-							</a>
-						))}
+						{onShowImages()}
+						<ImageCarousel />
 					</Card.Body>
 				</Accordion.Collapse>
 			</Card>
 		</Accordion>
 	);
 }
+
+/* eslint-enable */

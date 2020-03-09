@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { useSelector } from 'react-redux';
-import MicrolinkCard from '@microlink/react';
+import LinkPreview from './LinkPreview';
 
 export default function MessageText({ currentUserName, text }) {
 	const { roomUsers } = useSelector(state => state);
@@ -14,14 +14,10 @@ export default function MessageText({ currentUserName, text }) {
 	};
 
 	var messageText = text;
-	const roomUserNames = roomUsers.map(user => `@${user.name}`);
-
 	const urlMatches = text.match(/\b(http|https)?:\/\/\S+/gi) || [];
 	const mentions = text.match(/@[a-zA-Z0-9]+/g) || [];
 
-	const LinkPreviews = urlMatches.map((link, index) => (
-		<MicrolinkCard key={index} className='mt-3' url={link} />
-	));
+	const roomUserNames = roomUsers.map(user => `@${user.name}`);
 	const mentionedUsers = mentions.filter(username =>
 		roomUserNames.includes(username)
 	);
@@ -50,7 +46,7 @@ export default function MessageText({ currentUserName, text }) {
 	return (
 		<div>
 			<p dangerouslySetInnerHTML={{ __html: messageText }} />
-			{LinkPreviews}
+			<LinkPreview urlMatches={urlMatches} />
 		</div>
 	);
 }

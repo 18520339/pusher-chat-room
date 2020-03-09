@@ -1,14 +1,23 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import { ON_MESSAGE, CLEAR_MESSAGE } from '../../constants';
+import { END_LOAD_MORE, ON_MESSAGE, CLEAR_MESSAGE } from '../../constants';
 
 const initialState = [];
 const images = (state = initialState, action) => {
 	switch (action.type) {
 		case ON_MESSAGE:
 			action.message.parts.forEach(({ partType, payload }) => {
-				if (partType === 'attachment') state.push(payload._downloadURL);
+				if (partType === 'attachment')
+					state.push({ src: payload._downloadURL });
+			});
+			return state;
+		case END_LOAD_MORE:
+			action.messages.forEach(message => {
+				message.parts.forEach(({ partType, payload }) => {
+					if (partType === 'attachment')
+						state.push({ src: payload._downloadURL });
+				});
 			});
 			return state;
 		case CLEAR_MESSAGE:

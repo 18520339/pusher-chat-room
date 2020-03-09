@@ -11,12 +11,14 @@ export const ENTER_ROOM = 'ENTER_ROOM';
 export const UPDATE_ROOM = 'UPDATE_ROOM';
 export const SHOW_NOTIFICATION_TOAST = 'SHOW_NOTIFICATION_TOAST';
 
-export const FILTER_ROOMS = 'FILTER_ROOMS';
+export const ADD_EMOJI = 'ADD_EMOJI';
 export const SORT_MEMBERS = 'SORT_MEMBERS';
-export const TOGGLE_USERS_BAR = 'TOGGLE_USERS_BAR';
+export const FILTER_ROOMS = 'FILTER_ROOMS';
+
 export const TOGGLE_CALL = 'TOGGLE_CALL';
 export const TOGGLE_PICKER = 'TOGGLE_PICKER';
-export const ADD_EMOJI = 'ADD_EMOJI';
+export const TOGGLE_CAROUSEL = 'TOGGLE_CAROUSEL';
+export const TOGGLE_USERS_BAR = 'TOGGLE_USERS_BAR';
 
 export const ON_MESSAGE = 'ON_MESSAGE';
 export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
