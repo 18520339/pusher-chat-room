@@ -20,7 +20,8 @@ export const grantPermission = () => (dispatch, getState) => {
 		Notification.requestPermission().then(result => {
 			if (result === 'granted')
 				new Notification('Tuyệt vời !!!', {
-					body: 'Bạn sẽ bắt đầu nhận thông báo mới nhất về tin nhắn'
+					body:
+						'QuanChat sẽ bắt đầu thông báo cho bạn về tin nhắn mới nhất'
 				});
 		});
 	}

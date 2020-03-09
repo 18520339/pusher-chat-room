@@ -3,10 +3,11 @@
 
 import React, { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { enterRoom, toggleCarousel } from '../../actions';
+import { enterRoom } from '../../actions';
 
+import Wrapper from './Wrapper';
 import Message from './Message';
-import MessageText from './MessageText';
+
 import { RoomStatus } from '../RoomList';
 import { ImageCarousel } from '../Images';
 
@@ -17,11 +18,14 @@ export default function MessageList({ match }) {
 		typingUsers,
 		messages,
 		isLoading,
-		justLoadMore
+		justLoadMore,
+		showCarousel
 	} = useSelector(state => state);
 	const dispatch = useDispatch();
 
 	const messageNode = useRef(null);
+	var messageDay = 0;
+
 	const { roomId } = match.params;
 	const roomNotFound = !roomUsers.length;
 
@@ -38,47 +42,50 @@ export default function MessageList({ match }) {
 			messageNode.current.scrollIntoView({ behavior: 'smooth' });
 	}, [messages, typingUsers]);
 
+	const onShowMessageDay = updatedAt => {
+		const sendDay = new Date(updatedAt).setHours(0, 0, 0, 0);
+		if (sendDay > messageDay) {
+			messageDay = sendDay;
+			return (
+				<div className='date'>
+					<hr />
+					<span>
+						{messageDay === new Date().setHours(0, 0, 0, 0)
+							? 'Hôm nay'
+							: new Date(updatedAt).toLocaleDateString('vi-VN', {
+									weekday: 'narrow',
+									year: 'numeric',
+									month: '2-digit',
+									day: '2-digit'
+							  })}
+					</span>
+					<hr />
+				</div>
+			);
+		}
+	};
+
 	const onShowMessage = () => {
 		if (messages.length === 0 && !isLoading && !roomNotFound)
 			return <RoomStatus title='Bắt đầu cuộc trò chuyện mới...' />;
 		else if (isLoading) return <RoomStatus title='Đang tải, đợi chút !' />;
 		else if (!isLoading && roomNotFound)
 			return <RoomStatus title='404 Not Found :(' />;
-		return messages.map(({ id, sender, updatedAt, parts }) => (
-			<Message
-				key={id}
-				userType={sender.id === currentUser.id && 'me'}
-				userName={sender.name}
-				updatedAt={updatedAt}
-			>
-				{parts.map((part, index) => {
-					const { partType, payload } = part;
-
-					if (partType === 'inline')
-						return (
-							<MessageText
-								key={index}
-								currentUserName={currentUser.name}
-								text={payload.content}
-							/>
-						);
-
-					if (Date.now() > Date.parse(payload._expiration))
-						payload._fetchNewDownloadURL();
-
-					return (
-						<img
-							key={index}
-							className={`w-25 img-thumbnail ${index !==
-								parts.length - 1 && 'mb-3'}`}
-							src={payload._downloadURL}
-							alt='attachment'
-							onClick={() => dispatch(toggleCarousel(index))}
-						/>
-					);
-				})}
-			</Message>
-		));
+		return messages.map(({ id, sender, updatedAt, parts }) => {
+			const userType = sender.id === currentUser.id && 'me';
+			return (
+				<div key={id}>
+					{onShowMessageDay(updatedAt)}
+					<Wrapper
+						userType={userType}
+						userName={sender.name}
+						updatedAt={updatedAt}
+					>
+						<Message parts={parts} userType={userType} />
+					</Wrapper>
+				</div>
+			);
+		});
 	};
 
 	const onShowTypingUsers = () => {
@@ -86,13 +93,13 @@ export default function MessageList({ match }) {
 			const { id, name } = user;
 			if (currentUser.id === id) return;
 			return (
-				<Message key={id} userType='typing' userName={name}>
+				<Wrapper key={id} userType='typing' userName={name}>
 					<div className='wave'>
 						<span className='dot'></span>&nbsp;
 						<span className='dot'></span>&nbsp;
 						<span className='dot'></span>
 					</div>
-				</Message>
+				</Wrapper>
 			);
 		});
 	};
@@ -101,7 +108,7 @@ export default function MessageList({ match }) {
 		<div className='col-md-12'>
 			{onShowMessage()}
 			{typingUsers.length > 0 && onShowTypingUsers()}
-			<ImageCarousel />
+			{showCarousel.where === 'MessageList' && <ImageCarousel />}
 			<div ref={messageNode} />
 		</div>
 	);

@@ -185,17 +185,19 @@
             }
 
             .date {
-                @include d-flex(null, center, null, 26px 0 46px);
+                @include d-flex(null, center, null, 0 120px 30px);
 
                 hr {
                     width     : 100%;
                     margin    : 0;
-                    border-top: 2px solid $color_alabaster;
+                    border-top: 1px solid $color_shark;
                 }
 
                 span {
-                    display: block;
-                    padding: 0 20px;
+                    display    : block;
+                    padding    : 0 20px;
+                    color      : $color_shark;
+                    white-space: nowrap;
                 }
             }
 

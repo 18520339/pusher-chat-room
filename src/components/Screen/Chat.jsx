@@ -8,7 +8,7 @@ import { connect, loadMoreMessages, grantPermission } from '../../actions';
 
 import Navigation from '../Navigation';
 import TopBar from '../TopBar';
-import VideoChat from '../VideoChat';
+import VideoCall from '../VideoCall';
 
 import { RoomList, RoomStatus } from '../RoomList';
 import RoomInfo from '../RoomInfo';
@@ -21,7 +21,7 @@ export default function Chat({ match }) {
 		authentication,
 		notification,
 		isLoading,
-		videoChat,
+		videoCall,
 		rooms
 	} = useSelector(state => state);
 	const dispatch = useDispatch();
@@ -81,7 +81,7 @@ export default function Chat({ match }) {
 					</div>
 					<SendMessage />
 				</div>
-				{videoChat.show && <VideoChat />}
+				{videoCall.show && <VideoCall />}
 			</div>
 			<RoomInfo match={match} />
 		</div>

@@ -5,7 +5,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
 
-export default function RoomStatus({ title }) {
+export default function Status({ title }) {
 	const { isLoading } = useSelector(state => state);
 	return (
 		<div className='col-md-12'>

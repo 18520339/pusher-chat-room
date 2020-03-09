@@ -60,7 +60,6 @@ export const enterRoom = roomId => (dispatch, getState) => {
 			dispatch(showNotificationToast.call(this));
 		})
 		.catch(err => {
-			console.log(err);
 			const { error } = err.info;
 			if (error === 'services/chatkit/not_found/room_not_found') {
 				chatkit

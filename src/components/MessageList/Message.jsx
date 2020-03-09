@@ -1,36 +1,46 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import React from 'react';
-import Avatar from '../Avatar';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-export default function Message({ userType, userName, updatedAt, children }) {
-	const message = children.length ? children : [children];
-	return (
-		<div className={`message ${userType}`}>
-			{userType !== 'me' && <Avatar name={userName} type='user' />}
-			<div className='text-main'>
-				<div className={`text-group ${userType}`}>
-					{message.map((child, index) => {
-						if (child.type === 'img') return child;
-						return (
-							<div key={index} className={`text ${userType}`}>
-								{child}
-							</div>
-						);
-					})}
+import { toggleCarousel } from '../../actions';
+import Content from './Content';
+
+export default function Message({ parts, userType }) {
+	const { currentUser, images } = useSelector(state => state);
+	const dispatch = useDispatch();
+	useEffect(() => {}, [images]);
+
+	if (parts.length === 0) return;
+	return parts.map((part, index) => {
+		const { partType, payload } = part;
+
+		if (partType === 'inline')
+			return (
+				<div key={index} className={`text ${userType}`}>
+					<Content
+						currentUserName={currentUser.name}
+						text={payload.content}
+					/>
 				</div>
-				{updatedAt && (
-					<span>
-						{new Date(updatedAt).toLocaleTimeString('en-US', {
-							hour: '2-digit',
-							minute: '2-digit'
-						})}
-					</span>
-				)}
-			</div>
-		</div>
-	);
+			);
+
+		if (Date.now() > Date.parse(payload._expiration))
+			payload._fetchNewDownloadURL();
+
+		return (
+			<img
+				key={index}
+				className={`w-25 img-thumbnail 
+                    ${index !== parts.length - 1 && 'mb-3'}
+                `}
+				src={payload._downloadURL}
+				alt='attachment'
+				onClick={() => dispatch(toggleCarousel(index, 'MessageList'))}
+			/>
+		);
+	});
 }
 
 /* eslint-enable */

@@ -8,7 +8,7 @@ import { reducer } from '@andyet/simplewebrtc';
 import chatkit from './chatkit';
 import authentication from './authentication';
 import notification from './notification';
-import videoChat from './videoChat';
+import videoCall from './videoCall';
 
 import { isLoading, justLoadMore, messages, images } from './messages';
 import { currentUser, typingUsers, roomUsers } from './users';
@@ -34,7 +34,7 @@ const rootReducer = combineReducers({
 	roomActive,
 	roomFilter,
 	showPicker,
-	videoChat,
+	videoCall,
 	roomUsers,
 	isLoading,
 	userSort,

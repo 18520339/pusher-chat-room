@@ -1,7 +1,7 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Accordion, Card, Button, Jumbotron } from 'react-bootstrap';
 
@@ -9,7 +9,7 @@ import { toggleCarousel } from '../../actions';
 import ImageCarousel from './ImageCarousel';
 
 export default function ImageList() {
-	const images = useSelector(state => state.images);
+	const { images, showCarousel } = useSelector(state => state);
 	const dispatch = useDispatch();
 	const [rotate, setRotate] = useState(false);
 
@@ -30,10 +30,11 @@ export default function ImageList() {
 				className='img-thumbnail'
 				src={url.src}
 				alt='attachment'
-				onClick={() => dispatch(toggleCarousel(index))}
+				onClick={() => dispatch(toggleCarousel(index, 'ImageList'))}
 			/>
 		));
 	};
+	useEffect(() => {}, [images]);
 
 	return (
 		<Accordion>
@@ -54,7 +55,9 @@ export default function ImageList() {
 				<Accordion.Collapse eventKey='0'>
 					<Card.Body className='p-0'>
 						{onShowImages()}
-						<ImageCarousel />
+						{showCarousel.where === 'ImageList' && (
+							<ImageCarousel />
+						)}
 					</Card.Body>
 				</Accordion.Collapse>
 			</Card>

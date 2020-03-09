@@ -46,6 +46,12 @@ export const connect = userId => (dispatch, getState) => {
 		.connect({
 			onRoomUpdated: room => {
 				dispatch({ type: types.UPDATE_ROOM, room });
+			},
+			onAddedToRoom: room => {
+				if (room.isPrivate) {
+					const { currentUser } = getState();
+					dispatch(getRooms(currentUser));
+				}
 			}
 		})
 		.then(currentUser => {

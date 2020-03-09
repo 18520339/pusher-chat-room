@@ -23,8 +23,8 @@ export const togglePicker = () => {
 	return { type: types.TOGGLE_PICKER };
 };
 
-export const toggleCarousel = (imageIndex = -1) => {
-	return { type: types.TOGGLE_CAROUSEL, imageIndex };
+export const toggleCarousel = (imageIndex = -1, where = '') => {
+	return { type: types.TOGGLE_CAROUSEL, imageIndex, where };
 };
 
 export const toggleUsersBar = () => {
