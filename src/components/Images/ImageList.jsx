@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Accordion, Card, Button, Jumbotron } from 'react-bootstrap';
 
 import { toggleCarousel } from '../../actions';
-import ImageCarousel from '../ImageCarousel';
+import ImageCarousel from './ImageCarousel';
 
 export default function ImageList() {
 	const images = useSelector(state => state.images);
@@ -36,7 +36,7 @@ export default function ImageList() {
 	};
 
 	return (
-		<Accordion defaultActiveKey='0'>
+		<Accordion>
 			<Card>
 				<Card.Header>
 					<Accordion.Toggle
@@ -47,7 +47,7 @@ export default function ImageList() {
 					>
 						Ảnh đã chia sẻ
 						<i className={`material-icons ${rotate && 'rotate'}`}>
-							keyboard_arrow_down
+							keyboard_arrow_left
 						</i>
 					</Accordion.Toggle>
 				</Card.Header>

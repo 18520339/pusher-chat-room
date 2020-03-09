@@ -38,7 +38,7 @@
                 float: right;
 
                 &.rotate {
-                    @include transform(rotate(90deg));
+                    @include transform(rotate(-90deg));
                 }
             }
         }

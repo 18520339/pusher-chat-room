@@ -25,7 +25,7 @@ export default function UserList({ match, adminId }) {
 						const { by, value } = userSort;
 						if (by == 'name') {
 							const nameA = a.name.toLowerCase();
-							const nameB = a.name.toLowerCase();
+							const nameB = b.name.toLowerCase();
 
 							if (nameA > nameB) return value;
 							if (nameA < nameB) return -value;

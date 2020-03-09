@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 import Avatar from '../Avatar';
 import UserList from './UserList';
-import ImageList from './ImageList';
+import { ImageList } from '../Images';
 
 export default function RoomInfo({ match }) {
 	const { showUsersBar, roomActive } = useSelector(state => state);

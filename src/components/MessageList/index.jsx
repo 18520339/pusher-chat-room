@@ -8,7 +8,7 @@ import { enterRoom, toggleCarousel } from '../../actions';
 import Message from './Message';
 import MessageText from './MessageText';
 import { RoomStatus } from '../RoomList';
-import ImageCarousel from '../ImageCarousel';
+import { ImageCarousel } from '../Images';
 
 export default function MessageList({ match }) {
 	const {
@@ -69,7 +69,7 @@ export default function MessageList({ match }) {
 					return (
 						<img
 							key={index}
-							className={`img-thumbnail ${index !==
+							className={`w-25 img-thumbnail ${index !==
 								parts.length - 1 && 'mb-3'}`}
 							src={payload._downloadURL}
 							alt='attachment'
