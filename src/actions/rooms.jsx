@@ -84,7 +84,10 @@ export const enterRoom = roomId => (dispatch, getState) => {
 			dispatch(getRooms(currentUser));
 			dispatch(showNotificationToast.call(this));
 		})
-		.catch(err => alertError('Error on entering rooms: ', err));
+		.catch(err => {
+			dispatch({ type: types.NOT_FOUND });
+			alertError('Error on entering rooms: ', err);
+		});
 };
 
 export const createRoom = (name, message) => (dispatch, getState) => {
