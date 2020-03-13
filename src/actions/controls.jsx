@@ -12,8 +12,8 @@ export const sortMembers = (by, value) => {
 	return { type: types.SORT_MEMBERS, by, value };
 };
 
-export const filterRooms = (name, status = null) => {
-	return { type: types.FILTER_ROOMS, name, status };
+export const filterRooms = (name, status, isPrivate) => {
+	return { type: types.FILTER_ROOMS, name, status, isPrivate };
 };
 export const toggleCall = (cam = false) => {
 	return { type: types.TOGGLE_CALL, cam };

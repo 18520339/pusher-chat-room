@@ -8,7 +8,7 @@ import { enterRoom } from '../../actions';
 import Wrapper from './Wrapper';
 import Message from './Message';
 
-import { RoomStatus } from '../RoomList';
+import { RoomStatus } from '../LeftSideBar';
 import { ImageCarousel } from '../Images';
 
 export default function MessageList({ match }) {
@@ -93,7 +93,7 @@ export default function MessageList({ match }) {
 			const { id, name } = user;
 			if (currentUser.id === id) return;
 			return (
-				<Wrapper key={id} userType='typing' userName={name}>
+				<Wrapper key={id} userType='text typing' userName={name}>
 					<div className='wave'>
 						<span className='dot'></span>&nbsp;
 						<span className='dot'></span>&nbsp;

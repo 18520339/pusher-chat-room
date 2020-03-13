@@ -1,7 +1,7 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import { GET_ROOMS, UPDATE_ROOM } from '../../constants';
+import { GET_ROOMS, UPDATE_ROOM, PRESENCE_CHANGED } from '../../constants';
 
 const initialState = [];
 const rooms = (state = initialState, action) => {
@@ -15,6 +15,8 @@ const rooms = (state = initialState, action) => {
 			if (index === -1) return state;
 			state[index] = action.room;
 			return [...state];
+		case PRESENCE_CHANGED:
+			return state;
 		default:
 			return state;
 	}

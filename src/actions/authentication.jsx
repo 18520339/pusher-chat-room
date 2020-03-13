@@ -7,7 +7,9 @@ import { HmacSHA1 } from 'crypto-js';
 
 import * as types from '../constants';
 import { alertError } from '../functions';
-import { getRooms } from './rooms';
+
+import { createPrivateRoom, getRooms } from './rooms';
+import { filterRooms } from './controls';
 
 export const signOut = () => {
 	return { type: types.SIGN_OUT };
@@ -15,7 +17,7 @@ export const signOut = () => {
 
 export const signUp = (name, email, password) => (dispatch, getState) => {
 	const chatkit = getState().chatkit;
-	const id = HmacSHA1(email + '@!?#?' + password, key).toString();
+	const id = HmacSHA1(`${email}@!?#?${password}`, key).toString();
 	const avatarURL = `https://avatars.dicebear.com/v2/avataaars/${name}.svg?options[eyes][]=squint&options[eyebrow][]=raised&options[mouth][]=smile`;
 
 	chatkit
@@ -27,7 +29,7 @@ export const signUp = (name, email, password) => (dispatch, getState) => {
 export const signIn = (email, password) => {
 	return (dispatch, getState) => {
 		const chatkit = getState().chatkit;
-		const id = HmacSHA1(email + '@!?#?' + password, key).toString();
+		const id = HmacSHA1(`${email}@!?#?${password}`, key).toString();
 
 		chatkit
 			.getUser({ id })
@@ -49,14 +51,27 @@ export const connect = userId => (dispatch, getState) => {
 			},
 			onAddedToRoom: room => {
 				if (room.isPrivate) {
-					const { currentUser } = getState();
+					const currentUser = getState().currentUser;
 					dispatch(getRooms(currentUser));
 				}
+			},
+			onPresenceChanged: () => {
+				const { name, status, isPrivate } = getState().roomFilter;
+				dispatch(filterRooms(name, status, isPrivate));
 			}
 		})
 		.then(currentUser => {
 			dispatch({ type: types.CONNECT, currentUser });
 			dispatch(getRooms(currentUser));
+		})
+		.then(() => {
+			const chatkit = getState().chatkit;
+			chatkit
+				.getUsers()
+				.then(users => {
+					users.forEach(user => dispatch(createPrivateRoom(user)));
+				})
+				.catch(err => alertError('Error on getting all users', err));
 		})
 		.catch(err => alertError('Error on connection', err));
 };

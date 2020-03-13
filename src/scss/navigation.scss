@@ -16,10 +16,6 @@
             display      : block;
             font-size    : 45px;
             margin-bottom: 40px;
-
-            &.active {
-                color: $color_dodger_blue;
-            }
         }
 
         .power {
@@ -39,6 +35,10 @@
         }
 
         .mode:hover {
+            color: $color_dodger_blue;
+        }
+
+        &>a.active {
             color: $color_dodger_blue;
         }
     }

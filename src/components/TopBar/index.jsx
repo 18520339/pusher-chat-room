@@ -1,15 +1,22 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { toggleCall, toggleUsersBar } from '../../actions';
 import Avatar from '../Avatar';
 
 export default function TopBar() {
-	const { id, name, isPrivate } = useSelector(state => state.roomActive);
+	const { roomActive } = useSelector(state => state);
+	const { id, name, status, isPrivate } = roomActive;
 	const dispatch = useDispatch();
-	const avatarType = isPrivate ? 'user' : 'room';
+
+	const onShowStatus = status => {
+		if (isPrivate) status = status === 'online' ? 'Online' : 'Offline';
+		else status = 'Online';
+		return `Đang ${status}`;
+	};
 
 	const onPhoneChat = () => {
 		if (id) dispatch(toggleCall());
@@ -26,15 +33,23 @@ export default function TopBar() {
 			<div className='container'>
 				<div className='col-md-12'>
 					<div className='inside'>
-						<Avatar name={name} type={avatarType} tooltip='left' />
+						<Avatar
+							name={name}
+							type={isPrivate ? 'user' : 'room'}
+							tooltip='left'
+						/>
 						<div className='status'>
-							<i className='material-icons online'>
+							<i
+								className={`material-icons ${
+									isPrivate ? status : 'online'
+								}`}
+							>
 								fiber_manual_record
 							</i>
 						</div>
 						<div className='data'>
 							<h5>{name}</h5>
-							<span>Active now</span>
+							<span>{onShowStatus(status)}</span>
 						</div>
 						<button className='btn' onClick={onPhoneChat}>
 							<i className='material-icons md-30'>

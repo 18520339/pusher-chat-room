@@ -45,6 +45,7 @@ export const fetchLastMessage = () => {
 		const { currentUser, messages } = getState();
 		const { room, sender, parts } = messages[messages.length - 1];
 
+		const { id, name, customData } = room;
 		const { partType, payload } = parts[parts.length - 1];
 		var lastMessage = `: ${payload.content}`;
 
@@ -54,12 +55,12 @@ export const fetchLastMessage = () => {
 
 		currentUser
 			.updateRoom({
-				roomId: room.id,
-				customData: { lastMessage }
+				roomId: id,
+				customData: { lastMessage, members: customData.members }
 			})
 			.then(() => {
 				if (currentUser.id !== sender.id)
-					dispatch(showNotification(room.name, lastMessage));
+					dispatch(showNotification(name, lastMessage));
 			});
 	};
 };

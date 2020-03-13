@@ -10,8 +10,8 @@ import Navigation from '../Navigation';
 import TopBar from '../TopBar';
 import VideoCall from '../VideoCall';
 
-import { RoomList, RoomStatus } from '../RoomList';
-import RoomInfo from '../RoomInfo';
+import { LeftSideBar, RoomStatus } from '../LeftSideBar';
+import RightSideBar from '../RightSideBar';
 
 import MessageList from '../MessageList';
 import { SendMessage } from '../FormControls';
@@ -55,7 +55,7 @@ export default function Chat({ match }) {
 				</div>
 			)}
 			<Navigation />
-			<RoomList match={match} />
+			<LeftSideBar match={match} />
 			<div className='main'>
 				<div className='chat' ref={chatNode}>
 					<TopBar />
@@ -83,7 +83,7 @@ export default function Chat({ match }) {
 				</div>
 				{videoCall.show && <VideoCall />}
 			</div>
-			<RoomInfo match={match} />
+			<RightSideBar match={match} />
 		</div>
 	);
 }
