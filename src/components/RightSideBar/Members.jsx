@@ -9,12 +9,23 @@ import Avatar from '../Avatar';
 import { SortMembers } from '../FormControls';
 
 export default function Members({ match, adminId, isPrivate }) {
-	const { roomUsers, userSort } = useSelector(state => state);
+	const { currentUser, rooms, roomUsers, userSort } = useSelector(
+		state => state
+	);
+
+	const privateRooms = rooms
+		.filter(room => room.isPrivate)
+		.map(({ id, customData }) => {
+			const memberIds = customData.members.map(member => member.id);
+			return { id, memberIds };
+		});
+
 	const onShowMemberData = (id, createdDate) => {
 		createdDate = `Được tạo vào tháng ${createdDate}`;
 		if (isPrivate) return createdDate;
 		return adminId === id ? 'Quản trị viên' : createdDate;
 	};
+
 	return (
 		<div className='contacts'>
 			<div className='sort-members'>
@@ -45,9 +56,18 @@ export default function Members({ match, adminId, isPrivate }) {
 						}
 					})
 					.map(({ id, name, presence, createdAt }) => {
-						const path = `user=${id}`;
-						const state = presence.state;
+						const index = privateRooms.findIndex(
+							({ memberIds }) => {
+								if (currentUser.id === id)
+									return memberIds.length === 1;
+								return (
+									memberIds.includes(currentUser.id) &&
+									memberIds.includes(id)
+								);
+							}
+						);
 
+						const state = presence.state;
 						const createdDate = new Date(
 							createdAt
 						).toLocaleDateString('vi-VN', {
@@ -58,7 +78,7 @@ export default function Members({ match, adminId, isPrivate }) {
 						return (
 							<Link
 								key={id}
-								to={`${match.path}/${path}`}
+								to={`${match.path}/${privateRooms[index].id}`}
 								className='contact'
 							>
 								<Avatar name={name} type='user' />
