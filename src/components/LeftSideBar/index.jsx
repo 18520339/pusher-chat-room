@@ -4,7 +4,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { CreateRoom, FilterRooms } from '../FormControls';
+import { FilterRooms } from '../FormControls';
+import { CreateRoom } from '../PopUp';
+
 import Contacts from './Contacts';
 import Rooms from './Rooms';
 

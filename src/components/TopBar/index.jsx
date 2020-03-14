@@ -51,12 +51,18 @@ export default function TopBar() {
 							<h5>{name}</h5>
 							<span>{onShowStatus(status)}</span>
 						</div>
-						<button className='btn' onClick={onPhoneChat}>
+						<button
+							className='btn d-md-block d-none'
+							onClick={onPhoneChat}
+						>
 							<i className='material-icons md-30'>
 								phone_in_talk
 							</i>
 						</button>
-						<button className='btn' onClick={onVideoChat}>
+						<button
+							className='btn d-md-block d-none'
+							onClick={onVideoChat}
+						>
 							<i className='material-icons md-36'>videocam</i>
 						</button>
 						<button className='btn' onClick={onShowMembers}>
