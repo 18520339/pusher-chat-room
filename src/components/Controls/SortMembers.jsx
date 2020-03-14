@@ -1,17 +1,22 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DropdownButton, Dropdown } from 'react-bootstrap';
 import { sortMembers } from '../../actions';
 
 export default function SortMembers() {
-	const userSort = useSelector(state => state.userSort);
+	const { roomActive, userSort } = useSelector(state => state);
 	const dispatch = useDispatch();
 
 	const [title, setTitle] = useState('Sắp xếp theo');
 	const { by, value } = userSort;
+
+	useEffect(() => {
+		setTitle('Sắp xếp theo');
+		dispatch(sortMembers('status', 1));
+	}, [roomActive.id]);
 
 	return (
 		<DropdownButton title={title} size='sm' variant='light'>

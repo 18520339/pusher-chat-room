@@ -16,7 +16,10 @@ export default function FilterRooms({ placeholder }) {
 		dispatch(filterRooms(roomName, status, isPrivate));
 	};
 
-	useEffect(() => setSearchText(''), [isPrivate]);
+	useEffect(() => {
+		setSearchText('');
+	}, [isPrivate]);
+
 	return (
 		<div id='room-filter'>
 			<div className='search'>
