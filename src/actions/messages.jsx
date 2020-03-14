@@ -4,7 +4,7 @@
 import { NEWS_API_KEY } from '../config';
 import { START_LOAD_MORE, END_LOAD_MORE } from '../constants';
 
-import { alertError } from '../functions';
+import { alertError } from '../utils';
 import { showNotification } from './notification';
 
 export const typingMessage = () => (dispatch, getState) => {

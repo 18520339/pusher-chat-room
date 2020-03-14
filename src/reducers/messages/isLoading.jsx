@@ -1,7 +1,7 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import { GET_ROOMS, CLEAR_MESSAGE, NOT_FOUND } from '../../constants';
+import { GET_ROOMS, CLEAR_MESSAGE, NOT_FOUND, SIGN_OUT } from '../../constants';
 
 const initialState = true;
 const isLoading = (state = initialState, action) => {
@@ -12,6 +12,8 @@ const isLoading = (state = initialState, action) => {
 			return true;
 		case NOT_FOUND:
 			return false;
+		case SIGN_OUT:
+			return initialState;
 		default:
 			return state;
 	}

@@ -6,12 +6,14 @@ import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
 import store from './reducers';
-import App from './components/App/index.jsx';
+import App from './components/App';
 
-import 'material-design-icons/iconfont/material-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'jquery';
+
+import 'material-design-icons/iconfont/material-icons.css';
+import './scss/style.scss';
 
 ReactDOM.render(
 	<Provider store={store}>

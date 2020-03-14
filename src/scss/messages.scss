@@ -1,12 +1,6 @@
 .main {
-    width: 100%;
-
-    &.order-md-1,
-    &.order-md-2 {
-        height    : 100vh;
-        margin    : 0;
-        background: $color_white;
-    }
+    @include box-size(100%, 100vh);
+    margin: 0;
 
     .chat {
         @include border(null, null, 0px 0px 20px 0px $black_20);

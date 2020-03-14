@@ -1,7 +1,7 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import { TOGGLE_CALL } from '../../constants';
+import { TOGGLE_CALL, SIGN_OUT } from '../../constants';
 
 const initialState = { show: false, cam: false };
 const videoCall = (state = initialState, action) => {
@@ -10,6 +10,8 @@ const videoCall = (state = initialState, action) => {
 			const show = !state.show;
 			const cam = action.cam;
 			return { ...state, show, cam };
+		case SIGN_OUT:
+			return initialState;
 		default:
 			return state;
 	}

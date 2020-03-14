@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Avatar from '../Avatar';
-import { SortMembers } from '../FormControls';
+import { SortMembers } from '../Controls';
 
 export default function Members({ match, adminId, isPrivate }) {
 	const { currentUser, rooms, roomUsers, userSort } = useSelector(

@@ -1,7 +1,12 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import { ON_MESSAGE, END_LOAD_MORE, CLEAR_MESSAGE } from '../../constants';
+import {
+	ON_MESSAGE,
+	END_LOAD_MORE,
+	CLEAR_MESSAGE,
+	SIGN_OUT
+} from '../../constants';
 
 const initialState = [];
 const messages = (state = initialState, action) => {
@@ -12,6 +17,8 @@ const messages = (state = initialState, action) => {
 			return [...action.messages, ...state];
 		case CLEAR_MESSAGE:
 			return [];
+		case SIGN_OUT:
+			return initialState;
 		default:
 			return state;
 	}

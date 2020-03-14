@@ -5,8 +5,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-import { SignIn, SignUp, Chat, NotFound } from '../Screen';
-import '../../scss/style.scss';
+import { SignIn, SignUp } from '../Auth';
+import NotFound from '../NotFound';
+import Chat from '../Chat';
 
 export default function App() {
 	const { currentScreen } = useSelector(state => state.authentication);

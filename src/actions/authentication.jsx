@@ -6,13 +6,15 @@ import { tokenUrl, instanceLocator, key } from '../config';
 import { HmacSHA1 } from 'crypto-js';
 
 import * as types from '../constants';
-import { alertError } from '../functions';
+import { alertError } from '../utils';
 
 import { createPrivateRoom, getRooms } from './rooms';
 import { filterRooms } from './controls';
 
-export const signOut = () => {
-	return { type: types.SIGN_OUT };
+export const signOut = () => (dispatch, getState) => {
+	const currentUser = getState().currentUser;
+	dispatch({ type: types.SIGN_OUT });
+	currentUser.disconnect();
 };
 
 export const signUp = (name, email, password) => (dispatch, getState) => {

@@ -9,7 +9,7 @@ const authentication = (state = initialState, action) => {
 		case SIGN_IN:
 			return { userId: action.userId, currentScreen: 'Chat' };
 		case SIGN_OUT:
-			return { userId: '', currentScreen: 'SignIn' };
+			return initialState;
 		default:
 			return state;
 	}

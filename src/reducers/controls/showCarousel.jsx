@@ -1,7 +1,7 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import { TOGGLE_CAROUSEL } from '../../constants';
+import { TOGGLE_CAROUSEL, SIGN_OUT } from '../../constants';
 
 const initialState = { isShow: false, imageIndex: -1, where: '' };
 const showCarousel = (state = initialState, action) => {
@@ -13,6 +13,8 @@ const showCarousel = (state = initialState, action) => {
 				imageIndex: action.imageIndex,
 				where: action.where
 			};
+		case SIGN_OUT:
+			return initialState;
 		default:
 			return state;
 	}

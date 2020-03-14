@@ -5,7 +5,7 @@ import { key } from '../config';
 import { HmacSHA1 } from 'crypto-js';
 
 import * as types from '../constants';
-import { alertError, onGetPrivateUser } from '../functions';
+import { alertError, onGetPrivateUser } from '../utils';
 
 import { showNotificationToast } from './notification';
 import { sendMessage, fetchLastMessage } from './messages';

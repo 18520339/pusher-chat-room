@@ -4,7 +4,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { onGetPrivateUser } from '../../functions';
+import { onGetPrivateUser } from '../../utils';
 import ChatList from './ChatList';
 
 export default function Contacts({ match }) {
