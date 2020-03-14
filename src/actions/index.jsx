@@ -14,7 +14,6 @@ export {
 } from './messages';
 
 export {
-	addEmoji,
 	sortMembers,
 	filterRooms,
 	toggleCall,

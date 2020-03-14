@@ -14,7 +14,7 @@ import { LeftSideBar, RoomStatus } from '../LeftSideBar';
 import RightSideBar from '../RightSideBar';
 
 import MessageList from '../MessageList';
-import MessageInput from '../MessageInput';
+import SendMessage from '../SendMessage';
 
 export default function Chat({ match }) {
 	const {
@@ -79,7 +79,7 @@ export default function Chat({ match }) {
 							</Switch>
 						</div>
 					</div>
-					<MessageInput />
+					<SendMessage />
 				</div>
 				{videoCall.show && <VideoCall />}
 			</div>

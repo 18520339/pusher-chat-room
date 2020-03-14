@@ -68,6 +68,7 @@ export const fetchLastMessage = () => {
 export const loadMoreMessages = () => (dispatch, getState) => {
 	dispatch({ type: START_LOAD_MORE });
 	const { currentUser, messages, roomActive } = getState();
+
 	if (messages.length === 0) return;
 	const oldestMessageId = Math.min(...messages.map(message => message.id));
 

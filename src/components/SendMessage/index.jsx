@@ -11,29 +11,29 @@ import {
 	typingMessage,
 	sendMessage,
 	sendNews,
-	addEmoji,
 	togglePicker
 } from '../../actions';
 
 import UploadImage from '../PopUp/UploadImage';
 import TextArea from './TextArea';
 
-export default function MessageInput() {
+export default function SendMessage() {
 	const { roomActive, showPicker } = useSelector(state => state);
 	const dispatch = useDispatch();
 	const [message, setMessage] = useState('');
 
 	const onTogglePicker = () => dispatch(togglePicker());
-	const onAddEmoji = emoji => setMessage(dispatch(addEmoji(emoji, message)));
+	const onAddEmoji = emoji => setMessage(`${message}${emoji.native}`);
 
 	const handleSlashCommand = message => {
-		const cmd = message.split(' ')[0];
-		const query = message.slice(cmd.length).trim();
+		const cmd = message.split('_')[0];
+		const query = message.slice(cmd.length).substr(1);
 
-		if (cmd !== '/news') {
+		if (cmd !== '#news') {
 			alert(`Lệnh ${cmd} Không hợp lệ`);
 			return;
 		}
+
 		dispatch(sendNews(query));
 	};
 
@@ -42,12 +42,12 @@ export default function MessageInput() {
 		dispatch(typingMessage());
 	};
 
-	const onSubmit = event => {
-		event.preventDefault();
+	const onSubmit = () => {
+		onTogglePicker();
 		const parts = [];
 
 		if (message.trim()) {
-			if (message.startsWith('/')) {
+			if (message.startsWith('#')) {
 				handleSlashCommand(message);
 				setMessage('');
 				return;
@@ -66,11 +66,12 @@ export default function MessageInput() {
 		<div className='container'>
 			<div className='col-md-12'>
 				<div className='bottom'>
-					<form
-						className='position-relative w-100'
-						onSubmit={onSubmit}
-					>
-						<TextArea message={message} onChange={onChange} />
+					<form className='position-relative w-100'>
+						<TextArea
+							message={message}
+							onChange={onChange}
+							onSubmit={onSubmit}
+						/>
 						<button
 							type='button'
 							className='btn emoticons'
@@ -79,11 +80,25 @@ export default function MessageInput() {
 						>
 							<i className='material-icons'>insert_emoticon</i>
 						</button>
-						<button type='submit' className='btn send'>
+						<button
+							type='button'
+							className='btn send'
+							onClick={onSubmit}
+						>
 							<i className='material-icons'>send</i>
 						</button>
 						{showPicker && (
-							<Picker set='emojione' onSelect={onAddEmoji} />
+							<Picker
+								set='facebook'
+								title='Chọn icon...'
+								emoji='point_up'
+								notFoundEmoji='frowning'
+								i18n={{
+									search: 'Tìm kiếm icon...',
+									notfound: 'Không tìm thấy icon bạn cần'
+								}}
+								onSelect={onAddEmoji}
+							/>
 						)}
 					</form>
 					<UploadImage />

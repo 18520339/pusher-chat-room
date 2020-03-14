@@ -1,7 +1,7 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Accordion, Card, Button, Jumbotron } from 'react-bootstrap';
 
@@ -34,7 +34,6 @@ export default function ImageList() {
 			/>
 		));
 	};
-	useEffect(() => {}, [images]);
 
 	return (
 		<Accordion>

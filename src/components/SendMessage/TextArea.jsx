@@ -9,15 +9,23 @@ import { emojiIndex } from 'emoji-mart';
 
 export default function TextArea(props) {
 	const { id, users } = useSelector(state => state.roomActive);
-	const onChange = event => props.onChange(event.target.value);
 	const filterUserNames = token => {
 		return users.filter(user => user.name.includes(token));
 	};
+
+	const onChange = event => props.onChange(event.target.value);
+	const onSubmit = event => {
+		const { key, shiftKey, altKey } = event;
+		if (key === 'Enter' && shiftKey === false && altKey === false)
+			props.onSubmit();
+	};
+
 	return (
 		<ReactTextareaAutocomplete
 			className='form-control'
 			value={props.message}
 			loadingComponent={() => <p>Loading...</p>}
+			onKeyUp={onSubmit}
 			onChange={onChange}
 			placeholder='Nhập tin nhắn. Gõ @ để đề cập ai đó'
 			trigger={{

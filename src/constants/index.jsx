@@ -9,9 +9,8 @@ export const CONNECT = 'CONNECT';
 export const GET_ROOMS = 'GET_ROOMS';
 export const ENTER_ROOM = 'ENTER_ROOM';
 export const UPDATE_ROOM = 'UPDATE_ROOM';
-export const SHOW_NOTIFICATION_TOAST = 'SHOW_NOTIFICATION_TOAST';
 
-export const ADD_EMOJI = 'ADD_EMOJI';
+export const SHOW_NOTIFICATION_TOAST = 'SHOW_NOTIFICATION_TOAST';
 export const SORT_MEMBERS = 'SORT_MEMBERS';
 export const FILTER_ROOMS = 'FILTER_ROOMS';
 

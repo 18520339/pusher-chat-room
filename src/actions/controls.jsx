@@ -3,11 +3,6 @@
 
 import * as types from '../constants';
 
-export const addEmoji = (emoji, message) => (dispatch, getState) => {
-	dispatch({ type: types.ADD_EMOJI });
-	return `${message}${emoji.native}`;
-};
-
 export const sortMembers = (by, value) => {
 	return { type: types.SORT_MEMBERS, by, value };
 };

@@ -15,7 +15,6 @@ export default function SortMembers() {
 
 	useEffect(() => {
 		setTitle('Sắp xếp theo');
-		dispatch(sortMembers('status', 1));
 	}, [roomActive.id]);
 
 	return (
@@ -28,7 +27,7 @@ export default function SortMembers() {
 				}}
 			>
 				Đang Online
-				{by == 'status' && value == 1 && (
+				{by === 'status' && value === 1 && (
 					<i className='material-icons ml-auto'>check</i>
 				)}
 			</Dropdown.Item>
@@ -40,7 +39,7 @@ export default function SortMembers() {
 				}}
 			>
 				Đang Offline
-				{by == 'status' && value == -1 && (
+				{by === 'status' && value === -1 && (
 					<i className='material-icons ml-auto'>check</i>
 				)}
 			</Dropdown.Item>
@@ -53,7 +52,7 @@ export default function SortMembers() {
 				}}
 			>
 				A đến Z
-				{by == 'name' && value == 1 && (
+				{by === 'name' && value === 1 && (
 					<i className='material-icons ml-auto'>check</i>
 				)}
 			</Dropdown.Item>
@@ -65,7 +64,7 @@ export default function SortMembers() {
 				}}
 			>
 				Z đến A
-				{by == 'name' && value == -1 && (
+				{by === 'name' && value === -1 && (
 					<i className='material-icons ml-auto'>check</i>
 				)}
 			</Dropdown.Item>
