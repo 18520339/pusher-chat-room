@@ -7,6 +7,7 @@ import {
 	TOGGLE_PICKER,
 	TOGGLE_CAROUSEL,
 	TOGGLE_USERS_BAR,
+	SEND_MESSAGE,
 	CLEAR_MESSAGE,
 	SIGN_OUT
 } from '../../constants';
@@ -20,6 +21,7 @@ const showPicker = (state = initialState, action) => {
 		case TOGGLE_CALL:
 		case TOGGLE_CAROUSEL:
 		case TOGGLE_USERS_BAR:
+		case SEND_MESSAGE:
 		case CLEAR_MESSAGE:
 		case SIGN_OUT:
 			return initialState;

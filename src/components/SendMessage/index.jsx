@@ -43,9 +43,7 @@ export default function SendMessage() {
 	};
 
 	const onSubmit = () => {
-		onTogglePicker();
 		const parts = [];
-
 		if (message.trim()) {
 			if (message.startsWith('#')) {
 				handleSlashCommand(message);

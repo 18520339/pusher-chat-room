@@ -16,9 +16,10 @@ import {
 	RemoteAudioPlayer
 } from '@andyet/simplewebrtc';
 
-import { key, SWRTC_CONFIG_URL } from '../../config';
-import { toggleCall } from '../../actions';
+import { key } from '../../config';
+import { SWRTC_API_URL } from '../../api';
 
+import { toggleCall } from '../../actions';
 import CallStatus from './CallStatus';
 import Options from './Options';
 
@@ -36,7 +37,7 @@ export default function VideoCall() {
 				rel='stylesheet'
 			></link>
 			<div className='call'>
-				<Provider configUrl={SWRTC_CONFIG_URL}>
+				<Provider configUrl={SWRTC_API_URL}>
 					<Connecting>
 						<CallStatus value='Đang kết nối' />
 					</Connecting>

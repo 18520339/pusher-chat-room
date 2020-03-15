@@ -1,8 +1,8 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import { NEWS_API_KEY } from '../config';
-import { START_LOAD_MORE, END_LOAD_MORE } from '../constants';
+import { NEWS_API_URL, NEWS_API_KEY } from '../api';
+import { SEND_MESSAGE, START_LOAD_MORE, END_LOAD_MORE } from '../constants';
 
 import { alertError } from '../utils';
 import { showNotification } from './notification';
@@ -15,7 +15,9 @@ export const typingMessage = () => (dispatch, getState) => {
 };
 
 export const sendMessage = (parts, roomId = null) => (dispatch, getState) => {
+	dispatch({ type: SEND_MESSAGE });
 	const { currentUser, roomActive } = getState();
+
 	if (roomId === null) roomId = `${roomActive.id}`;
 	currentUser
 		.sendMultipartMessage({ roomId, parts })
@@ -23,7 +25,9 @@ export const sendMessage = (parts, roomId = null) => (dispatch, getState) => {
 };
 
 export const sendNews = query => (dispatch, getState) => {
-	const newsApi = `https://newsapi.org/v2/everything?q=${query}&pageSize=3&apiKey=${NEWS_API_KEY}`;
+	dispatch({ type: SEND_MESSAGE });
+	const newsApi = `${NEWS_API_URL}?q=${query}&pageSize=3&apiKey=${NEWS_API_KEY}`;
+
 	fetch(newsApi)
 		.then(res => res.json())
 		.then(data => {

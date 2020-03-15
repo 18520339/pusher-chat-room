@@ -2,8 +2,10 @@
 /* eslint-disable */
 
 import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
-import { tokenUrl, instanceLocator, key } from '../config';
 import { HmacSHA1 } from 'crypto-js';
+
+import { instanceLocator, tokenUrl, key } from '../config';
+import { AVATAR_API_URL, AVATAR_OPTIONS } from '../api';
 
 import * as types from '../constants';
 import { alertError } from '../utils';
@@ -12,15 +14,17 @@ import { createPrivateRoom, getRooms } from './rooms';
 import { filterRooms } from './controls';
 
 export const signOut = () => (dispatch, getState) => {
-	const currentUser = getState().currentUser;
-	dispatch({ type: types.SIGN_OUT });
-	currentUser.disconnect();
+	if (window.confirm('Bạn có chắc chắn muốn thoát không ?')) {
+		const currentUser = getState().currentUser;
+		dispatch({ type: types.SIGN_OUT });
+		currentUser.disconnect();
+	}
 };
 
 export const signUp = (name, email, password) => (dispatch, getState) => {
 	const chatkit = getState().chatkit;
 	const id = HmacSHA1(`${email}@!?#?${password}`, key).toString();
-	const avatarURL = `https://avatars.dicebear.com/v2/avataaars/${name}.svg?options[eyes][]=squint&options[eyebrow][]=raised&options[mouth][]=smile`;
+	const avatarURL = `${AVATAR_API_URL}/avataaars/${name}.svg?${AVATAR_OPTIONS}`;
 
 	chatkit
 		.createUser({ id, name, avatarURL })
@@ -28,16 +32,14 @@ export const signUp = (name, email, password) => (dispatch, getState) => {
 		.catch(err => alertError('Error on sign up', err));
 };
 
-export const signIn = (email, password) => {
-	return (dispatch, getState) => {
-		const chatkit = getState().chatkit;
-		const id = HmacSHA1(`${email}@!?#?${password}`, key).toString();
+export const signIn = (email, password) => (dispatch, getState) => {
+	const chatkit = getState().chatkit;
+	const id = HmacSHA1(`${email}@!?#?${password}`, key).toString();
 
-		chatkit
-			.getUser({ id })
-			.then(() => dispatch({ type: types.SIGN_IN, userId: id }))
-			.catch(err => alertError('Error on sign in', err));
-	};
+	chatkit
+		.getUser({ id })
+		.then(() => dispatch({ type: types.SIGN_IN, userId: id }))
+		.catch(err => alertError('Error on sign in', err));
 };
 
 export const connect = userId => (dispatch, getState) => {

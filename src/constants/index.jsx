@@ -20,6 +20,7 @@ export const TOGGLE_CAROUSEL = 'TOGGLE_CAROUSEL';
 export const TOGGLE_USERS_BAR = 'TOGGLE_USERS_BAR';
 
 export const ON_MESSAGE = 'ON_MESSAGE';
+export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
 export const START_LOAD_MORE = 'START_LOAD_MORE';
 export const END_LOAD_MORE = 'END_LOAD_MORE';

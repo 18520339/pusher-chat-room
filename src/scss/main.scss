@@ -1,0 +1,532 @@
+.main {
+    @include box-size(100%, 100vh);
+    margin: 0;
+
+    .chat {
+        @include border(null, null, 0px 0px 20px 0px $black_20);
+        @include d-flex(space-between, null, column);
+        height: 100%;
+
+        .content {
+            @include overflow(20px 0 0, hidden, scroll);
+            display: flex;
+            height : calc(100vh - 218px);
+
+            .message {
+                @include d-flex(null, flex-end, null, null, (bottom, 20px));
+
+                .text-main {
+                    .text {
+                        @include main-decoration(15px, $white, 6px);
+                        @include border(null, 15px, 0px 0px 20px 0px $black_20);
+                        display  : inline-block;
+                        max-width: 450px;
+
+                        .embedded-link {
+                            text-decoration: underline;
+
+                            &:hover {
+                                color          : inherit;
+                                text-decoration: none;
+                            }
+                        }
+
+                        .microlink_card {
+                            .microlink_card__content {
+                                width: 0;
+                            }
+
+                            &:hover {
+                                color: initial;
+                            }
+                        }
+
+                        .attachment {
+                            @include d-flex(null, center);
+
+                            .file {
+                                h5 {
+                                    @include font-style(400, 16px, $color_dodger_blue, 1.4, (bottom, 5px));
+                                }
+
+                                a:hover {
+                                    text-decoration: underline;
+                                }
+                            }
+
+                            .attach {
+                                @include box-size(42px, 42px);
+                                padding     : 12px;
+                                margin-right: 15px;
+                            }
+                        }
+
+                        &.typing {
+                            padding: 8px 12px;
+                        }
+
+                        &.me {
+                            @include transition(all 0.3s);
+                            background-color: $color_dodger_blue;
+
+                            &.image {
+                                background-color: $color_wild_sand
+                            }
+
+                            .attachment {
+                                .attach {
+                                    @include box-color($white, $color_dodger_blue)
+                                }
+
+                                .file {
+
+                                    h5,
+                                    a:hover {
+                                        color: $white;
+                                    }
+
+                                    span {
+                                        color     : $white;
+                                        text-align: left;
+                                    }
+                                }
+                            }
+
+                            &>div>p {
+                                color: $white;
+                            }
+                        }
+
+                        &>div>p {
+                            @include font-style(400, 16px, $color_mid_gray, 1.4);
+                            word-break: break-all;
+                        }
+                    }
+
+                    &>span {
+                        color: $color_mid_gray;
+                    }
+                }
+
+                &:last-child {
+                    margin-bottom: 50px;
+                }
+
+                &.me {
+                    justify-content: flex-end;
+
+                    &:last-child {
+                        margin-bottom: 43px;
+                    }
+
+                    span {
+                        text-align: right;
+                    }
+                }
+
+                .avatar-md {
+                    margin-right: 15px;
+                }
+
+                .text-group {
+                    @include d-flex(null, flex-start, column);
+                    width        : 100%;
+                    margin-bottom: 10px;
+
+                    &>a {
+                        display: contents;
+                    }
+
+                    &.me {
+                        align-items: flex-end;
+                    }
+                }
+
+                span {
+                    @include font-style(400, 14px, null);
+                    display: block;
+
+                    >.material-icons {
+                        @include font-style(600, 14px, null, null, (right, 5px));
+                        position: relative;
+                        top     : 2px;
+                    }
+                }
+            }
+
+            .wave .dot {
+                @include box-size(6px, 6px);
+                @include main-decoration(null, $color_chatelle, 100%, wave 1.3s linear infinite);
+                display     : inline-block;
+                margin-right: 1px;
+
+                &:last-of-type {
+                    margin-right: 0;
+                }
+
+                &:nth-child(2) {
+                    animation-delay: -1.1s;
+                }
+
+                &:nth-child(3) {
+                    animation-delay: -0.9s;
+                }
+            }
+
+            >div {
+                margin-top   : auto;
+                margin-bottom: auto;
+            }
+
+            .date {
+                @include d-flex(null, center, null, 0 120px 30px);
+
+                hr {
+                    width     : 100%;
+                    margin    : 0;
+                    border-top: 1px solid $color_shark;
+                }
+
+                span {
+                    display    : block;
+                    padding    : 0 20px;
+                    color      : $color_shark;
+                    white-space: nowrap;
+                }
+            }
+
+            .no-messages {
+                @include text-center(400px, 47px auto 45px);
+                display: block;
+                color  : $color_shark;
+
+                .options {
+                    @include d-flex(center, center);
+
+                    .button {
+                        @include box-size(56px, 56px);
+                        @include border(null, 100%, 0 5px 10px 4px $black_4 !important);
+
+                        &:hover {
+                            @include transform(scale(1.05));
+                            @include transition(all 0.3s linear);
+                        }
+
+                        .material-icons {
+                            margin-bottom: 0;
+                        }
+
+                        &:nth-child(2) {
+                            background: $color_amaranth;
+                        }
+
+                        +.button {
+                            margin-left: 20px;
+                        }
+                    }
+                }
+
+                &.request {
+                    max-width: 420px;
+                    margin   : 50px auto;
+                }
+
+                .material-icons {
+                    margin-bottom: 20px;
+                    font-weight  : 600;
+                }
+
+                .avatar-xl {
+                    margin-bottom: 32px;
+                }
+
+                h5 {
+                    @include font-style(400, 18px, null, 1.7, (bottom, 5px));
+                    display: block;
+
+                    >span {
+                        @include font-style(null, 18px, null, 1.7);
+                    }
+                }
+
+                p {
+                    @include font-style(400, 18px, null, null, (bottom, 10px));
+                }
+            }
+        }
+
+        .btn {
+            padding    : 0;
+            line-height: 0;
+
+            &.disabled {
+                opacity: 1;
+
+                &:hover {
+                    color  : inherit !important;
+                    opacity: 1;
+                }
+            }
+        }
+
+        .attach {
+            @include box-color($color_dodger_blue, $white);
+            border-radius: 100%;
+
+            &:hover {
+                color  : $white;
+                opacity: 0.8;
+            }
+        }
+
+        .top {
+            @include border(null, null, 0px 0px 20px 0px $black_20);
+            @extend %data;
+            padding   : 20px 5px;
+            background: $white;
+
+            .inside {
+                @include d-flex(null, center);
+
+                .data {
+                    h5 {
+                        width: 100%;
+                    }
+                }
+
+                .status {
+                    @include pos-absolute(null, 4px, 0, null);
+                    @include box-size(20px, 20px);
+                    @include border(5px solid $white, 100%);
+                    margin-top  : 0;
+                    margin-right: 10px;
+
+                    .online {
+                        color: $color_dodger_blue;
+                    }
+
+                    .offline {
+                        color: $color_silver;
+                    }
+
+                    .material-icons {
+                        @include pos-absolute(null, -3px, null, -3px);
+                        font-size: 16px;
+                    }
+                }
+
+                .btn {
+                    @include font-style(null, null, $color_dodger_blue, 0, (left, 30px));
+                    padding: 0;
+
+                    &:hover {
+                        background: $color_mercury;
+                    }
+                }
+
+                .dropdown-menu-right {
+                    right : 0 !important;
+                    bottom: inherit !important;
+                }
+
+                .dropdown .btn {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        .bottom {
+            @include d-flex(null, center, null, 30px 0);
+            border-top: 2.5px solid $white;
+
+            .rta {
+                position: relative;
+                width   : 100%;
+
+                &__autocomplete {
+                    @include pos-absolute(unset !important, 7% !important, null, 77%);
+                    @include border(1px solid $color_chatelle, 5px);
+                    max-height      : 250px;
+                    background-color: $white;
+                    overflow        : auto;
+
+                    ul {
+                        @include d-flex(null, null, column, 0);
+                        margin: 0;
+
+                        li {
+                            padding: 3px 20px;
+                            color  : $color_dodger_blue;
+                            cursor : pointer;
+
+                            &:hover {
+                                @include box-color($color_dodger_blue, $white);
+                            }
+                        }
+                    }
+                }
+            }
+
+            label {
+                margin-bottom: 0;
+
+                input {
+                    display: none;
+                }
+            }
+
+            .form-control {
+                @include border(null, 50px, 0px 0px 24px 0px $black_20);
+                padding    : 16px 58px;
+                height     : 56px;
+                resize     : none;
+                font-weight: 400;
+                background : white;
+
+
+                &:disabled {
+                    background-color: $color_wild_sand;
+                }
+
+                &::placeholder {
+                    @include text-overflow;
+                }
+            }
+
+            .emoji-mart {
+                @include pos-absolute(null, -2%, null, 80%);
+            }
+
+            .btn {
+                @include font-style(null, null, $color_dodger_blue, 0);
+                padding: 0;
+
+                &.emoticons {
+                    @include pos-absolute(0, 0, null, 0);
+                    padding: 0 15px 0 20px;
+
+                    &:hover {
+                        background   : #f5f5f5;
+                        border-radius: 50% 0% 0% 50%;
+                    }
+                }
+
+                &.send {
+                    @include pos-absolute(0, null, 0, 0);
+                    padding: 0 20px 0 15px;
+
+                    &:hover {
+                        background   : #f5f5f5;
+                        border-radius: 0% 50% 50% 0%;
+                    }
+                }
+
+                &.attach {
+                    @include box-size(56px, 56px);
+                    padding    : 16px;
+                    margin-left: 20px;
+                    color      : $white;
+                    box-shadow : 0 5px 10px 4px $black_4;
+
+                    &:hover {
+                        color: $white;
+                    }
+
+                    &.btn.disabled:hover {
+                        color: $white !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .start {
+        @include d-flex(center, center);
+        width: 100%;
+
+        .content {
+            width     : 100%;
+            text-align: center;
+
+            h1 {
+                @include font-style(800, 46px, $color_shark, null, (bottom, 40px));
+            }
+
+            p {
+                @include font-style(400, 16px, null, null, (bottom, 20px));
+            }
+
+            .third-party {
+                @include d-flex(center, center, null, null, (bottom, 38px));
+
+                .item {
+                    @include d-flex(center, center, null, 0px, (right, 20px));
+                    @include box-size(54px, 54px);
+                    @include border(null, 100%, 0 0 20px $black_4);
+                    @include transition(all 0.3s);
+
+                    &:hover {
+                        @include transform(translateY(-5px) translateZ(0));
+                        opacity: 0.9;
+                    }
+
+                    &:last-of-type {
+                        margin-right: 0;
+                    }
+
+                    .material-icons {
+                        @include font-style(null, 30px, $white);
+                    }
+
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
+
+            form {
+                width    : 100%;
+                max-width: 366px;
+                margin   : 0 auto;
+            }
+
+            .form-group {
+                position     : relative;
+                margin-bottom: 15px;
+
+                .form-control {
+                    height     : 56px;
+                    padding    : 0 20px 0 58px;
+                    font-weight: 400;
+                    border     : 2px solid transparent;
+
+                    &:focus {
+                        border: 2px solid $color_dodger_blue !important;
+                    }
+                }
+
+                .form-control::placeholder {
+                    font-weight: 400;
+                }
+
+                .btn.icon {
+                    @include pos-absolute(0, 0, null, 0);
+                    @include font-style(null, null, $color_chatelle, 0);
+                    padding: 0 10px 0 20px;
+                }
+            }
+
+            .callout span {
+                font-size: 16px;
+
+                >a {
+                    color: $color_dodger_blue;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}
