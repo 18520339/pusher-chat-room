@@ -23,13 +23,8 @@ import { signUp } from '../../actions';
 export default function ThirdParty() {
 	const dispatch = useDispatch();
 
-	const onFailureGoogle = err => {
-		alertError('Error on signing in Google', err);
-	};
-
-	const onFailureGitHub = err => {
-		alertError('Error on signing in Google', err);
-	};
+	const onFailureGoogle = err => console.log(err);
+	const onFailureGitHub = err => console.log(err);
 
 	const onCallBackFacebook = result => {
 		const { id, name, email, picture } = result;

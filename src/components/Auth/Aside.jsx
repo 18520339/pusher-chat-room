@@ -18,6 +18,12 @@ export default function Aside({ to, title, content }) {
 					</div>
 				</div>
 			</div>
+			<span>
+				Developed by&nbsp;
+				<a href='https://github.com/18520339' target='_blank'>
+					Quân Đặng
+				</a>
+			</span>
 		</div>
 	);
 }

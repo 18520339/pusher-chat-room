@@ -1,7 +1,18 @@
 .aside {
-    @include d-flex(center, center);
+    @include d-flex(center, center, column);
     @include box-size(null, 100vh, (width, 550px));
     background: linear-gradient(145deg, $color_portage 0, $color_medium_purple 50%, $color_electric_violet 100%);
+
+    &>span {
+        margin-top: 25px;
+        color     : $white;
+
+        a:hover {
+            padding-bottom: 2px;
+            color         : $white;
+            border-bottom : 2px solid $white;
+        }
+    }
 
     .preference {
         @include text-center(340px, 0 auto);
