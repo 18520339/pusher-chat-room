@@ -10,14 +10,19 @@ import { ImageList } from '../Images';
 
 export default function RightSideBar({ match }) {
 	const { showUsersBar, roomActive } = useSelector(state => state);
-	const { name, createdByUserId, isPrivate } = roomActive;
+	const { name, createdByUserId, isPrivate, avatarURL } = roomActive;
 	const avatarType = isPrivate ? 'user' : 'room';
 	return (
 		<div className={`sidebar ${!showUsersBar && 'd-none'}`}>
 			<div className='container'>
 				<div className='col-md-12'>
 					<div className='room-info'>
-						<Avatar name={name} type={avatarType} size='xl' />
+						<Avatar
+							name={name}
+							type={avatarType}
+							src={avatarURL}
+							size='xl'
+						/>
 						<h4>{name}</h4>
 					</div>
 					<hr />

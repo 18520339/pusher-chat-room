@@ -4,7 +4,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { onGetPrivateUser } from '../../utils';
+import { onGetPrivateRoom } from '../../utils';
 import ChatList from './ChatList';
 
 export default function Contacts({ match }) {
@@ -19,20 +19,21 @@ export default function Contacts({ match }) {
 						return room.isPrivate;
 					})
 					.filter(room => {
-						const { roomName, roomStatus } = onGetPrivateUser(
+						const { name, status } = onGetPrivateRoom(
 							room,
 							currentUser.id,
 							true
 						);
+
 						if (roomFilter.status === 0)
-							return roomName.indexOf(roomFilter.name) !== -1;
+							return name.indexOf(roomFilter.name) !== -1;
 						return (
-							roomName.indexOf(roomFilter.name) !== -1 &&
-							roomStatus === roomFilter.status
+							name.indexOf(roomFilter.name) !== -1 &&
+							status === roomFilter.status
 						);
 					})
 					.map(room => {
-						const { roomName, roomStatus } = onGetPrivateUser(
+						const { name, status, avatarURL } = onGetPrivateRoom(
 							room,
 							currentUser.id,
 							false
@@ -41,10 +42,11 @@ export default function Contacts({ match }) {
 							<ChatList
 								key={room.id}
 								match={match}
-								chatName={roomName}
-								isOnline={roomStatus}
+								chatName={name}
+								isOnline={status}
 								room={room}
 								type='user'
+								avatarURL={avatarURL}
 							/>
 						);
 					})}

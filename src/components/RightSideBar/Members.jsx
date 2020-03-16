@@ -55,7 +55,7 @@ export default function Members({ match, adminId, isPrivate }) {
 							return 0;
 						}
 					})
-					.map(({ id, name, presence, createdAt }) => {
+					.map(({ id, name, presence, createdAt, avatarURL }) => {
 						const index = privateRooms.findIndex(
 							({ memberIds }) => {
 								if (currentUser.id === id)
@@ -81,7 +81,11 @@ export default function Members({ match, adminId, isPrivate }) {
 								to={`${match.path}/${privateRooms[index].id}`}
 								className='contact'
 							>
-								<Avatar name={name} type='user' />
+								<Avatar
+									name={name}
+									type='user'
+									src={avatarURL}
+								/>
 								<div className='status'>
 									<i className={`material-icons ${state}`}>
 										fiber_manual_record

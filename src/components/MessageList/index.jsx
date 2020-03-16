@@ -42,7 +42,7 @@ export default function MessageList({ match }) {
 			messageNode.current.scrollIntoView({ behavior: 'smooth' });
 	}, [messages, typingUsers]);
 
-	const onShowMessageDay = updatedAt => {
+	const onShowMessageDate = updatedAt => {
 		const sendDay = new Date(updatedAt).setHours(0, 0, 0, 0);
 		if (sendDay > messageDay) {
 			messageDay = sendDay;
@@ -73,13 +73,15 @@ export default function MessageList({ match }) {
 			return <RoomStatus title='404 Not Found :(' />;
 		return messages.map(({ id, sender, updatedAt, parts }) => {
 			const userType = sender.id === currentUser.id && 'me';
+			const { avatarURL } = roomUsers.find(user => user.id === sender.id);
 			return (
 				<div key={id}>
-					{onShowMessageDay(updatedAt)}
+					{onShowMessageDate(updatedAt)}
 					<Wrapper
 						userType={userType}
 						userName={sender.name}
 						updatedAt={updatedAt}
+						avatarURL={avatarURL}
 					>
 						<Message parts={parts} userType={userType} />
 					</Wrapper>

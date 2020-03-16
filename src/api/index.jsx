@@ -11,4 +11,8 @@ export const AVATAR_API_URL = `https://avatars.dicebear.com/v2`;
 export const AVATAR_OPTIONS =
 	'options[eyes][]=squint&options[eyebrow][]=raised&options[mouth][]=smile';
 
+export const PROXY_URL = 'https://cors-anywhere.herokuapp.com';
+export const GITHUB_ACCESS_API = 'https://api.github.com/user';
+export const GITHUB_REDIRECT_API = `${PROXY_URL}/https://github.com/login/oauth/access_token`;
+
 /* eslint-enable */

@@ -5,7 +5,7 @@ import { key } from '../config';
 import { HmacSHA1 } from 'crypto-js';
 
 import * as types from '../constants';
-import { alertError, onGetPrivateUser } from '../utils';
+import { alertError, onGetPrivateRoom } from '../utils';
 
 import { showNotificationToast } from './notification';
 import { sendMessage, fetchLastMessage } from './messages';
@@ -13,12 +13,12 @@ import { sendMessage, fetchLastMessage } from './messages';
 export const onSetRoomActive = (roomActive, currentUserId) => {
 	const { isPrivate, users } = roomActive;
 	if (isPrivate) {
-		const { roomName, roomStatus } = onGetPrivateUser(
+		const { name, status, avatarURL } = onGetPrivateRoom(
 			roomActive,
 			currentUserId,
 			false
 		);
-		return { ...roomActive, users, name: roomName, status: roomStatus };
+		return { ...roomActive, users, name, status, avatarURL };
 	}
 	return roomActive;
 };
@@ -109,16 +109,16 @@ export const createRoom = (name, message) => (dispatch, getState) => {
 
 export const createPrivateRoom = user => (dispatch, getState) => {
 	const { chatkit, currentUser } = getState();
-	const { id, name } = currentUser;
+	const { id, name, avatarURL } = currentUser;
 
 	const roomId = HmacSHA1(`${id}${user.id}`, key).toString();
 	const otherRoomId = HmacSHA1(`${user.id}${id}`, key).toString();
 	const members =
 		user.id === id
-			? [{ id, name }]
+			? [{ id, name, avatarURL }]
 			: [
-					{ id, name },
-					{ id: user.id, name: user.name }
+					{ id, name, avatarURL },
+					{ id: user.id, name: user.name, avatarURL: user.avatarURL }
 			  ];
 
 	chatkit

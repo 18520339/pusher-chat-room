@@ -1,7 +1,7 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { toggleCall, toggleUsersBar } from '../../actions';
@@ -9,7 +9,7 @@ import Avatar from '../Avatar';
 
 export default function TopBar() {
 	const { roomActive } = useSelector(state => state);
-	const { id, name, status, isPrivate } = roomActive;
+	const { id, name, status, isPrivate, avatarURL } = roomActive;
 	const dispatch = useDispatch();
 
 	const onShowStatus = status => {
@@ -37,6 +37,7 @@ export default function TopBar() {
 							name={name}
 							type={isPrivate ? 'user' : 'room'}
 							tooltip='left'
+							src={avatarURL}
 						/>
 						<div className='status'>
 							<i

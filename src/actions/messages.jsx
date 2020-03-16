@@ -1,6 +1,7 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
 
+import axios from 'axios';
 import { NEWS_API_URL, NEWS_API_KEY } from '../api';
 import { SEND_MESSAGE, START_LOAD_MORE, END_LOAD_MORE } from '../constants';
 
@@ -26,13 +27,17 @@ export const sendMessage = (parts, roomId = null) => (dispatch, getState) => {
 
 export const sendNews = query => (dispatch, getState) => {
 	dispatch({ type: SEND_MESSAGE });
-	const newsApi = `${NEWS_API_URL}?q=${query}&pageSize=3&apiKey=${NEWS_API_KEY}`;
-
-	fetch(newsApi)
-		.then(res => res.json())
-		.then(data => {
+	axios
+		.get(NEWS_API_URL, {
+			params: {
+				q: query,
+				pageSize: 3,
+				apiKey: NEWS_API_KEY
+			}
+		})
+		.then(res => {
 			const parts = [];
-			data.articles.forEach(article => {
+			res.data.articles.forEach(article => {
 				const { title, source, url } = article;
 				parts.push({
 					type: 'text/plain',

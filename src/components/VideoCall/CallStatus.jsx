@@ -9,7 +9,9 @@ import Avatar from '../Avatar';
 import Options from './Options';
 
 export default function CallStatus({ value }) {
-	const { name, isPrivate } = useSelector(state => state.roomActive);
+	const { name, isPrivate, avatarURL } = useSelector(
+		state => state.roomActive
+	);
 	const dispatch = useDispatch();
 
 	const avatarType = isPrivate ? 'user' : 'room';
@@ -26,6 +28,7 @@ export default function CallStatus({ value }) {
 									name={name}
 									type={avatarType}
 									tooltip='bottom'
+									src={avatarURL}
 									size='xxl'
 								/>
 								<span>{value}</span>

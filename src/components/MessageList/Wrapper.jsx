@@ -4,10 +4,18 @@
 import React from 'react';
 import Avatar from '../Avatar';
 
-export default function Wrapper({ userType, userName, updatedAt, children }) {
+export default function Wrapper({
+	userType,
+	userName,
+	updatedAt,
+	avatarURL,
+	children
+}) {
 	return (
 		<div className={`message ${userType}`}>
-			{userType !== 'me' && <Avatar name={userName} type='user' />}
+			{userType !== 'me' && (
+				<Avatar name={userName} type='user' src={avatarURL} />
+			)}
 			<div className='text-main'>
 				<div className={`text-group ${userType}`}>{children}</div>
 				{updatedAt && (

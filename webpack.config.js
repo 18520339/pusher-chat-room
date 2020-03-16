@@ -102,6 +102,7 @@ module.exports = {
 		})
 	],
 	devServer: {
+		https: true,
 		port: 6969,
 		open: true,
 		disableHostCheck: true,

@@ -6,7 +6,14 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Avatar from '../Avatar';
 
-export default function ChatList({ match, chatName, isOnline, room, type }) {
+export default function ChatList({
+	match,
+	chatName,
+	isOnline,
+	room,
+	type,
+	avatarURL
+}) {
 	const { roomActive } = useSelector(state => state);
 	const { id, unreadCount, createdAt, lastMessageAt, customData } = room;
 
@@ -39,7 +46,7 @@ export default function ChatList({ match, chatName, isOnline, room, type }) {
 			to={`${match.path}/${id}`}
 			className={`${isRead} ${isActive} single`}
 		>
-			<Avatar name={chatName} type={type} />
+			<Avatar name={chatName} type={type} src={avatarURL} />
 			<div className='status'>
 				<i className={`material-icons ${isOnline}`}>
 					fiber_manual_record

@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
+import { createHashHistory } from 'history';
 import { HmacSHA1 } from 'crypto-js';
 
 import { instanceLocator, tokenUrl, key } from '../config';
@@ -21,15 +22,48 @@ export const signOut = () => (dispatch, getState) => {
 	}
 };
 
-export const signUp = (name, email, password) => (dispatch, getState) => {
-	const chatkit = getState().chatkit;
-	const id = HmacSHA1(`${email}@!?#?${password}`, key).toString();
-	const avatarURL = `${AVATAR_API_URL}/avataaars/${name}.svg?${AVATAR_OPTIONS}`;
+export const signUp = (
+	name,
+	email,
+	password,
+	avatarURL = null,
+	appAuth = false
+) => {
+	return (dispatch, getState) => {
+		const chatkit = getState().chatkit;
+		const id = HmacSHA1(`${email}@!?#?${password}`, key).toString();
 
-	chatkit
-		.createUser({ id, name, avatarURL })
-		.then(() => alert('User created successfully'))
-		.catch(err => alertError('Error on sign up', err));
+		if (!avatarURL)
+			avatarURL = `${AVATAR_API_URL}/avataaars/${name}.svg?${AVATAR_OPTIONS}`;
+
+		chatkit
+			.createUser({ id, name, avatarURL })
+			.then(() => {
+				if (appAuth) {
+					if (window.location.hash === '#/sign-up') {
+						const history = createHashHistory();
+						history.push('/');
+					}
+					dispatch(signIn(email, password));
+					return;
+				}
+				alert('User created successfully');
+			})
+			.catch(err => {
+				const isExistErr = 'services/chatkit/user_already_exists';
+				const confirm = 'Tài khoản bạn đã tồn tại, đăng nhập ngay ?';
+				if (err.error === isExistErr && appAuth) {
+					if (window.location.hash === '#/sign-up')
+						if (window.confirm(confirm)) {
+							const history = createHashHistory();
+							history.push('/');
+						} else return;
+					dispatch(signIn(email, password));
+					return;
+				}
+				alertError('Error on sign up', err);
+			});
+	};
 };
 
 export const signIn = (email, password) => (dispatch, getState) => {
