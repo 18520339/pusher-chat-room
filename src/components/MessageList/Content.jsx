@@ -1,7 +1,8 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import LinkPreview from './LinkPreview';
 
@@ -13,7 +14,7 @@ export default function Content({ currentUserName, text }) {
 		});
 	};
 
-	var messageText = text;
+	let messageText = text;
 	const urlMatches = text.match(/\b(http|https)?:\/\/\S+/gi) || [];
 	const mentions = text.match(/@[a-zA-Z0-9]+/g) || [];
 
@@ -44,10 +45,10 @@ export default function Content({ currentUserName, text }) {
 	});
 
 	return (
-		<div>
+		<Fragment>
 			<p dangerouslySetInnerHTML={{ __html: messageText }} />
 			<LinkPreview urlMatches={urlMatches} />
-		</div>
+		</Fragment>
 	);
 }
 

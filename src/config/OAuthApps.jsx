@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 export const FACEBOOK_APP_ID = '203973034277249';
 export const GITHUB_CLIENT_ID = '7c3e8be1ef8c7471cb7a';

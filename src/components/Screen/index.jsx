@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 export { default as Chat } from './Chat';
 export { default as SignIn } from './SignIn';

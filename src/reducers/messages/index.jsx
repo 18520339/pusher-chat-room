@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 export { default as isLoading } from './isLoading';
 export { default as justLoadMore } from './justLoadMore';

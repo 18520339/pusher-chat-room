@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 export { instanceLocator, tokenUrl, key } from './Chatkit';
 export {

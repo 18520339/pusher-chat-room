@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import Chatkit from '@pusher/chatkit-server';
 import { instanceLocator, key } from '../../config';

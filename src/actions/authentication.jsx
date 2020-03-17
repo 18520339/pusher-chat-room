@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
 import { createHashHistory } from 'history';
@@ -72,7 +73,9 @@ export const signIn = (email, password) => (dispatch, getState) => {
 
 	chatkit
 		.getUser({ id })
-		.then(() => dispatch({ type: types.SIGN_IN, userId: id }))
+		.then(() => {
+			dispatch({ type: types.SIGN_IN, userId: id });
+		})
 		.catch(err => alertError('Error on sign in', err));
 };
 

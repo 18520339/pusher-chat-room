@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import { CLEAR_MESSAGE, SORT_MEMBERS, SIGN_OUT } from '../../constants';
 

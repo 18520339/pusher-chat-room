@@ -1,9 +1,12 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
+import { getDate } from '../../utils';
 import Avatar from '../Avatar';
 
 export default function ChatList({
@@ -21,14 +24,9 @@ export default function ChatList({
 	const isRead = unreadCount > 0 && 'unread';
 
 	const { lastMessage } = customData;
-	const lastMessageTime = new Date(
-		lastMessageAt ? lastMessageAt : createdAt
-	).toLocaleDateString('vi-Vn', {
-		weekday: 'narrow',
-		year: '2-digit',
-		month: '2-digit',
-		day: '2-digit'
-	});
+	const lastMessageTime = getDate(
+		new Date(lastMessageAt ? lastMessageAt : createdAt).setHours(0, 0, 0, 0)
+	);
 
 	const showUnreadCount = unreadCount => {
 		if (unreadCount > 0) {

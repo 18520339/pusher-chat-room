@@ -1,10 +1,11 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { onGetPrivateRoom } from '../../utils';
+import { getPrivateRoom } from '../../utils';
 import ChatList from './ChatList';
 
 export default function Contacts({ match }) {
@@ -19,7 +20,7 @@ export default function Contacts({ match }) {
 						return room.isPrivate;
 					})
 					.filter(room => {
-						const { name, status } = onGetPrivateRoom(
+						const { name, status } = getPrivateRoom(
 							room,
 							currentUser.id,
 							true
@@ -33,7 +34,7 @@ export default function Contacts({ match }) {
 						);
 					})
 					.map(room => {
-						const { name, status, avatarURL } = onGetPrivateRoom(
+						const { name, status, avatarURL } = getPrivateRoom(
 							room,
 							currentUser.id,
 							false

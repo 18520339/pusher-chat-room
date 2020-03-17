@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 export const SWRTC_API_KEY = '970b4e5a23e7c4400327a45d';
 export const SWRTC_API_URL = `https://api.simplewebrtc.com/config/guest/${SWRTC_API_KEY}`;

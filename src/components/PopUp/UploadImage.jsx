@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';

@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 export const instanceLocator = 'v1:us1:caf4a583-8194-4510-adbe-c9879f060ffc';
 export const tokenUrl =

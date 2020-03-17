@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 export { default as currentUser } from './currentUser';
 export { default as typingUsers } from './typingUsers';

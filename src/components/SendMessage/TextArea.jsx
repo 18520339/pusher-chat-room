@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -27,7 +28,7 @@ export default function TextArea(props) {
 			loadingComponent={() => <p>Loading...</p>}
 			onKeyUp={onSubmit}
 			onChange={onChange}
-			placeholder='Nhập tin nhắn. Gõ @ để đề cập ai đó'
+			placeholder='Nhập tin nhắn. Gõ @ để đề cập ai đó, #news_(keyword) để xem tin tức bạn muốn '
 			trigger={{
 				'@': {
 					dataProvider: token => [...filterUserNames(token)],

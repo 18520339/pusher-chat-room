@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -16,8 +17,6 @@ import {
 	GITHUB_CLIENT_SECRET,
 	GOOGLE_CLIENT_ID
 } from '../../config';
-
-import { alertError } from '../../utils';
 import { signUp } from '../../actions';
 
 export default function ThirdParty() {

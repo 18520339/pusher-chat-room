@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import { CONNECT, SIGN_OUT } from '../../constants';
 

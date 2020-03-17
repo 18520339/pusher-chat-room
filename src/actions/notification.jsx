@@ -1,11 +1,14 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import { SHOW_NOTIFICATION_TOAST } from '../constants';
+import { getLastMessage } from '../utils';
 
 export const grantPermission = () => (dispatch, getState) => {
 	if (!('Notification' in window)) {
 		alert('Trình duyệt của bạn không hỗ trợ hiển thị thông báo');
+		dispatch({ type: SHOW_NOTIFICATION_TOAST, isShow: false });
 		return;
 	}
 
@@ -33,10 +36,14 @@ export const showNotificationToast = () => (dispatch, getState) => {
 	dispatch({ type: SHOW_NOTIFICATION_TOAST, isShow: true });
 };
 
-export const showNotification = (title, lastMessage) => {
-	return (dispatch, getState) => {
-		new Notification(title, { body: lastMessage });
-	};
+export const showNotification = message => (dispatch, getState) => {
+	const { currentUser, roomActive } = getState();
+	const { room, sender, parts } = message;
+	const { id, name, unreadCount } = room;
+	if (currentUser.id !== sender.id && roomActive.id !== id && unreadCount > 0)
+		new Notification(name, {
+			body: getLastMessage(sender.name, parts)
+		});
 };
 
 /* eslint-enable */

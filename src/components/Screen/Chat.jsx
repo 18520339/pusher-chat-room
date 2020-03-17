@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import React, { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -62,22 +63,24 @@ export default function Chat({ match }) {
 					<TopBar />
 					<div className='content' onScroll={onScroll}>
 						<div className='container'>
-							<Switch>
-								<Route exact path={match.path}>
-									{onShowRoomStatus()}
-								</Route>
-								{rooms.map(room => {
-									if (!room) return;
-									return (
-										<Route
-											key={room.id}
-											path={`${match.path}/:roomId`}
-											component={MessageList}
-										/>
-									);
-								})}
-								<Route>{onShowRoomStatus()}</Route>
-							</Switch>
+							<div className='col-md-12'>
+								<Switch>
+									<Route exact path={match.path}>
+										{onShowRoomStatus()}
+									</Route>
+									{rooms.map(room => {
+										if (!room) return;
+										return (
+											<Route
+												key={room.id}
+												path={`${match.path}/:roomId`}
+												component={MessageList}
+											/>
+										);
+									})}
+									<Route>{onShowRoomStatus()}</Route>
+								</Switch>
+							</div>
 						</div>
 					</div>
 					<SendMessage />

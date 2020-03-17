@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import { FILTER_ROOMS, SIGN_OUT } from '../../constants';
 

@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import { TOGGLE_CALL, SIGN_OUT } from '../../constants';
 

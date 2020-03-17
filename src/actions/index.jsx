@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 export { signOut, signUp, signIn, connect } from './authentication';
 export { grantPermission, showNotificationToast } from './notification';

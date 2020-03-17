@@ -1,10 +1,11 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import {
-	END_LOAD_MORE,
 	ON_MESSAGE,
 	CLEAR_MESSAGE,
+	END_LOAD_MORE,
 	SIGN_OUT
 } from '../../constants';
 

@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
@@ -22,6 +23,7 @@ export const TOGGLE_USERS_BAR = 'TOGGLE_USERS_BAR';
 export const ON_MESSAGE = 'ON_MESSAGE';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
+
 export const START_LOAD_MORE = 'START_LOAD_MORE';
 export const END_LOAD_MORE = 'END_LOAD_MORE';
 

@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -25,9 +26,8 @@ export default function Message({ parts, userType }) {
 				</div>
 			);
 
-		if (Date.now() > Date.parse(payload._expiration)) {
+		if (Date.now() > Date.parse(payload._expiration))
 			payload._fetchNewDownloadURL();
-		}
 
 		const imageIndex = images.findIndex(
 			img => img.src === payload._downloadURL
@@ -37,7 +37,7 @@ export default function Message({ parts, userType }) {
 			<img
 				key={index}
 				className={`img-thumbnail 
-					${payload.size < 100000 && 'w-75'}
+					${payload.size < 72000 && 'w-75'}
 					${index !== parts.length - 1 && 'mb-3'}
 				`}
 				src={payload._downloadURL}

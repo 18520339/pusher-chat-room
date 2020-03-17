@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import { ENTER_ROOM, PRESENCE_CHANGED, SIGN_OUT } from '../../constants';
 

@@ -1,19 +1,20 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import { key } from '../config';
 import { HmacSHA1 } from 'crypto-js';
 
 import * as types from '../constants';
-import { alertError, onGetPrivateRoom } from '../utils';
+import { alertError, getPrivateRoom } from '../utils';
 
-import { showNotificationToast } from './notification';
+import { showNotificationToast, showNotification } from './notification';
 import { sendMessage, fetchLastMessage } from './messages';
 
 export const onSetRoomActive = (roomActive, currentUserId) => {
 	const { isPrivate, users } = roomActive;
 	if (isPrivate) {
-		const { name, status, avatarURL } = onGetPrivateRoom(
+		const { name, status, avatarURL } = getPrivateRoom(
 			roomActive,
 			currentUserId,
 			false
@@ -35,8 +36,10 @@ export const getRooms = currentUser => (dispatch, getState) => {
 
 export const enterRoom = roomId => (dispatch, getState) => {
 	const currentUser = getState().currentUser;
-	dispatch({ type: types.CLEAR_MESSAGE });
 	if (!currentUser.id) return;
+
+	dispatch(showNotificationToast());
+	dispatch({ type: types.CLEAR_MESSAGE });
 
 	currentUser
 		.subscribeToRoomMultipart({
@@ -44,7 +47,11 @@ export const enterRoom = roomId => (dispatch, getState) => {
 			messageLimit: 10,
 			hooks: {
 				onMessage: message => {
-					setTimeout(() => dispatch(fetchLastMessage()), 250);
+					setTimeout(() => {
+						dispatch(fetchLastMessage());
+						dispatch(showNotification(message));
+					}, 250);
+
 					if (location.hash.substr(7) === roomId) {
 						dispatch({ type: types.ON_MESSAGE, message });
 						currentUser.setReadCursor({
@@ -82,7 +89,6 @@ export const enterRoom = roomId => (dispatch, getState) => {
 				roomActive: onSetRoomActive(roomActive, currentUser.id)
 			});
 			dispatch(getRooms(currentUser));
-			dispatch(showNotificationToast.call(this));
 		})
 		.catch(err => {
 			dispatch({ type: types.NOT_FOUND });

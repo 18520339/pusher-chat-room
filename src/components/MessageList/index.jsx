@@ -1,9 +1,12 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { enterRoom } from '../../actions';
+import { getDate } from '../../utils';
 
 import Wrapper from './Wrapper';
 import Message from './Message';
@@ -24,7 +27,7 @@ export default function MessageList({ match }) {
 	const dispatch = useDispatch();
 
 	const messageNode = useRef(null);
-	var messageDay = 0;
+	let messageDate = 0;
 
 	const { roomId } = match.params;
 	const roomNotFound = !roomUsers.length;
@@ -43,22 +46,13 @@ export default function MessageList({ match }) {
 	}, [messages, typingUsers]);
 
 	const onShowMessageDate = updatedAt => {
-		const sendDay = new Date(updatedAt).setHours(0, 0, 0, 0);
-		if (sendDay > messageDay) {
-			messageDay = sendDay;
+		const sendDate = new Date(updatedAt).setHours(0, 0, 0, 0);
+		if (sendDate > messageDate) {
+			messageDate = sendDate;
 			return (
 				<div className='date'>
 					<hr />
-					<span>
-						{messageDay === new Date().setHours(0, 0, 0, 0)
-							? 'Hôm nay'
-							: new Date(updatedAt).toLocaleDateString('vi-VN', {
-									weekday: 'narrow',
-									year: 'numeric',
-									month: '2-digit',
-									day: '2-digit'
-							  })}
-					</span>
+					<span>{getDate(messageDate)}</span>
 					<hr />
 				</div>
 			);
@@ -73,19 +67,18 @@ export default function MessageList({ match }) {
 			return <RoomStatus title='404 Not Found :(' />;
 		return messages.map(({ id, sender, updatedAt, parts }) => {
 			const userType = sender.id === currentUser.id && 'me';
-			const { avatarURL } = roomUsers.find(user => user.id === sender.id);
 			return (
-				<div key={id}>
+				<Fragment key={id}>
 					{onShowMessageDate(updatedAt)}
 					<Wrapper
 						userType={userType}
 						userName={sender.name}
 						updatedAt={updatedAt}
-						avatarURL={avatarURL}
+						avatarURL={sender.avatarURL}
 					>
 						<Message parts={parts} userType={userType} />
 					</Wrapper>
-				</div>
+				</Fragment>
 			);
 		});
 	};
@@ -107,12 +100,12 @@ export default function MessageList({ match }) {
 	};
 
 	return (
-		<div className='col-md-12'>
+		<Fragment>
 			{onShowMessage()}
 			{typingUsers.length > 0 && onShowTypingUsers()}
 			{showCarousel.where === 'MessageList' && <ImageCarousel />}
 			<div ref={messageNode} />
-		</div>
+		</Fragment>
 	);
 }
 

@@ -14,7 +14,7 @@
 body {
     @include box-color($color_white, $color_chatelle);
     display        : initial;
-    font-family    : 'Maven Pro', sans-serif;
+    font-family    : 'Maven Pro', Roboto;
     font-size      : 15px;
     background     : url('https://img.wallpapersafari.com/desktop/1920/1080/15/47/bld5Un.jpg') no-repeat center;
     background-size: cover;

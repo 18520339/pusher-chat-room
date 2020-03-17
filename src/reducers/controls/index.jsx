@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 export { default as userSort } from './userSort';
 export { default as roomFilter } from './roomFilter';

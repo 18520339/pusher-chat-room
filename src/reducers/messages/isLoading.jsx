@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import { GET_ROOMS, CLEAR_MESSAGE, NOT_FOUND, SIGN_OUT } from '../../constants';
 

@@ -1,5 +1,6 @@
 /* jshint esversion: 10 */
 /* eslint-disable */
+'use strict';
 
 import { SHOW_NOTIFICATION_TOAST, SIGN_OUT } from '../../constants';
 
