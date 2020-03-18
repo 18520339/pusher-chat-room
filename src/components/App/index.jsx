@@ -4,13 +4,13 @@
 
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Chat, SignIn, SignUp, NotFound } from '../Screen';
 
 export default function App() {
 	const { currentScreen } = useSelector(state => state.authentication);
 	return (
-		<HashRouter>
+		<BrowserRouter>
 			<Switch>
 				<Redirect exact from='/' to='/room' />
 				<Route
@@ -20,7 +20,7 @@ export default function App() {
 				<Route path='/sign-up' component={SignUp} />
 				<Route component={NotFound} />
 			</Switch>
-		</HashRouter>
+		</BrowserRouter>
 	);
 }
 

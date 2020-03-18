@@ -79,7 +79,10 @@ export default function Members({ match, adminId, isPrivate }) {
 						return (
 							<Link
 								key={id}
-								to={`${match.path}/${privateRooms[index].id}`}
+								to={
+									index !== -1 &&
+									`${match.path}/${privateRooms[index].id}`
+								}
 								className='contact'
 							>
 								<Avatar

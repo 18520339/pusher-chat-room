@@ -3,7 +3,7 @@
 'use strict';
 
 import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
-import { createHashHistory } from 'history';
+import { createBrowserHistory } from 'history';
 import { HmacSHA1 } from 'crypto-js';
 
 import { instanceLocator, tokenUrl, key } from '../config';
@@ -27,22 +27,22 @@ export const signUp = (
 	name,
 	email,
 	password,
-	avatarURL = null,
+	avatarURL = '',
 	appAuth = false
 ) => {
 	return (dispatch, getState) => {
 		const chatkit = getState().chatkit;
 		const id = HmacSHA1(`${email}@!?#?${password}`, key).toString();
 
-		if (!avatarURL)
+		if (avatarURL === '')
 			avatarURL = `${AVATAR_API_URL}/avataaars/${name}.svg?${AVATAR_OPTIONS}`;
 
 		chatkit
 			.createUser({ id, name, avatarURL })
 			.then(() => {
 				if (appAuth) {
-					if (window.location.hash === '#/sign-up') {
-						const history = createHashHistory();
+					if (location.pathname === '/sign-up') {
+						const history = createBrowserHistory();
 						history.push('/');
 					}
 					dispatch(signIn(email, password));
@@ -54,9 +54,9 @@ export const signUp = (
 				const isExistErr = 'services/chatkit/user_already_exists';
 				const confirm = 'Tài khoản bạn đã tồn tại, đăng nhập ngay ?';
 				if (err.error === isExistErr && appAuth) {
-					if (window.location.hash === '#/sign-up')
+					if (location.pathname === '/sign-up')
 						if (window.confirm(confirm)) {
-							const history = createHashHistory();
+							const history = createBrowserHistory();
 							history.push('/');
 						} else return;
 					dispatch(signIn(email, password));
@@ -87,9 +87,7 @@ export const connect = userId => (dispatch, getState) => {
 	});
 	chatManager
 		.connect({
-			onRoomUpdated: room => {
-				dispatch({ type: types.UPDATE_ROOM, room });
-			},
+			onRoomUpdated: room => dispatch({ type: types.UPDATE_ROOM, room }),
 			onAddedToRoom: room => {
 				if (room.isPrivate) {
 					const currentUser = getState().currentUser;

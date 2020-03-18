@@ -51,6 +51,8 @@ export const sendNews = query => (dispatch, getState) => {
 export const fetchLastMessage = () => {
 	return (dispatch, getState) => {
 		const { currentUser, messages } = getState();
+		if (!messages.length) return;
+
 		const { room, sender, parts } = messages[messages.length - 1];
 		const { id, customData } = room;
 

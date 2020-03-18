@@ -44,20 +44,20 @@ export const getLastMessage = (name, parts) => {
 export const getPrivateRoom = (room, currentUserId, isFilter) => {
 	const { members } = room.customData;
 	const users = Object.values(room.userStore.users);
-	let mainUser = members[0];
+	var mainUser = members[0];
 
 	if (members.length === 2)
-		mainUser = members.find(member => member.id !== currentUserId);
+		mainUser = members.find(mem => mem.id !== currentUserId);
 
-	const { id, avatarURL } = mainUser;
-	let name = isFilter ? mainUser.name.toLowerCase() : mainUser.name;
-	let status = isFilter ? -1 : '';
+	var { id, avatarURL } = mainUser;
+	var name = isFilter ? mainUser.name.toLowerCase() : mainUser.name;
+	var status = isFilter ? -1 : '';
 
 	mainUser = users.find(user => user.id === mainUser.id);
 	if (mainUser) {
-		name = mainUser.name;
-		status = mainUser.presence.state;
-		if (isFilter) status = mainUser.presence.state === 'online' ? 1 : -1;
+		var { id, name, presence, avatarURL } = mainUser;
+		status = presence.state;
+		if (isFilter) status = presence.state === 'online' ? 1 : -1;
 	}
 
 	return { id, name, status, avatarURL };

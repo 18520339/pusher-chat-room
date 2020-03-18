@@ -2,9 +2,10 @@
 /* eslint-disable */
 'use strict';
 
-import { key } from '../config';
+import { createBrowserHistory } from 'history';
 import { HmacSHA1 } from 'crypto-js';
 
+import { key } from '../config';
 import * as types from '../constants';
 import { alertError, getPrivateRoom } from '../utils';
 
@@ -52,7 +53,7 @@ export const enterRoom = roomId => (dispatch, getState) => {
 						dispatch(showNotification(message));
 					}, 250);
 
-					if (location.hash.substr(7) === roomId) {
+					if (location.pathname.substr(6) === roomId) {
 						dispatch({ type: types.ON_MESSAGE, message });
 						currentUser.setReadCursor({
 							roomId,
@@ -102,13 +103,16 @@ export const createRoom = (name, message) => (dispatch, getState) => {
 		.createRoom({ name, customData: { lastMessage: '' } })
 		.then(room => {
 			const roomId = room.id;
+			const history = createBrowserHistory();
 			const parts = [];
+
 			if (message.trim()) {
 				parts.push({ type: 'text/plain', content: message });
 				dispatch(sendMessage(parts, `${roomId}`));
 			}
-			history.pushState(null, null, `#/room/${roomId}`);
-			setTimeout(() => dispatch(enterRoom(roomId)), 250);
+
+			history.push(roomId);
+			dispatch(enterRoom(roomId));
 		})
 		.catch(err => alertError('Error on creating rooms', err));
 };
@@ -119,13 +123,14 @@ export const createPrivateRoom = user => (dispatch, getState) => {
 
 	const roomId = HmacSHA1(`${id}${user.id}`, key).toString();
 	const otherRoomId = HmacSHA1(`${user.id}${id}`, key).toString();
-	const members =
-		user.id === id
-			? [{ id, name, avatarURL }]
-			: [
-					{ id, name, avatarURL },
-					{ id: user.id, name: user.name, avatarURL: user.avatarURL }
-			  ];
+
+	const members = [{ id, name, avatarURL }];
+	if (user.id !== id)
+		members.push({
+			id: user.id,
+			name: user.name,
+			avatarURL: user.avatar_url
+		});
 
 	chatkit
 		.getRooms({ includePrivate: true })

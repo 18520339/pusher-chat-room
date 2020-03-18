@@ -31,8 +31,9 @@ export default function Chat({ match }) {
 
 	const enablePermission = () => dispatch(grantPermission());
 	const onShowRoomStatus = () => {
+		const groupChat = rooms.filter(room => !room.isPrivate);
 		if (isLoading) return <RoomStatus title='Đang kết nối máy chủ' />;
-		else if (rooms.length > 0)
+		else if (groupChat.length > 0)
 			return <RoomStatus title='Chọn phòng để bắt đầu chat nào !' />;
 		return <RoomStatus title='Mời bạn tạo phòng chat mới !' />;
 	};
@@ -73,6 +74,7 @@ export default function Chat({ match }) {
 										return (
 											<Route
 												key={room.id}
+												exact
 												path={`${match.path}/:roomId`}
 												component={MessageList}
 											/>
