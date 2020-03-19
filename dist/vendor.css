@@ -596,12 +596,12 @@
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(fonts/e79bfd88537def476913f3ed52f4f4b3.eot); /* For IE6-8 */
+  src: url(/fonts/e79bfd88537def476913f3ed52f4f4b3.eot); /* For IE6-8 */
   src: local('Material Icons'),
        local('MaterialIcons-Regular'),
-       url(fonts/570eb83859dc23dd0eec423a49e147fe.woff2) format('woff2'),
-       url(fonts/012cf6a10129e2275d79d6adac7f3b02.woff) format('woff'),
-       url(fonts/a37b0c01c0baf1888ca812cc0508f6e2.ttf) format('truetype');
+       url(/fonts/570eb83859dc23dd0eec423a49e147fe.woff2) format('woff2'),
+       url(/fonts/012cf6a10129e2275d79d6adac7f3b02.woff) format('woff'),
+       url(/fonts/a37b0c01c0baf1888ca812cc0508f6e2.ttf) format('truetype');
 }
 
 .material-icons {

@@ -21,7 +21,7 @@ module.exports = (env, options) => {
 		},
 		output: {
 			path: dist,
-			publicPath: isDevMode ? 'https://localhost:6969/' : '',
+			publicPath: '/',
 			filename: '[name].[chunkhash].js',
 			chunkFilename: '[name].[chunkhash].js'
 		},
