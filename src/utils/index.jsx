@@ -49,8 +49,7 @@ export const getPrivateRoom = (room, currentUserId, isFilter) => {
 	if (members.length === 2)
 		mainUser = members.find(mem => mem.id !== currentUserId);
 
-	var { id, avatarURL } = mainUser;
-	var name = isFilter ? mainUser.name.toLowerCase() : mainUser.name;
+	var { id, name, avatarURL } = mainUser;
 	var status = isFilter ? -1 : '';
 
 	mainUser = users.find(user => user.id === mainUser.id);

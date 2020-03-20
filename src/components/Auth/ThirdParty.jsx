@@ -35,7 +35,11 @@ export default function ThirdParty() {
 		dispatch(signUp(givenName, email, googleId, imageUrl, true));
 	};
 
-	const onSuccesGitHub = result => {
+	const onSuccessGitHub = result => {
+		if (!result.code) {
+			alert('Thông tin tài khoản không chính xác');
+			return;
+		}
 		axios
 			.post(GITHUB_REDIRECT_API, {
 				client_id: GITHUB_CLIENT_ID,
@@ -83,7 +87,7 @@ export default function ThirdParty() {
 				clientId={GITHUB_CLIENT_ID}
 				className='btn item'
 				redirectUri=''
-				onSuccess={onSuccesGitHub}
+				onSuccess={onSuccessGitHub}
 				onFailure={onFailureGitHub}
 			>
 				<img src='https://img.icons8.com/material-sharp/96/000000/github.png' />

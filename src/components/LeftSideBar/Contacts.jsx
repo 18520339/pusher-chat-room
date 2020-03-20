@@ -25,12 +25,13 @@ export default function Contacts({ match }) {
 							currentUser.id,
 							true
 						);
+						const filterIndex = name
+							.toLowerCase()
+							.indexOf(roomFilter.name);
 
-						if (roomFilter.status === 0)
-							return name.indexOf(roomFilter.name) !== -1;
+						if (roomFilter.status === 0) return filterIndex !== -1;
 						return (
-							name.indexOf(roomFilter.name) !== -1 &&
-							status === roomFilter.status
+							filterIndex !== -1 && status === roomFilter.status
 						);
 					})
 					.map(room => {
