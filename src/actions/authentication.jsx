@@ -41,7 +41,9 @@ export const signUp = (
 			.createUser({ id, name, avatarURL })
 			.then(() => {
 				const confirm = 'Tạo tài khoản thành công, đăng nhập ngay ?';
-				if (window.confirm(confirm)) dispatch(signIn(email, password));
+				if (location.pathname === '/sign-up')
+					if (!window.confirm(confirm)) return;
+				dispatch(signIn(email, password));
 			})
 			.catch(err => {
 				const isExistErr = 'services/chatkit/user_already_exists';
