@@ -2,15 +2,20 @@
 /* eslint-disable */
 'use strict';
 
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory, Link } from 'react-router-dom';
 
 import { signUp } from '../../actions';
 import { Aside, AuthInput, ThirdParty } from '../Auth';
 
 export default function SignUp() {
+	const { userId, currentScreen } = useSelector(
+		state => state.authentication
+	);
 	const dispatch = useDispatch();
+	const history = useHistory();
+
 	const [userInfo, setUserInfo] = useState({
 		name: '',
 		email: '',
@@ -32,6 +37,10 @@ export default function SignUp() {
 			setUserInfo({ name: '', email: '', password: '' });
 		}
 	};
+
+	useEffect(() => {
+		if (userId !== '' && currentScreen === 'Chat') history.push('/');
+	}, [userId, currentScreen]);
 
 	return (
 		<div className='app'>

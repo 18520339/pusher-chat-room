@@ -3,7 +3,7 @@
 'use strict';
 
 import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
-import { createBrowserHistory } from 'history';
+import { useHistory } from 'react-router-dom';
 import { HmacSHA1 } from 'crypto-js';
 
 import { instanceLocator, tokenUrl, key } from '../config';
@@ -40,29 +40,19 @@ export const signUp = (
 		chatkit
 			.createUser({ id, name, avatarURL })
 			.then(() => {
-				if (appAuth) {
-					if (location.pathname === '/sign-up') {
-						const history = createBrowserHistory();
-						history.push('/');
-					}
-					dispatch(signIn(email, password));
-					return;
-				}
-				alert('User created successfully');
+				const confirm = 'Tạo tài khoản thành công, đăng nhập ngay ?';
+				if (window.confirm(confirm)) dispatch(signIn(email, password));
 			})
 			.catch(err => {
 				const isExistErr = 'services/chatkit/user_already_exists';
 				const confirm = 'Tài khoản bạn đã tồn tại, đăng nhập ngay ?';
 				if (err.error === isExistErr && appAuth) {
 					if (location.pathname === '/sign-up')
-						if (window.confirm(confirm)) {
-							const history = createBrowserHistory();
-							history.push('/');
-						} else return;
+						if (!window.confirm(confirm)) return;
 					dispatch(signIn(email, password));
 					return;
 				}
-				alertError('Error on sign up', err);
+				alertError('Error on signing up', err);
 			});
 	};
 };
