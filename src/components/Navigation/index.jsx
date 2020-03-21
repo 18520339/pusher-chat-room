@@ -40,9 +40,6 @@ export default function Navigation() {
 								chat_bubble_outline
 							</i>
 						</a>
-						<button className='btn mode'>
-							<i className='material-icons'>brightness_2</i>
-						</button>
 						<button className='btn power' onClick={onSignOut}>
 							<i className='material-icons'>power_settings_new</i>
 						</button>

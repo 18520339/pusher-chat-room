@@ -2,9 +2,7 @@
 /* eslint-disable */
 'use strict';
 
-import { createBrowserHistory } from 'history';
 import { HmacSHA1 } from 'crypto-js';
-
 import { key } from '../config';
 import { alertError } from '../utils';
 
@@ -25,15 +23,15 @@ export const createRoom = (name, message) => (dispatch, getState) => {
 				})
 				.then(room => {
 					const roomId = room.id;
-					const history = createBrowserHistory();
 					const parts = [];
+
+					dispatch(enterRoom(roomId));
+					history.pushState(null, null, `/room/${roomId}`);
 
 					if (message.trim()) {
 						parts.push({ type: 'text/plain', content: message });
 						dispatch(sendMessage(parts, `${roomId}`));
 					}
-					history.push(roomId);
-					dispatch(enterRoom(roomId));
 				})
 				.catch(err => alertError('Error on creating rooms', err));
 		})

@@ -36,11 +36,6 @@ export default function ThirdParty() {
 	};
 
 	const onSuccessGitHub = result => {
-		console.log(result);
-		if (!result.code) {
-			alert('Thông tin tài khoản không chính xác');
-			return;
-		}
 		axios
 			.post(GITHUB_REDIRECT_API, {
 				client_id: GITHUB_CLIENT_ID,

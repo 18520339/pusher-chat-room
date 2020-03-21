@@ -23,8 +23,9 @@ export default function SignIn() {
 		event.preventDefault();
 		const { email, password } = userInfo;
 
-		if (email.trim() && password.trim())
-			dispatch(signIn(email, password, history));
+		if (email.trim() && password.trim()) {
+			dispatch(signIn(email, password));
+		}
 	};
 
 	return (

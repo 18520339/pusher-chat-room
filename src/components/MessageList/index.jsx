@@ -4,6 +4,7 @@
 
 import React, { useRef, useEffect, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { enterRoom } from '../../actions';
 import { getDate } from '../../utils';
@@ -18,13 +19,16 @@ export default function MessageList({ match }) {
 	const {
 		currentUser,
 		roomUsers,
+		roomActive,
 		typingUsers,
 		messages,
 		isLoading,
 		justLoadMore,
 		showCarousel
 	} = useSelector(state => state);
+
 	const dispatch = useDispatch();
+	const history = useHistory();
 
 	const messageNode = useRef(null);
 	let messageDate = 0;
@@ -35,6 +39,11 @@ export default function MessageList({ match }) {
 	useEffect(() => {
 		dispatch(enterRoom(roomId));
 	}, [roomId]);
+
+	useEffect(() => {
+		if (roomActive.id && roomId !== roomActive.id)
+			history.push(`/room/${roomActive.id}`);
+	}, [roomActive.id]);
 
 	useEffect(() => {
 		messageNode.current.scrollIntoView();

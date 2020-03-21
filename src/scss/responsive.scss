@@ -106,8 +106,13 @@
 
 @media(max-width: 991px) {
     body {
-        padding-bottom  : 54px;
-        background-image: none !important;
+        padding-bottom: 54px;
+    }
+
+    .sign-in,
+    .sign-up {
+        height    : 100%;
+        background: $color_white;
     }
 
     .aside {
@@ -153,10 +158,6 @@
                     &:first-of-type {
                         margin-left: 0;
                     }
-
-                    &:last-of-type {
-                        margin-right: 0;
-                    }
                 }
 
                 .material-icons {
@@ -168,7 +169,8 @@
 
     .sidebar {
         @include overflow(30px 0 0, hidden, auto);
-        height: 100vh;
+        height       : 92vh;
+        margin-bottom: 8vh;
 
         &::-webkit-scrollbar {
             display: none;
@@ -270,11 +272,17 @@
 }
 
 @media(max-width: 350px) {
-    .main .call .content .options .option {
-        padding: 0 12px;
+    .main {
+        .date>span {
+            display: contents !important;
+        }
 
-        &.call-end {
-            margin: 0 15px;
+        .call .content .options .option {
+            padding: 0 12px;
+
+            &.call-end {
+                margin: 0 15px;
+            }
         }
     }
 }
