@@ -21,6 +21,7 @@ export const sendMessage = (parts, roomId = null) => (dispatch, getState) => {
 	if (roomId === null) roomId = `${roomActive.id}`;
 	currentUser
 		.sendMultipartMessage({ roomId, parts })
+		.then(() => dispatch(fetchLastMessage(parts[parts.length - 1])))
 		.catch(err => alertError('Error on sending message', err));
 };
 
@@ -48,22 +49,17 @@ export const sendNews = query => (dispatch, getState) => {
 		.catch(err => alertError('Error on fetching newsapi', err));
 };
 
-export const fetchLastMessage = () => {
-	return (dispatch, getState) => {
-		const { currentUser, messages } = getState();
-		if (!messages.length) return;
+export const fetchLastMessage = message => (dispatch, getState) => {
+	const { currentUser, roomActive } = getState();
+	const { id, customData } = roomActive;
 
-		const { room, sender, parts } = messages[messages.length - 1];
-		const { id, customData } = room;
-
-		currentUser.updateRoom({
-			roomId: id,
-			customData: {
-				lastMessage: getLastMessage(sender.name, parts),
-				members: customData.members
-			}
-		});
-	};
+	currentUser.updateRoom({
+		roomId: id,
+		customData: {
+			lastMessage: getLastMessage(currentUser.name, message),
+			members: customData.members
+		}
+	});
 };
 
 export const loadMoreMessages = () => (dispatch, getState) => {

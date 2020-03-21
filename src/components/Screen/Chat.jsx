@@ -24,6 +24,7 @@ export default function Chat({ match }) {
 		notification,
 		isLoading,
 		videoCall,
+		roomActive,
 		rooms
 	} = useSelector(state => state);
 	const dispatch = useDispatch();
@@ -33,9 +34,10 @@ export default function Chat({ match }) {
 	const onShowRoomStatus = () => {
 		const groupChat = rooms.filter(room => !room.isPrivate);
 		if (isLoading) return <RoomStatus title='Đang kết nối máy chủ' />;
-		else if (groupChat.length > 0)
+		else if (groupChat.length > 0 && !roomActive.id)
 			return <RoomStatus title='Chọn phòng để bắt đầu chat nào !' />;
-		return <RoomStatus title='Mời bạn tạo phòng chat mới !' />;
+		else if (groupChat.length === 0)
+			return <RoomStatus title='Mời bạn tạo phòng chat mới !' />;
 	};
 	const onScroll = event => {
 		if (event.target.scrollTop === 0) dispatch(loadMoreMessages());

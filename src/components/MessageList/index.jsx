@@ -85,10 +85,15 @@ export default function MessageList({ match }) {
 
 	const onShowTypingUsers = () => {
 		return typingUsers.map(user => {
-			const { id, name } = user;
+			const { id, name, avatarURL } = user;
 			if (currentUser.id === id) return;
 			return (
-				<Wrapper key={id} userType='text typing' userName={name}>
+				<Wrapper
+					key={id}
+					userType='text typing'
+					userName={name}
+					avatarURL={avatarURL}
+				>
 					<div className='wave'>
 						<span className='dot'></span>&nbsp;
 						<span className='dot'></span>&nbsp;

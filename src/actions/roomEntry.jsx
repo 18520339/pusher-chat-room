@@ -2,15 +2,9 @@
 /* eslint-disable */
 'use strict';
 
-import { createBrowserHistory } from 'history';
-import { HmacSHA1 } from 'crypto-js';
-
-import { key } from '../config';
 import * as types from '../constants';
 import { alertError, getPrivateRoom } from '../utils';
-
 import { showNotificationToast, showNotification } from './notification';
-import { sendMessage, fetchLastMessage } from './messages';
 
 export const onSetRoomActive = (roomActive, currentUserId) => {
 	const { isPrivate, users } = roomActive;
@@ -49,7 +43,6 @@ export const enterRoom = roomId => (dispatch, getState) => {
 			hooks: {
 				onMessage: message => {
 					setTimeout(() => {
-						dispatch(fetchLastMessage());
 						dispatch(showNotification(message));
 					}, 250);
 
@@ -97,60 +90,4 @@ export const enterRoom = roomId => (dispatch, getState) => {
 		});
 };
 
-export const createRoom = (name, message) => (dispatch, getState) => {
-	const currentUser = getState().currentUser;
-	currentUser
-		.createRoom({ name, customData: { lastMessage: '' } })
-		.then(room => {
-			const roomId = room.id;
-			const history = createBrowserHistory();
-			const parts = [];
-
-			if (message.trim()) {
-				parts.push({ type: 'text/plain', content: message });
-				dispatch(sendMessage(parts, `${roomId}`));
-			}
-
-			history.push(roomId);
-			dispatch(enterRoom(roomId));
-		})
-		.catch(err => alertError('Error on creating rooms', err));
-};
-
-export const createPrivateRoom = user => (dispatch, getState) => {
-	const { chatkit, currentUser } = getState();
-	const { id, name, avatarURL } = currentUser;
-
-	const roomId = HmacSHA1(`${id}${user.id}`, key).toString();
-	const otherRoomId = HmacSHA1(`${user.id}${id}`, key).toString();
-
-	const members = [{ id, name, avatarURL }];
-	if (user.id !== id)
-		members.push({
-			id: user.id,
-			name: user.name,
-			avatarURL: user.avatar_url
-		});
-
-	chatkit
-		.getRooms({ includePrivate: true })
-		.then(rooms => {
-			const privateRoomCreated = rooms.some(
-				room => room.id === roomId || room.id === otherRoomId
-			);
-			if (!privateRoomCreated)
-				currentUser
-					.createRoom({
-						id: roomId,
-						name: `${name} & ${user.name}`,
-						private: true,
-						addUserIds: [user.id],
-						customData: { lastMessage: '', members }
-					})
-					.catch(err => {
-						alertError('Error on creating private rooms', err);
-					});
-		})
-		.catch(err => alertError('Error on getting all rooms', err));
-};
 /* eslint-enable */

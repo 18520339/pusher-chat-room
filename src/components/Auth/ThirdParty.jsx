@@ -36,6 +36,7 @@ export default function ThirdParty() {
 	};
 
 	const onSuccessGitHub = result => {
+		console.log(result);
 		if (!result.code) {
 			alert('Thông tin tài khoản không chính xác');
 			return;

@@ -32,12 +32,15 @@ export const getDate = dateTime => {
 	}
 };
 
-export const getLastMessage = (name, parts) => {
-	const { partType, payload } = parts[parts.length - 1];
-	let lastMessage = `: ${payload.content}`;
+export const getLastMessage = (name, message) => {
+	const { type, content } = message;
+	let lastMessage = '';
 
-	if (partType === 'attachment') lastMessage = ' đã gửi 1 ảnh';
-	else if (partType === 'url') lastMessage = ' đã gửi 1 liên kết';
+	if (type === 'text/plain')
+		lastMessage = content.match(/\b(http|https)?:\/\/\S+/gi)
+			? ' đã gửi 1 liên kết'
+			: `: ${content}`;
+	else if (type.includes('image')) lastMessage = ` đã gửi 1 ảnh`;
 	return `${name}${lastMessage}`;
 };
 

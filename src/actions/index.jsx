@@ -4,13 +4,14 @@
 
 export { signOut, signUp, signIn, connect } from './authentication';
 export { grantPermission, showNotificationToast } from './notification';
-export { getRooms, enterRoom, createRoom } from './rooms';
+
+export { getRooms, enterRoom } from './roomEntry';
+export { createRoom } from './roomCreate';
 
 export {
 	typingMessage,
 	sendMessage,
 	sendNews,
-	fetchLastMessage,
 	loadMoreMessages
 } from './messages';
 

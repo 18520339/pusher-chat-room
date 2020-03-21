@@ -42,7 +42,7 @@ export const showNotification = message => (dispatch, getState) => {
 	const { id, name, unreadCount } = room;
 	if (currentUser.id !== sender.id && roomActive.id !== id && unreadCount > 0)
 		new Notification(name, {
-			body: getLastMessage(sender.name, parts)
+			body: getLastMessage(sender.name, parts[parts.length - 1].payload)
 		});
 };
 
