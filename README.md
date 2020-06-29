@@ -1,8 +1,14 @@
-# Chat App using React JS, Hooks, Redux, Webpack, SCSS and Chatkit
+# Chat Application with React JS 
 This project is now *deprecated* because the main library `@pusher/chatkit` is shut down
 > Demo: https://www.youtube.com/watch?v=hG-g__2rSIU
+## Techniques used:
+- React JS
+- Hooks
+- SCSS
+- Webpack
+- Google, Facebook, Github API
 ## Features:
-- Sign in, Sign Out using Google, Facebook, Github API
+- Sign in, Sign Out with social account
 - Room Chat, Not found page router
 - Real time Chat
 - Create room
