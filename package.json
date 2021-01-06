@@ -17,7 +17,7 @@
 		"@pusher/chatkit-client": "^1.13.4",
 		"@pusher/chatkit-server": "^2.4.0",
 		"@webscopeio/react-textarea-autocomplete": "^4.6.3",
-		"axios": "^0.19.2",
+		"axios": "^0.21.1",
 		"bootstrap": "^4.4.1",
 		"crypto-js": "^4.0.0",
 		"emoji-mart": "^2.11.2",
